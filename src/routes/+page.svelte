@@ -13,12 +13,14 @@
   ];
 
   let divInt = null;
+  let ticketNumber = null;
 
   function test(){
     console.log('hi')
   }
 
-  onMount(() => {
+  function setTicket(){
+    ticketNumber = 1;
     divInt = setInterval((e) => {
       if (arrNum >= deliArr.length - 1) {
         clearInterval(divInt);
@@ -27,10 +29,15 @@
       }
       arrNum++;
     }, 100);
+  }
+
+  onMount(() => {
+    
   });
 </script>
 
 <div class="p-2 flex flex-col gap-2 h-full">
+  {#if ticketNumber}
   <div class="flex p-2 gap-4">
     <img src="mbstacked.png" class="h-10" />
     <input
@@ -38,6 +45,9 @@
       placeholder="search for a product..."
       type="text"
     />
+    <div>
+      Ticket Number {ticketNumber}
+    </div>
   </div>
 
   <div class="flex grow">
@@ -57,6 +67,14 @@
       {/each}
     </div>
   </div>
+  {:else}
+  <div style="align-content:center" class="h-full w-full" onclick={setTicket} >
+    <div style="margin: 0 auto" class="w-[600px] text-center">
+      <img src="mbstacked.png" style="margin: 0px auto 30% auto" />
+      <div style="margin: 0 auto" class="animate-pulse p-4 border-4 border-red-300 font-bold text-red-300 rounded-lg text-[5em] text-center capitalize">please tap to get a ticket</div>
+    </div>
+  </div>
+  {/if}
 </div>
 
 <style>
