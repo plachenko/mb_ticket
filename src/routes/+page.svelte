@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
+  import Nutritional from '$lib/nutritional.svelte';
 
   let arrNum = 0;
   let deliArr = [
@@ -15,10 +16,6 @@
   let divInt = null;
   let ticketNumber = 1;
   let ticketTaken = false;
-
-  function test() {
-    console.log("hi");
-  }
 
   function setTicket() {
     ticketTaken = true;
@@ -52,7 +49,7 @@
     <div class="flex grow">
       <div class="w-full grid grid-cols-4 gap-2">
         {#each deliArr as item, idx}
-          <div class="relative cursor-pointer" onclick={test}>
+          <div class="relative cursor-pointer" onclick={showProducts}>
             {#if arrNum >= idx}
               <div
                 transition:fly={{ y: 20 }}
@@ -68,25 +65,31 @@
     </div>
   {:else}
     <div
-      style="align-content:center"
-      class="h-full w-full flex flex-row"
+      style="align-content: center"
+      class="h-full w-full"
       onclick={setTicket}
+    >
+
+    <div
+      class="h-full w-full flex flex-row"
     >
       <div
         style="margin: 0 auto"
         class="flex-1 w-[45%] text-center gap-4 flex-col flex"
       >
-        <div class="border-4 border-red-400 rounded-lg p-2">
+        <div class="relative p-4">
+          <div style="box-shadow: inset #00C 5px 5px 0px" class="skew-x-[-25deg] top-0 w-[50%] border-8 border-red-500 rounded-lg h-full absolute"></div>
           <img src="mbstacked.png" style="margin: 0px auto" />
         </div>
         <div
           style="margin: 0 auto"
           class="animate-pulse p-4 border-4 border-red-300 shadow-md font-bold text-red-300 rounded-lg sm:text-[5em] text-center capitalize"
         >
-          please tap to get ticket number {ticketNumber}
+          please tap to get ticket
         </div>
       </div>
     </div>
+  </div>
   {/if}
 </div>
 
