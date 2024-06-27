@@ -77,8 +77,10 @@
         style="margin: 0 auto"
         class="flex-1 w-[45%] text-center gap-4 flex-col flex"
       >
-        <div class="relative p-4">
-          <div style="box-shadow: inset #00C 5px 5px 0px" class="skew-x-[-25deg] top-0 w-[50%] border-8 border-red-500 rounded-lg h-full absolute"></div>
+        <div class="relative p-4 border-8 border-blue-500 rounded-lg">
+          <div class="absolute top-[-4px] left-[-4px] w-full border-red-400 h-full rounded-lg border-8">
+
+          </div>
           <img src="mbstacked.png" style="margin: 0px auto" />
         </div>
         <div
