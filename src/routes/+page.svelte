@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { fly } from "svelte/transition";
+  import { fade, fly } from "svelte/transition";
   import Nutritional from "$lib/nutritional.svelte";
 
   let arrNum = -1;
@@ -42,7 +42,7 @@
 
 <div class="p-2 flex flex-col gap-2 h-full">
   {#if ticketTaken}
-    <div class="flex p-2 gap-4">
+    <div class="flex p-2 gap-4" out:fade>
       <img src="mbstacked.png" class="h-10" />
       <input
         class="w-full rounded-md p-2 border-2 border-slate-300"
@@ -74,7 +74,7 @@
     <div class="flex-1 shrink">
       {#if showCancel}
         <div
-          transition:fly={{ y: 20 }}
+          in:fade
           class="rounded-md bg-red-400 text-center p-4"
           onclick={cancelTicket}
         >
