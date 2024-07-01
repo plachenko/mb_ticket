@@ -1,0 +1,339 @@
+[
+  {
+    "product_name": "Black Forest Ham",
+    "price": "5.99",
+    "type_of_product": "ham"
+  },
+  {
+    "product_name": "Hoffman Sharp Cheese",
+    "price": "4.99",
+    "type_of_product": "cheese"
+  },
+  {
+    "product_name": "Thin N Trim Cherrywood Ham",
+    "price": "3.99",
+    "type_of_product": "ham"
+  },
+  {
+    "product_name": "Thin N Trim Honey Baked Ham",
+    "price": "3.99",
+    "type_of_product": "ham"
+  },
+  {
+    "product_name": "Thin N Trim Virginia Ham",
+    "price": "3.99",
+    "type_of_product": "ham"
+  },
+  {
+    "product_name": "Land O Lakes Orange American Cheese",
+    "price": "3.99",
+    "type_of_product": "cheese"
+  },
+  {
+    "product_name": "Land O Lakes Sliced White American Cheese",
+    "price": "3.99",
+    "type_of_product": "cheese"
+  },
+  {
+    "product_name": "Vienna German Bologna",
+    "price": "3.79",
+    "type_of_product": "bologna"
+  },
+  {
+    "product_name": "Cabot Pepper Jack Cheese",
+    "price": "$4.99",
+    "type_of_product": "cheese"
+  },
+  {
+    "product_name": "Cabot Colby Jack Cheese",
+    "price": "$4.99",
+    "type_of_product": "cheese"
+  },
+  {
+    "product_name": "Cabot Muenster Cheese",
+    "price": "$4.99",
+    "type_of_product": "cheese"
+  },
+  {
+    "product_name": "Cabot Alpine Cheddar Cheese",
+    "price": "$5.99",
+    "type_of_product": "cheese"
+  },
+  {
+    "product_name": "Market Basket Black Forest Ham",
+    "price": "$5.99",
+    "type_of_product": "ham"
+  },
+  {
+    "product_name": "Hoffman Sharp Cheese",
+    "price": "$4.99",
+    "type_of_product": "cheese"
+  },
+  {
+    "product_name": "Thin N Trim Cherrywood Ham",
+    "price": "$3.99",
+    "type_of_product": "ham"
+  },
+  {
+    "product_name": "Land O Lakes Orange American Cheese",
+    "price": "$3.99",
+    "type_of_product": "cheese"
+  },
+  {
+    "product_name": "Old Neighborhood Vienna Brand Bologna",
+    "price": "$3.99",
+    "type_of_product": "bologna"
+  },
+  {
+    "product_name": "Thin N Trim Virginia Brand Ham",
+    "price": "$3.99",
+    "type_of_product": "ham"
+  },
+  {
+    "product_name": "Thin N Trim Honey Ham",
+    "price": "$3.99",
+    "type_of_product": "ham"
+  },
+  {
+    "product_name": "Thin N Trim Cooked Ham",
+    "price": "$3.99",
+    "type_of_product": "ham"
+  },
+  {
+    "product_name": "Market Basket Roast Beef",
+    "price": "$8.99",
+    "type_of_product": "roast beef"
+  },
+  {
+    "product_name": "M.B. X-lean Pastrami Round",
+    "price": "$7.99",
+    "type_of_product": "pastrami"
+  },
+  {
+    "product_name": "M.B. Pepper Ham",
+    "price": "$4.99",
+    "type_of_product": "ham"
+  },
+  {
+    "product_name": "Market Basket Rosemary Ham",
+    "price": "$4.99",
+    "type_of_product": "ham"
+  },
+  {
+    "product_name": "Carando Genoa Salami",
+    "price": "$4.99",
+    "type_of_product": "italian meat"
+  },
+  {
+    "product_name": "Colby Jack Cheese",
+    "price": "$4.99",
+    "type_of_product": "cheese"
+  },
+  {
+    "product_name": "Cabot Pepper Jack Cheese",
+    "price": "$4.99",
+    "type_of_product": "cheese"
+  },
+  {
+    "product_name": "Alpine Cheddar Cheese",
+    "price": "$5.99",
+    "type_of_product": "cheese"
+  },
+  {
+    "product_name": "Thin n Trim Smoked Black Forest Ham",
+    "price": "5.99",
+    "type_of_product": "ham"
+  },
+  {
+    "product_name": "Thin n Trim Peppered Chicken Breast",
+    "price": "6.99",
+    "type_of_product": "chicken"
+  },
+  {
+    "product_name": "Thin n Trim Mesquite Smoked Chicken Breast",
+    "price": "6.99",
+    "type_of_product": "chicken"
+  },
+  {
+    "product_name": "Thin n Trim Golden Homestyle Turkey Breast",
+    "price": "6.99",
+    "type_of_product": "turkey"
+  },
+  {
+    "product_name": "Lorelle's Oven Roasted Turkey Breast",
+    "price": "3.99",
+    "type_of_product": "turkey"
+  },
+  {
+    "product_name": "Thin n Trim Oven Roasted Turkey Breast",
+    "price": "6.99",
+    "type_of_product": "turkey"
+  },
+  {
+    "product_name": "Thin n Trim Honey Maple Glazed Turkey Breast",
+    "price": "8.99",
+    "type_of_product": "turkey"
+  },
+  {
+    "product_name": "Thin n Trim Cajun Style Turkey Breast",
+    "price": "8.99",
+    "type_of_product": "turkey"
+  },
+  {
+    "product_name": "Thin n Trim Corned Beef",
+    "price": "6.99",
+    "type_of_product": "italian meat"
+  },
+  {
+    "product_name": "Thin n Trim Coca-Cola Roast Beef",
+    "price": "6.99",
+    "type_of_product": "roast beef"
+  },
+  {
+    "product_name": "Thin n Trim Honey Ham",
+    "price": "6.99",
+    "type_of_product": "ham"
+  },
+  {
+    "product_name": "Land O Lakes American Cheese",
+    "price": "8.99",
+    "type_of_product": "cheese"
+  },
+      "price": "7.99",
+    "type_of_product": "turkey"
+  },
+  {
+    "product_name": "Thin 'N Trim Golden Homestyle Turkey Breast",
+    "price": "7.99",
+    "type_of_product": "turkey"
+  },
+  {
+    "product_name": "Thin 'N Trim Oven Roasted Turkey Breast",
+    "price": "7.99",
+    "type_of_product": "turkey"
+  },
+  {
+    "product_name": "Thin 'N Trim Honey Turkey Breast",
+    "price": "7.99",
+    "type_of_product": "turkey"
+  },
+  {
+    "product_name": "Thin 'N Trim Honey Turkey Breast",
+    "price": "7.99",
+    "type_of_product": "turkey"
+  },
+  {
+    "product_name": "Thin 'N Trim Buffalo Style Turkey Breast",
+    "price": "7.99",
+    "type_of_product": "turkey"
+  },
+    {
+    "product_name": "Wunderbar German Style Ring Bologna",
+    "price": "5.99",
+    "type_of_product": "bologna"
+  },
+  {
+    "product_name": "Market Basket German Bologna",
+    "price": "5.99",
+    "type_of_product": "bologna"
+  },
+  {
+    "product_name": "Deli Honey barbeque Chicken",
+    "price": "7.99",
+    "type_of_product": "chicken"
+  },
+  {
+    "product_name": "Market Basket Pastrami Round",
+    "price": "advertised special",
+    "type_of_product": "roast beef"
+  },
+  {
+    "product_name": "Old Neighborhood Beef Bologna",
+    "price": "$5.99/lb",
+    "type_of_product": "bologna"
+  },
+          "type_of_product": "italian meat"
+    },
+    {
+        "product_name": "Hot Ham",
+        "price": "$5.99/lb",
+        "type_of_product": "ham"
+    },
+    {
+        "product_name": "Columbus Dry Salami",
+        "price": "$12.99/lb",
+        "type_of_product": "italian meat"
+    },
+    {
+        "product_name": "Margherita Pepperoni Salami",
+        "price": "$5.99/lb",
+        "type_of_product": "italian meat"
+    },
+    {
+        "product_name": "Kayem Polish Loaf",
+        "price": "$3.99/lb",
+        "type_of_product": "bologna"
+    },
+    {
+        "product_name": "Deitcheutfi Lewerwurst",
+        "price": "$4.99/lb",
+        "type_of_product": "bologna"
+    },
+    {
+        "product_name": "Canadian Bacon",
+        "price": "$6.99/lb",
+        "type_of_product": "bacon"
+    },
+    {
+        "product_name": "Old Neighborhood Beef Bologna",
+        "price": "$2.99/lb",
+        "type_of_product": "bologna"
+    },
+    {
+        "product_name": "Vienna Brand Bologna",
+        "price": "$2.99/lb",
+        "type_of_product": "bologna"
+    },
+      "type_of_product": "cheese"
+  },
+  {
+    "product_name": "Finlandia Swiss Cheese",
+    "price": "$8.99",
+    "type_of_product": "cheese"
+  },
+  {
+    "product_name": "Havarti Cheese",
+    "price": "$5.99",
+    "type_of_product": "cheese"
+  },
+  {
+    "product_name": "Market Basket Cheddar Cheese",
+    "price": "$3.99",
+    "type_of_product": "cheese"
+  },
+  {
+    "product_name": "Cooks Imported Salami",
+    "price": "$5.99",
+    "type_of_product": "italian meat"
+  },
+  {
+    "product_name": "Columbus Sopressata",
+    "price": "$12.99",
+    "type_of_product": "italian meat"
+  },
+  {
+    "product_name": "Carando Hard Salami",
+    "price": "$5.99",
+    "type_of_product": "italian meat"
+  },
+  {
+    "product_name": "Carando Genova Salami",
+    "price": "$4.99",
+    "type_of_product": "italian meat"
+  },
+  {
+    "product_name": "Carando Pepperoni Salami",
+    "price": "$5.99",
+    "type_of_product": "italian meat"
+  }
+]
