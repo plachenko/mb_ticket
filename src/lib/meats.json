@@ -199,9 +199,6 @@
     "price": "8.99",
     "type_of_product": "cheese"
   },
-      "price": "7.99",
-    "type_of_product": "turkey"
-  },
   {
     "product_name": "Thin 'N Trim Golden Homestyle Turkey Breast",
     "price": "7.99",
@@ -252,8 +249,6 @@
     "price": "$5.99/lb",
     "type_of_product": "bologna"
   },
-          "type_of_product": "italian meat"
-    },
     {
         "product_name": "Hot Ham",
         "price": "$5.99/lb",
@@ -294,8 +289,6 @@
         "price": "$2.99/lb",
         "type_of_product": "bologna"
     },
-      "type_of_product": "cheese"
-  },
   {
     "product_name": "Finlandia Swiss Cheese",
     "price": "$8.99",
