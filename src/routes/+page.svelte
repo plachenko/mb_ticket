@@ -85,8 +85,6 @@
     products.map((e) => {
       productTypes.add(e.type_of_product);
     });
-
-    console.log(productTypes);
   });
 
   function displayProduct(idx) {
@@ -94,7 +92,7 @@
   }
 </script>
 
-<div class="flex flex-col gap-2 h-full">
+<div class="flex flex-col gap-2 h-full p-4">
   {#if ticketTaken}
     {#if showProduct}{:else}
       <div
@@ -138,14 +136,14 @@
               <div class="relative cursor-pointer">
                 {#if arrNum >= idx}
                   <div
+                  onclick={() => applyFilter({ type: "product_type", item: item })}
+                    
                     transition:fly={{ y: 20 }}
                     class="bg-blue-400 absolute w-full rounded-md shadow flex h-full flex-col"
                   >
                     <div
                       style="center-content"
                       class="text-center"
-                      onclick={() =>
-                        applyFilter({ type: "product_type", item: item })}
                     >
                       {item}
                     </div>
@@ -157,7 +155,7 @@
           </div>
         </div>
       {/if}
-      <div class="flex-1 shrink">
+      <div class="shrink">
         {#if showCancel}
           <div
             in:fade
@@ -171,24 +169,23 @@
     {/if}
   {:else}
     <div
-      style="align-content: center"
-      class="relative h-full w-full"
+      class="relative h-full flex place-content-center"
       onclick={setTicket}
     >
-      <div class="h-full w-full flex flex-row">
+      <div class="h-full flex flex-row items-center">
         <div
-          style="margin: 0 auto; align-content: center;"
-          class="flex-1 w-[45%] text-center gap-4 flex-col flex"
+          style="margin: 0 auto; align-content: center; align-items: center;"
+          class="flex-1 w-[45%] text-center gap-4 flex-col flex align-center"
         >
-          <div
+          <!-- <div
             style="box-shadow: rgb(255, 0, 0) 0px 0px 0px 4px;"
             class="relative p-4 border-4 border-blue-500 rounded-lg"
-          >
-            <img src="mbstacked.png" style="margin: 0px auto" />
-          </div>
+          > -->
+            <img style="box-shadow: rgb(255, 0, 0) 0px 0px 0px 4px;" class="p-4 px-10 mb-2 border-4 rounded-lg border-blue-500 w-[450px]" src="mbstacked.png" />
+          <!-- </div> -->
           <div
             style="margin: 0 auto"
-            class="animate-pulse p-4 border-4 border-red-300 shadow-md font-bold text-red-300 rounded-lg sm:text-[5em] text-center capitalize"
+            class="animate-pulse p-4 border-4 border-red-300 shadow-md font-bold text-red-300 rounded-lg sm:text-[2em] text-center capitalize"
           >
             please tap to get ticket
           </div>
