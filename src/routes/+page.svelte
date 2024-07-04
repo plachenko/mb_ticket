@@ -7,8 +7,6 @@
   let arrNum = -1;
   let filterArr = [];
 
-
-
   let divInt = null;
   let ticketNumber = 1;
   let ticketTaken = false;
@@ -20,20 +18,30 @@
   let listNum = 0;
   let showProductList = false;
 
-  let showProduct = true;
+  let showProduct = false;
+  let curItem;
 
-  function productSearchEvt(e){
-    
+  function applyFilter(item) {
+    console.log(item);
+
+    shownProducts = products.filter((e) => {
+      e;
+    });
+  }
+
+  function productSearchEvt(e) {
     showProductList = true;
 
-    if(!product_search_value){
+    if (!product_search_value) {
       shownProducts = products;
       showProductList = false;
       return;
-    } 
+    }
 
     shownProducts = products.filter((e) => {
-      return e.product_name.toLowerCase().includes( product_search_value.toLowerCase() );
+      return e.product_name
+        .toLowerCase()
+        .includes(product_search_value.toLowerCase());
     });
 
     // console.log(shownProducts);
@@ -64,7 +72,7 @@
     shownProducts = products;
 
     listNumInt = setInterval((e) => {
-      if(listNum >= products.length){
+      if (listNum >= products.length) {
         clearInterval(listNumInt);
         listNumInt = null;
         return;
@@ -73,27 +81,26 @@
       listNum++;
     }, 30);
 
-    productTypes.add('on sale!');
+    productTypes.add("on sale!");
     products.map((e) => {
-      productTypes.add(e.type_of_product)
+      productTypes.add(e.type_of_product);
     });
 
     console.log(productTypes);
   });
 
-  function displayProduct(idx){
+  function displayProduct(idx) {
     console.log(shownProducts[idx]);
   }
-
 </script>
 
 <div class="flex flex-col gap-2 h-full">
-
   {#if ticketTaken}
-    {#if showProduct}
-
-    {:else}
-      <div class="flex p-4 gap-4 shadow-md sticky top-0 bg-white w-full" out:fade>
+    {#if showProduct}{:else}
+      <div
+        class="flex p-4 gap-4 shadow-md sticky top-0 bg-white w-full"
+        out:fade
+      >
         <img src="mbstacked.png" class="h-10" />
         <input
           class="w-full rounded-md p-2 border-2 border-slate-300"
@@ -111,14 +118,21 @@
         <div>
           {#each shownProducts as product, idx}
             {#if listNum >= idx}
-              <div in:fly={{x: -10}} onclick={() => displayProduct(idx)} class="pl-10 border-t-2 border-slate-200 py-7 text-xl">
-              {product.product_name}
+              <div
+                in:fly={{ x: -10 }}
+                onclick={() => displayProduct(idx)}
+                class="pl-10 border-t-2 border-slate-200 py-7 text-xl"
+              >
+                {product.product_name}
               </div>
             {/if}
           {/each}
         </div>
       {:else}
         <div class="flex grow">
+          {#if curItem}
+            {curItem.keys[0]}
+          {/if}
           <div class="w-full grid grid-cols-4 gap-2 grow">
             {#each productTypes as item, idx}
               <div class="relative cursor-pointer">
@@ -127,7 +141,14 @@
                     transition:fly={{ y: 20 }}
                     class="bg-blue-400 absolute w-full rounded-md shadow flex h-full flex-col"
                   >
-                    <div style="center-content" class="text-center">{item}</div>
+                    <div
+                      style="center-content"
+                      class="text-center"
+                      onclick={() =>
+                        applyFilter({ type: "product_type", item: item })}
+                    >
+                      {item}
+                    </div>
                     <div></div>
                   </div>
                 {/if}
@@ -148,9 +169,6 @@
         {/if}
       </div>
     {/if}
-
-
-
   {:else}
     <div
       style="align-content: center"
