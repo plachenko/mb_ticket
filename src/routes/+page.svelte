@@ -25,8 +25,10 @@
     console.log(item);
 
     shownProducts = products.filter((e) => {
-      e;
+      return e[item.type] == item.item;
     });
+
+    showProductList = true;
   }
 
   function productSearchEvt(e) {
@@ -92,7 +94,7 @@
   }
 </script>
 
-<div class="flex flex-col gap-2 h-full p-4">
+<div class="flex flex-col gap-2 h-full">
   {#if ticketTaken}
     {#if showProduct}{:else}
       <div
@@ -112,66 +114,67 @@
         </div>
       </div>
 
-      {#if showProductList}
-        <div>
-          {#each shownProducts as product, idx}
-            {#if listNum >= idx}
-              <div
-                in:fly={{ x: -10 }}
-                onclick={() => displayProduct(idx)}
-                class="pl-10 border-t-2 border-slate-200 py-7 text-xl"
-              >
-                {product.product_name}
-              </div>
-            {/if}
-          {/each}
-        </div>
-      {:else}
-        <div class="flex grow">
-          {#if curItem}
-            {curItem.keys[0]}
-          {/if}
-          <div class="w-full grid grid-cols-4 gap-2 grow">
-            {#each productTypes as item, idx}
-              <div class="relative cursor-pointer">
-                {#if arrNum >= idx}
-                  <div
-                  onclick={() => applyFilter({ type: "product_type", item: item })}
-                    
-                    transition:fly={{ y: 20 }}
-                    class="bg-blue-400 absolute w-full rounded-md shadow flex h-full flex-col"
-                  >
-                    <div
-                      style="center-content"
-                      class="text-center"
-                    >
-                      {item}
-                    </div>
-                    <div></div>
-                  </div>
-                {/if}
-              </div>
+      <div class="p-4 flex flex-1 flex-col gap-2">
+        {#if showProductList}
+          <div>
+            {#each shownProducts as product, idx}
+              {#if listNum >= idx}
+                <div
+                  in:fly={{ x: -10 }}
+                  onclick={() => displayProduct(idx)}
+                  class="pl-10 border-t-2 border-slate-200 py-7 text-xl"
+                >
+                  {product.product_name}
+                </div>
+              {/if}
             {/each}
           </div>
-        </div>
-      {/if}
-      <div class="shrink">
-        {#if showCancel}
-          <div
-            in:fade
-            class="rounded-md bg-red-400 text-center p-4"
-            onclick={cancelTicket}
-          >
-            cancel
+        {:else}
+          <div class="flex grow">
+            {#if curItem}
+              {curItem.keys[0]}
+            {/if}
+            <div class="w-full grid grid-cols-4 gap-2 grow">
+              {#each productTypes as item, idx}
+                <div class="relative cursor-pointer">
+                  {#if arrNum >= idx}
+                    <div
+                      onclick={() =>
+                        applyFilter({ type: "type_of_product", item: item })}
+                      transition:fly={{ y: 20 }}
+                      class="bg-blue-400 absolute w-full rounded-md shadow flex h-full flex-col"
+                    >
+                      <div
+                        style="center-content"
+                        class="flex items-center justify-center"
+                      >
+                        <div>
+                          {item}
+                        </div>
+                      </div>
+                      <div></div>
+                    </div>
+                  {/if}
+                </div>
+              {/each}
+            </div>
           </div>
         {/if}
+        <div class="shrink flex h-10 w-full">
+          {#if showCancel}
+            <div
+              in:fade
+              class="rounded-md bg-red-400 flex items-center justify-center w-full text-center p-4"
+              onclick={cancelTicket}
+            >
+              cancel
+            </div>
+          {/if}
+        </div>
       </div>
     {/if}
   {:else}
-    <div
-      class="relative h-full flex place-content-center"
-      onclick={setTicket}
-    >
+    <div class="relative h-full flex place-content-center" onclick={setTicket}>
       <div class="h-full flex flex-row items-center">
         <div
           style="margin: 0 auto; align-content: center; align-items: center;"
@@ -181,7 +184,11 @@
             style="box-shadow: rgb(255, 0, 0) 0px 0px 0px 4px;"
             class="relative p-4 border-4 border-blue-500 rounded-lg"
           > -->
-            <img style="box-shadow: rgb(255, 0, 0) 0px 0px 0px 4px;" class="p-4 px-10 mb-2 border-4 rounded-lg border-blue-500 w-[450px]" src="mbstacked.png" />
+          <img
+            style="box-shadow: rgb(255, 0, 0) 0px 0px 0px 4px;"
+            class="p-4 px-10 mb-2 border-4 rounded-lg border-blue-500 s:w-[450px]"
+            src="mbstacked.png"
+          />
           <!-- </div> -->
           <div
             style="margin: 0 auto"
