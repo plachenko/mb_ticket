@@ -207,32 +207,33 @@
       </div>
       <div class="bg-slate-200 flex flex-col p-3 border-b">
         <div>
-          <span>Slice Thickness: {thicknessArr[thicknessAmt]}</span>
+          <span
+            >Slice Thickness: {thicknessArr[thicknessAmt] || thicknessAmt}</span
+          >
         </div>
-        <div>
+        <div class="pb-[12px]">
           <input
             bind:value={thicknessAmt}
             min="0"
-            max="10"
+            max="30"
             type="range"
             step="1"
             class="w-full"
             list="ticks"
           />
           <datalist id="ticks">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <!--
-            {#each Array(10) as opt}
-              <option value={opt}>{opt}</option>
+            <option value="0" label="0"></option>
+            {#each Array(30) as opt, idx}
+              <option
+                class="w-full text-center"
+                value={idx + 1}
+                label={idx % 2
+                  ? String(idx + 1 - (idx % 2)).padStart(2, "0")
+                  : ""}
+              ></option>
             {/each}
-          -->
           </datalist>
         </div>
-      </div>
-      <div>
-        <input class="w-full" type="range" />
       </div>
     {/if}
   </div>
@@ -243,27 +244,41 @@
         {shownProducts.length} Results
       </div>
     {/if}
-    <div
-      in:fade
-      class="text-white font-bold rounded-md bg-red-400 flex items-center justify-center w-full text-center p-2"
-    >
-      {#if product_search_value}
-        <div class="action_btn" onclick={() => (product_search_value = "")}>
-          Clear Search
+
+    {#if !curProduct}
+      <div
+        in:fade
+        class="text-white font-bold rounded-md bg-red-400 flex items-center justify-center w-full text-center p-2"
+      >
+        {#if product_search_value}
+          <div class="action_btn" onclick={() => (product_search_value = "")}>
+            Clear Search
+          </div>
+        {:else if mode == "list"}
+          <div
+            class="action_btn"
+            onclick={() => {
+              mode = "categories";
+            }}
+          >
+            Show Categories
+          </div>
+        {:else}
+          <div class="action_btn" onclick={() => (mode = "list")}>
+            Show List
+          </div>
+        {/if}
+      </div>
+    {:else}
+      <div class="flex items-center justify-center gap-2 w-full text-center">
+        <div class="text-white font-bold rounded-md bg-red-400 flex-1 p-2">
+          Cancel
         </div>
-      {:else if mode == "list"}
-        <div
-          class="action_btn"
-          onclick={() => {
-            mode = "categories";
-          }}
-        >
-          Show Categories
+        <div class="text-white font-bold rounded-md bg-green-500 flex-1 p-2">
+          Start Order
         </div>
-      {:else}
-        <div class="action_btn" onclick={() => (mode = "list")}>Show List</div>
-      {/if}
-    </div>
+      </div>
+    {/if}
   </div>
 </div>
 
@@ -370,4 +385,19 @@
 -->
 
 <style>
+  datalist {
+    position: absolute;
+    left: 0px;
+    font-size: 0.6em;
+    justify-content: space-between;
+
+    padding: 0px 15px;
+    display: flex;
+    width: 100%;
+  }
+
+  datalist option {
+    text-align: center;
+    width: 100%;
+  }
 </style>
