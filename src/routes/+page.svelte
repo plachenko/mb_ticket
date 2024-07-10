@@ -205,36 +205,50 @@
           {curProduct.price} / lb
         </div>
       </div>
-      <div class="bg-slate-200 flex flex-col p-3 border-b">
-        <div>
-          <span
-            >Slice Thickness: {thicknessArr[thicknessAmt] || thicknessAmt}</span
-          >
+
+      {#if order.started}
+        <div class="bg-slate-200 flex flex-col p-3 border-b">
+          <div>
+            <span
+              >Slice Thickness: {thicknessArr[thicknessAmt] ||
+                thicknessAmt}</span
+            >
+          </div>
+          <div class="pb-[12px]">
+            <input
+              bind:value={thicknessAmt}
+              min="0"
+              max="30"
+              type="range"
+              step="1"
+              class="w-full"
+              list="ticks"
+            />
+            <datalist id="ticks">
+              <option value="0" label="0"></option>
+              {#each Array(30) as opt, idx}
+                <option
+                  class="w-full text-center"
+                  value={idx + 1}
+                  label={idx % 2
+                    ? String(idx + 1 - (idx % 2)).padStart(2, "0")
+                    : ""}
+                ></option>
+              {/each}
+            </datalist>
+          </div>
         </div>
-        <div class="pb-[12px]">
-          <input
-            bind:value={thicknessAmt}
-            min="0"
-            max="30"
-            type="range"
-            step="1"
-            class="w-full"
-            list="ticks"
-          />
-          <datalist id="ticks">
-            <option value="0" label="0"></option>
-            {#each Array(30) as opt, idx}
-              <option
-                class="w-full text-center"
-                value={idx + 1}
-                label={idx % 2
-                  ? String(idx + 1 - (idx % 2)).padStart(2, "0")
-                  : ""}
-              ></option>
-            {/each}
-          </datalist>
+      {:else}
+        <div class="bg-red-400 flex flex-1 h-full">
+          <div class="bg-yellow-300 flex-1">
+            <img src={"deli_imgs/cheese_hoffman_cheddar.png"} />
+            {curProduct.type_of_product}_{curProduct.product_name.split(
+              " ",
+            )[0] + "_cheddar"}
+          </div>
+          <div class="flex-1">pic</div>
         </div>
-      </div>
+      {/if}
     {/if}
   </div>
 
