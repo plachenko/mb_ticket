@@ -135,7 +135,7 @@
     </div>
   {/if}
 
-  <div class="min-h-[75px] touch-none relative">
+  <div class="touch-none relative">
     {#if showHeader}
       <div
         class="p-4 border-b flex gap-4 top-0 left-0 bg-white w-full"
@@ -189,17 +189,21 @@
     {/if}
   </div>
 
-  <div class="flex-1 gap-2 overflow-scroll overscroll-y-contain">
+  <div class="flex-1 gap-2 overflow-hidden">
     {#if !curProduct}
+    <div class="flex-1 overflow-y-scroll overflow-y-contain h-full">
+
       <List
         displayProduct={(product) => {
           curProduct = product;
         }}
         {shownProducts}
       />
+    </div>
+    
     {:else}
-      <div class="w-full flex border-b flex-1 gap-2">
-        <div class="flex-1 bg-yellow-500/20">{curProduct.type_of_product}</div>
+      <div class="w-full flex border-b flex-1 gap-2 p-2">
+        <div class="flex-1">{curProduct.type_of_product}</div>
         <div class="flex-1 text-center">{curProduct.type_of_product}</div>
         <div class="flex-1 text-right text-slate-400">
           {curProduct.price} / lb
@@ -239,14 +243,14 @@
           </div>
         </div>
       {:else}
-        <div class="bg-red-400 flex flex-1 h-full">
-          <div class="bg-yellow-300 flex-1">
-            <img src={"deli_imgs/cheese_hoffman_cheddar.png"} />
-            {curProduct.type_of_product}_{curProduct.product_name.split(
-              " ",
-            )[0] + "_cheddar"}
+        <div class="flex flex-1 h-full">
+          {#if curProduct}
+          <div in:fly={{x: 40}} class="flex-1 justify-center items-center flex border-r border-slate-300">
+            <div class="bg-contain bg-top sm:bg-center bg-no-repeat size-[70%] sm:size-80" style={`background-image: url(/deli_imgs/${curProduct.type_of_product}/${curProduct.type_of_product}_${curProduct.product_name.split(" ")[0].toLowerCase()}s_cheddar.png)`} />
+
           </div>
-          <div class="flex-1">pic</div>
+          {/if}
+          <div class="flex-1 p-4">pic</div>
         </div>
       {/if}
     {/if}
@@ -285,7 +289,7 @@
       </div>
     {:else}
       <div class="flex items-center justify-center gap-2 w-full text-center">
-        <div class="text-white font-bold rounded-md bg-red-400 flex-1 p-2">
+        <div onclick={() => curProduct = null} class="text-white font-bold rounded-md bg-red-400 flex-1 p-2">
           Cancel
         </div>
         <div class="text-white font-bold rounded-md bg-green-500 flex-1 p-2">
