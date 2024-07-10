@@ -1,332 +1,392 @@
 [
   {
-    "product_name": "Black Forest Ham",
+    "product_name": "Black Forest",
     "price": "5.99",
-    "type_of_product": "ham"
+    "type_of_product": "ham",
+    "brand_name": "Market Basket"
   },
   {
-    "product_name": "Hoffman Sharp Cheese",
+    "product_name": "Sharp Chedar Cheese",
     "price": "4.99",
-    "type_of_product": "cheese"
+    "type_of_product": "cheese",
+    "brand_name": "Hoffman"
   },
   {
-    "product_name": "Thin N Trim Cherrywood Ham",
+    "product_name": "Cherrywood Ham",
     "price": "3.99",
-    "type_of_product": "ham"
+    "type_of_product": "ham",
+    "brand_name": "Thin N' Trim"
   },
   {
-    "product_name": "Thin N Trim Honey Baked Ham",
+    "product_name": "Honey Baked Ham",
     "price": "3.99",
-    "type_of_product": "ham"
+    "type_of_product": "ham",
+    "brand_name": "Thin N' Trim"
   },
   {
-    "product_name": "Thin N Trim Virginia Ham",
+    "product_name": "Virginia Ham",
     "price": "3.99",
-    "type_of_product": "ham"
+    "type_of_product": "ham",
+    "brand_name": "Thin N' Trim"
   },
   {
-    "product_name": "Land O Lakes Orange American Cheese",
+    "product_name": "Orange American Cheese",
     "price": "3.99",
-    "type_of_product": "cheese"
+    "type_of_product": "cheese",
+    "brand_name": "Land O Lakes"
   },
   {
-    "product_name": "Land O Lakes Sliced White American Cheese",
+    "product_name": "Sliced White American Cheese",
     "price": "3.99",
-    "type_of_product": "cheese"
+    "type_of_product": "cheese",
+    "brand_name": "Land O Lakes"
   },
   {
     "product_name": "Vienna German Bologna",
     "price": "3.79",
-    "type_of_product": "bologna"
+    "type_of_product": "bologna",
+    "brand_name": "Old Neighborhood"
   },
   {
-    "product_name": "Cabot Pepper Jack Cheese",
+    "product_name": "Pepper Jack Cheese",
     "price": "$4.99",
-    "type_of_product": "cheese"
-  },
-  {
-    "product_name": "Cabot Colby Jack Cheese",
-    "price": "$4.99",
-    "type_of_product": "cheese"
-  },
-  {
-    "product_name": "Cabot Muenster Cheese",
-    "price": "$4.99",
-    "type_of_product": "cheese"
-  },
-  {
-    "product_name": "Cabot Alpine Cheddar Cheese",
-    "price": "$5.99",
-    "type_of_product": "cheese"
-  },
-  {
-    "product_name": "Market Basket Black Forest Ham",
-    "price": "$5.99",
-    "type_of_product": "ham"
-  },
-  {
-    "product_name": "Hoffman Sharp Cheese",
-    "price": "$4.99",
-    "type_of_product": "cheese"
-  },
-  {
-    "product_name": "Thin N Trim Cherrywood Ham",
-    "price": "$3.99",
-    "type_of_product": "ham"
-  },
-  {
-    "product_name": "Land O Lakes Orange American Cheese",
-    "price": "$3.99",
-    "type_of_product": "cheese"
-  },
-  {
-    "product_name": "Old Neighborhood Vienna Brand Bologna",
-    "price": "$3.99",
-    "type_of_product": "bologna"
-  },
-  {
-    "product_name": "Thin N Trim Virginia Brand Ham",
-    "price": "$3.99",
-    "type_of_product": "ham"
-  },
-  {
-    "product_name": "Thin N Trim Honey Ham",
-    "price": "$3.99",
-    "type_of_product": "ham"
-  },
-  {
-    "product_name": "Thin N Trim Cooked Ham",
-    "price": "$3.99",
-    "type_of_product": "ham"
-  },
-  {
-    "product_name": "Market Basket Roast Beef",
-    "price": "$8.99",
-    "type_of_product": "roast beef"
-  },
-  {
-    "product_name": "M.B. X-lean Pastrami Round",
-    "price": "$7.99",
-    "type_of_product": "pastrami"
-  },
-  {
-    "product_name": "M.B. Pepper Ham",
-    "price": "$4.99",
-    "type_of_product": "ham"
-  },
-  {
-    "product_name": "Market Basket Rosemary Ham",
-    "price": "$4.99",
-    "type_of_product": "ham"
-  },
-  {
-    "product_name": "Carando Genoa Salami",
-    "price": "$4.99",
-    "type_of_product": "italian meat"
+    "type_of_product": "cheese",
+    "brand_name": "Cabot"
   },
   {
     "product_name": "Colby Jack Cheese",
     "price": "$4.99",
-    "type_of_product": "cheese"
+    "type_of_product": "cheese",
+    "brand_name": "Cabot"
   },
   {
-    "product_name": "Cabot Pepper Jack Cheese",
+    "product_name": "Muenster Cheese",
     "price": "$4.99",
-    "type_of_product": "cheese"
+    "type_of_product": "cheese",
+    "brand_name": "Cabot"
   },
   {
     "product_name": "Alpine Cheddar Cheese",
     "price": "$5.99",
-    "type_of_product": "cheese"
+    "type_of_product": "cheese",
+    "brand_name": "Cabot"
   },
   {
-    "product_name": "Thin n Trim Smoked Black Forest Ham",
-    "price": "5.99",
-    "type_of_product": "ham"
+    "product_name": "Black Forest Ham",
+    "price": "$5.99",
+    "type_of_product": "ham",
+    "brand_name": "Market Basket"
   },
   {
-    "product_name": "Thin n Trim Peppered Chicken Breast",
-    "price": "6.99",
-    "type_of_product": "chicken"
+    "product_name": "Sharp Cheese",
+    "price": "$4.99",
+    "type_of_product": "cheese",
+    "brand_name": "Hoffman"
   },
   {
-    "product_name": "Thin n Trim Mesquite Smoked Chicken Breast",
-    "price": "6.99",
-    "type_of_product": "chicken"
+    "product_name": "Cherrywood Ham",
+    "price": "$3.99",
+    "type_of_product": "ham",
+    "brand_name": "Thin N' Trim"
   },
   {
-    "product_name": "Thin n Trim Golden Homestyle Turkey Breast",
-    "price": "6.99",
-    "type_of_product": "turkey"
+    "product_name": "Orange American Cheese",
+    "price": "$3.99",
+    "type_of_product": "cheese",
+    "brand_name": "Land O Lakes"
   },
   {
-    "product_name": "Lorelle's Oven Roasted Turkey Breast",
-    "price": "3.99",
-    "type_of_product": "turkey"
+    "product_name": "Vienna Brand Bologna",
+    "price": "$3.99",
+    "type_of_product": "bologna",
+    "brand_name": "Old Neighborhood"
   },
   {
-    "product_name": "Thin n Trim Oven Roasted Turkey Breast",
-    "price": "6.99",
-    "type_of_product": "turkey"
+    "product_name": "Virginia Brand Ham",
+    "price": "$3.99",
+    "type_of_product": "ham",
+    "brand_name": "Thin N' Trim"
   },
   {
-    "product_name": "Thin n Trim Honey Maple Glazed Turkey Breast",
-    "price": "8.99",
-    "type_of_product": "turkey"
+    "product_name": "Honey Ham",
+    "price": "$3.99",
+    "type_of_product": "ham",
+    "brand_name": "Thin N' Trim"
   },
   {
-    "product_name": "Thin n Trim Cajun Style Turkey Breast",
-    "price": "8.99",
-    "type_of_product": "turkey"
+    "product_name": "Cooked Ham",
+    "price": "$3.99",
+    "type_of_product": "ham",
+    "brand_name": "Thin N' Trim"
   },
   {
-    "product_name": "Thin n Trim Corned Beef",
-    "price": "6.99",
-    "type_of_product": "italian meat"
-  },
-  {
-    "product_name": "Thin n Trim Coca-Cola Roast Beef",
-    "price": "6.99",
-    "type_of_product": "roast beef"
-  },
-  {
-    "product_name": "Thin n Trim Honey Ham",
-    "price": "6.99",
-    "type_of_product": "ham"
-  },
-  {
-    "product_name": "Land O Lakes American Cheese",
-    "price": "8.99",
-    "type_of_product": "cheese"
-  },
-  {
-    "product_name": "Thin 'N Trim Golden Homestyle Turkey Breast",
-    "price": "7.99",
-    "type_of_product": "turkey"
-  },
-  {
-    "product_name": "Thin 'N Trim Oven Roasted Turkey Breast",
-    "price": "7.99",
-    "type_of_product": "turkey"
-  },
-  {
-    "product_name": "Thin 'N Trim Honey Turkey Breast",
-    "price": "7.99",
-    "type_of_product": "turkey"
-  },
-  {
-    "product_name": "Thin 'N Trim Honey Turkey Breast",
-    "price": "7.99",
-    "type_of_product": "turkey"
-  },
-  {
-    "product_name": "Thin 'N Trim Buffalo Style Turkey Breast",
-    "price": "7.99",
-    "type_of_product": "turkey"
-  },
-    {
-    "product_name": "Wunderbar German Style Ring Bologna",
-    "price": "5.99",
-    "type_of_product": "bologna"
-  },
-  {
-    "product_name": "Market Basket German Bologna",
-    "price": "5.99",
-    "type_of_product": "bologna"
-  },
-  {
-    "product_name": "Deli Honey barbeque Chicken",
-    "price": "7.99",
-    "type_of_product": "chicken"
-  },
-  {
-    "product_name": "Market Basket Pastrami Round",
-    "price": "advertised special",
-    "type_of_product": "roast beef"
-  },
-  {
-    "product_name": "Old Neighborhood Beef Bologna",
-    "price": "$5.99/lb",
-    "type_of_product": "bologna"
-  },
-    {
-        "product_name": "Hot Ham",
-        "price": "$5.99/lb",
-        "type_of_product": "ham"
-    },
-    {
-        "product_name": "Columbus Dry Salami",
-        "price": "$12.99/lb",
-        "type_of_product": "italian meat"
-    },
-    {
-        "product_name": "Margherita Pepperoni Salami",
-        "price": "$5.99/lb",
-        "type_of_product": "italian meat"
-    },
-    {
-        "product_name": "Kayem Polish Loaf",
-        "price": "$3.99/lb",
-        "type_of_product": "bologna"
-    },
-    {
-        "product_name": "Deitcheutfi Lewerwurst",
-        "price": "$4.99/lb",
-        "type_of_product": "bologna"
-    },
-    {
-        "product_name": "Canadian Bacon",
-        "price": "$6.99/lb",
-        "type_of_product": "bacon"
-    },
-    {
-        "product_name": "Old Neighborhood Beef Bologna",
-        "price": "$2.99/lb",
-        "type_of_product": "bologna"
-    },
-    {
-        "product_name": "Vienna Brand Bologna",
-        "price": "$2.99/lb",
-        "type_of_product": "bologna"
-    },
-  {
-    "product_name": "Finlandia Swiss Cheese",
+    "product_name": "Roast Beef",
     "price": "$8.99",
-    "type_of_product": "cheese"
+    "type_of_product": "beef",
+    "brand_name": "Market Basket"
+  },
+  {
+    "product_name": "X-lean Pastrami Round",
+    "price": "$7.99",
+    "type_of_product": "pastrami",
+    "brand_name": "Market Basket"
+  },
+  {
+    "product_name": "Pepper Ham",
+    "price": "$4.99",
+    "type_of_product": "ham",
+    "brand_name": "Market Basket"
+  },
+  {
+    "product_name": "Rosemary Ham",
+    "price": "$4.99",
+    "type_of_product": "ham",
+    "brand_name": "Market Basket"
+  },
+  {
+    "product_name": "Genoa Salami",
+    "price": "$4.99",
+    "type_of_product": "italian meat",
+    "brand_name": "Carando"
+  },
+  {
+    "product_name": "Pepper Jack Cheese",
+    "price": "$4.99",
+    "type_of_product": "cheese",
+    "brand_name": "Cabot"
+  },
+  {
+    "product_name": "Alpine Cheddar Cheese",
+    "price": "$5.99",
+    "type_of_product": "cheese",
+    "brand_name": "Cabot"
+  },
+  {
+    "product_name": "Smoked Black Forest Ham",
+    "price": "5.99",
+    "type_of_product": "ham",
+    "brand_name": "Thin N' Trim"
+  },
+  {
+    "product_name": "Peppered Chicken Breast",
+    "price": "6.99",
+    "type_of_product": "chicken",
+    "brand_name": "Thin N' Trim"
+  },
+  {
+    "product_name": "Mesquite Smoked Chicken Breast",
+    "price": "6.99",
+    "type_of_product": "chicken",
+    "brand_name": "Thin N' Trim"
+  },
+  {
+    "product_name": "Golden Homestyle Turkey Breast",
+    "price": "6.99",
+    "type_of_product": "turkey",
+    "brand_name": "Thin N' Trim"
+  },
+  {
+    "product_name": "Oven Roasted Turkey Breast",
+    "price": "3.99",
+    "type_of_product": "turkey",
+    "brand_name": "Jennie O's"
+  },
+  {
+    "product_name": "Oven Roasted Chicken Breast",
+    "price": "6.99",
+    "type_of_product": "chicken",
+    "brand_name": "Thin N' Trim"
+  },
+  {
+    "product_name": "Honey Maple Glazed Turkey Breast",
+    "price": "8.99",
+    "type_of_product": "turkey",
+    "brand_name": "Thin N' Trim"
+  },
+  {
+    "product_name": "Cajun Style Turkey Breast",
+    "price": "8.99",
+    "type_of_product": "turkey",
+    "brand_name": "Thin N' Trim"
+  },
+  {
+    "product_name": "Corned Beef",
+    "price": "6.99",
+    "type_of_product": "beef",
+    "brand_name": "Market Basket"
+  },
+  {
+    "product_name": "Roast Beef",
+    "price": "6.99",
+    "type_of_product": "beef",
+    "brand_name": "Thin N' Trim"
+  },
+  {
+    "product_name": "Italian Roast Beef",
+    "price": "6.99",
+    "type_of_product": "beef",
+    "brand_name": "Thin N' Trim"
+  },
+  {
+    "product_name": "Honey Ham",
+    "price": "6.99",
+    "type_of_product": "ham",
+    "brand_name": "Thin N' Trim"
+  },
+  {
+    "product_name": "American Cheese",
+    "price": "8.99",
+    "type_of_product": "cheese",
+    "brand_name": "Land O Lakes"
+  },
+  {
+    "product_name": "Golden Homestyle Turkey Breast",
+    "price": "7.99",
+    "type_of_product": "turkey",
+    "brand_name": "Thin 'N Trim"
+  },
+  {
+    "product_name": "Oven Roasted Turkey Breast",
+    "price": "7.99",
+    "type_of_product": "turkey",
+    "brand_name": "Thin 'N Trim"
+  },
+  {
+    "product_name": "Honey Turkey Breast",
+    "price": "7.99",
+    "type_of_product": "turkey",
+    "brand_name": "Thin 'N Trim"
+  },
+  {
+    "product_name": "Honey Turkey Breast",
+    "price": "7.99",
+    "type_of_product": "turkey",
+    "brand_name": "Thin 'N Trim"
+  },
+  {
+    "product_name": "Buffalo Style Turkey Breast",
+    "price": "7.99",
+    "type_of_product": "turkey",
+    "brand_name": "Thin 'N Trim"
+  },
+  {
+    "product_name": "German Style Ring Bologna",
+    "price": "5.99",
+    "type_of_product": "bologna",
+    "brand_name": "Wunderbar"
+  },
+  {
+    "product_name": "German Bologna",
+    "price": "5.99",
+    "type_of_product": "bologna",
+    "brand_name": "Market Basket"
+  },
+  {
+    "product_name": "Honey Barbeque Chicken",
+    "price": "7.99",
+    "type_of_product": "chicken",
+    "brand_name": "Market Basket"
+  },
+  {
+    "product_name": "Pastrami brisket",
+    "price": "5.99",
+    "type_of_product": "pastrami",
+    "brand_name": "Market Basket"
+  },
+  {
+    "product_name": "Beef Bologna",
+    "price": "$5.99/lb",
+    "type_of_product": "bologna",
+    "brand_name": "Old Neighborhood"
+  },
+  {
+    "product_name": "Hot Ham",
+    "price": "$5.99/lb",
+    "type_of_product": "ham",
+    "brand_name": "Market Basket"
+  },
+  {
+    "product_name": "Pepper Salami",
+    "price": "$12.99/lb",
+    "type_of_product": "italian meat",
+    "brand_name": "Columbus"
+  },
+  {
+    "product_name": "Polish Loaf",
+    "price": "$3.99/lb",
+    "type_of_product": "bologna",
+    "brand_name": "Kayem"
+  },
+  {
+    "product_name": "Lewerwurst",
+    "price": "$4.99/lb",
+    "type_of_product": "bologna",
+    "brand_name": "Deitcheutfi"
+  },
+  {
+    "product_name": "Canadian Bacon",
+    "price": "$6.99/lb",
+    "type_of_product": "ham",
+    "brand_name": ""
+  },
+  {
+    "product_name": "Beef Bologna",
+    "price": "$2.99/lb",
+    "type_of_product": "bologna",
+    "brand_name": "Old Neighborhood"
+  },
+  {
+    "product_name": "Swiss Cheese",
+    "price": "$8.99",
+    "type_of_product": "cheese",
+    "brand_name": "Finlandia"
   },
   {
     "product_name": "Havarti Cheese",
     "price": "$5.99",
-    "type_of_product": "cheese"
+    "type_of_product": "cheese",
+    "brand_name": ""
   },
   {
-    "product_name": "Market Basket Cheddar Cheese",
+    "product_name": "Cheddar Cheese",
     "price": "$3.99",
-    "type_of_product": "cheese"
+    "type_of_product": "cheese",
+    "brand_name": "Market Basket"
   },
   {
-    "product_name": "Cooks Imported Salami",
+    "product_name": "Simple Turkey",
     "price": "$5.99",
-    "type_of_product": "italian meat"
+    "type_of_product": "turkey",
+    "brand_name": "Farmers and Cooks"
   },
   {
-    "product_name": "Columbus Sopressata",
+    "product_name": "Fireside Turkey",
+    "price": "$5.99",
+    "type_of_product": "turkey",
+    "brand_name": "Farmers and Cooks"
+  },
+  {
+    "product_name": "Holiday Roast Turkey",
+    "price": "$5.99",
+    "type_of_product": "turkey",
+    "brand_name": "Farmers and Cooks"
+  },
+  {
+    "product_name": "Sopressata",
     "price": "$12.99",
-    "type_of_product": "italian meat"
+    "type_of_product": "italian meat",
+    "brand_name": "Columbus"
   },
   {
-    "product_name": "Carando Hard Salami",
+    "product_name": "Hard Salami",
     "price": "$5.99",
-    "type_of_product": "italian meat"
+    "type_of_product": "italian meat",
+    "brand_name": "Carando"
   },
   {
-    "product_name": "Carando Genova Salami",
-    "price": "$4.99",
-    "type_of_product": "italian meat"
-  },
-  {
-    "product_name": "Carando Pepperoni Salami",
+    "product_name": "Pepperoni Salami",
     "price": "$5.99",
-    "type_of_product": "italian meat"
+    "type_of_product": "italian meat",
+    "brand_name": "Carando"
   }
 ]

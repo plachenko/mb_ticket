@@ -9,8 +9,8 @@
   let arrNum = -1;
   let filterArr = [];
 
-  let showHeader = false;
-  let showOrder = false;
+  let showHeader = $state(false);
+  let showOrder = $state(false);
 
   let thicknessArr = [
     "shredded",
@@ -21,16 +21,55 @@
     "large slice",
   ];
 
-  let thicknessAmt = 0;
+  let colorKey = [
+        {
+            "name": "on sale!",
+            "color": "#FF0000"
+        },
+        {
+            "name": "ham",
+            "color": "#FFA07A"
+        },
+        {
+            "name": "cheese",
+            "color": "#b3a100"
+        },
+        {
+            "name": "bologna",
+            "color": "#FF6347"
+        },
+        {
+            "name": "beef",
+            "color": "#8B0000"
+        },
+        {
+            "name": "pastrami",
+            "color": "#8B4513"
+        },
+        {
+            "name": "italian meat",
+            "color": "#A52A2A"
+        },
+        {
+            "name": "chicken",
+            "color": "#ffb433"
+        },
+        {
+            "name": "turkey",
+            "color": "#edc478"
+        }
+    ];
 
-  let divInt = null;
+  let thicknessAmt = $state(0);
+
+  let divInt = $state(null);
   let ticketNumber = 1;
-  let ticketTaken = false;
-  let showCancel = false;
+  let ticketTaken = $state(false);
+  let showCancel = $state(false);
   let productTypes = new Set();
-  let product_search_value = "";
+  let product_search_value = $state("");
 
-  let shownProducts = [];
+  let shownProducts = $state([]);
   let listNum = 0;
   let showProductList = false;
 
@@ -39,7 +78,7 @@
   let showProduct = false;
   let curItem;
 
-  let mode = "list";
+  let mode = $state("list");
 
   function applyFilter(item) {
     shownProducts = products.filter((e) => {
@@ -48,6 +87,13 @@
 
     showProductList = true;
   }
+
+  $effect(() => {
+    if(product_search_value == "") {
+      shownProducts = products;
+    }
+
+  });
 
   function productSearchEvt(e) {
     showProductList = true;
@@ -91,8 +137,8 @@
     arrNum = -1;
   }
 
-  let listNumInt = null;
-  let curProduct = null;
+  let listNumInt = $state(null);
+  let curProduct = $state(null);
 
   onMount(() => {
     shownProducts = products;
@@ -197,6 +243,7 @@
         displayProduct={(product) => {
           curProduct = product;
         }}
+        {colorKey}
         {shownProducts}
       />
     </div>
@@ -204,7 +251,7 @@
     {:else}
       <div class="w-full flex border-b flex-1 gap-2 p-2">
         <div class="flex-1">{curProduct.type_of_product}</div>
-        <div class="flex-1 text-center">{curProduct.type_of_product}</div>
+        <div class="flex-1 text-center">{curProduct.brand_name}</div>
         <div class="flex-1 text-right text-slate-400">
           {curProduct.price} / lb
         </div>
@@ -250,7 +297,12 @@
 
           </div>
           {/if}
-          <div class="flex-1 p-4">pic</div>
+          <div class="flex-1 p-4 gap-2 flex flex-col">
+            <div class="p-4 bg-slate-200 rounded-md border-3">Nutritional Information</div>
+            <div class="p-4 bg-slate-200 rounded-md border-3">User Ratings</div>
+            <div class="p-4 bg-slate-200 rounded-md border-3">Visit Product Page</div>
+
+          </div>
         </div>
       {/if}
     {/if}
@@ -266,7 +318,10 @@
     {#if !curProduct}
       <div
         in:fade
-        class="text-white font-bold rounded-md bg-red-400 flex items-center justify-center w-full text-center p-2"
+        onclick={() => {
+          mode = "categories";
+        }}
+        class="text-white cursor-pointer font-bold rounded-md bg-red-400 flex items-center justify-center w-full text-center p-2"
       >
         {#if product_search_value}
           <div class="action_btn" onclick={() => (product_search_value = "")}>
@@ -275,9 +330,6 @@
         {:else if mode == "list"}
           <div
             class="action_btn"
-            onclick={() => {
-              mode = "categories";
-            }}
           >
             Show Categories
           </div>
@@ -289,7 +341,7 @@
       </div>
     {:else}
       <div class="flex items-center justify-center gap-2 w-full text-center">
-        <div onclick={() => curProduct = null} class="text-white font-bold rounded-md bg-red-400 flex-1 p-2">
+        <div onclick={() => curProduct = null} class="cursor-pointer text-white font-bold rounded-md bg-red-400 flex-1 p-2">
           Cancel
         </div>
         <div class="text-white font-bold rounded-md bg-green-500 flex-1 p-2">
