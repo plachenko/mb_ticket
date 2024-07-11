@@ -49,115 +49,115 @@
   },
   {
     "product_name": "Pepper Jack Cheese",
-    "price": "$4.99",
+    "price": "4.99",
     "type_of_product": "cheese",
     "brand_name": "Cabot"
   },
   {
     "product_name": "Colby Jack Cheese",
-    "price": "$4.99",
+    "price": "4.99",
     "type_of_product": "cheese",
     "brand_name": "Cabot"
   },
   {
     "product_name": "Muenster Cheese",
-    "price": "$4.99",
+    "price": "4.99",
     "type_of_product": "cheese",
     "brand_name": "Cabot"
   },
   {
     "product_name": "Alpine Cheddar Cheese",
-    "price": "$5.99",
+    "price": "5.99",
     "type_of_product": "cheese",
     "brand_name": "Cabot"
   },
   {
     "product_name": "Black Forest Ham",
-    "price": "$5.99",
+    "price": "5.99",
     "type_of_product": "ham",
     "brand_name": "Market Basket"
   },
   {
     "product_name": "Sharp Cheese",
-    "price": "$4.99",
+    "price": "4.99",
     "type_of_product": "cheese",
     "brand_name": "Hoffman"
   },
   {
     "product_name": "Cherrywood Ham",
-    "price": "$3.99",
+    "price": "3.99",
     "type_of_product": "ham",
     "brand_name": "Thin N' Trim"
   },
   {
     "product_name": "Orange American Cheese",
-    "price": "$3.99",
+    "price": "3.99",
     "type_of_product": "cheese",
     "brand_name": "Land O Lakes"
   },
   {
     "product_name": "Vienna Brand Bologna",
-    "price": "$3.99",
+    "price": "3.99",
     "type_of_product": "bologna",
     "brand_name": "Old Neighborhood"
   },
   {
     "product_name": "Virginia Brand Ham",
-    "price": "$3.99",
+    "price": "3.99",
     "type_of_product": "ham",
     "brand_name": "Thin N' Trim"
   },
   {
     "product_name": "Honey Ham",
-    "price": "$3.99",
+    "price": "3.99",
     "type_of_product": "ham",
     "brand_name": "Thin N' Trim"
   },
   {
     "product_name": "Cooked Ham",
-    "price": "$3.99",
+    "price": "3.99",
     "type_of_product": "ham",
     "brand_name": "Thin N' Trim"
   },
   {
     "product_name": "Roast Beef",
-    "price": "$8.99",
+    "price": "8.99",
     "type_of_product": "beef",
     "brand_name": "Market Basket"
   },
   {
     "product_name": "X-lean Pastrami Round",
-    "price": "$7.99",
+    "price": "7.99",
     "type_of_product": "pastrami",
     "brand_name": "Market Basket"
   },
   {
     "product_name": "Pepper Ham",
-    "price": "$4.99",
+    "price": "4.99",
     "type_of_product": "ham",
     "brand_name": "Market Basket"
   },
   {
     "product_name": "Rosemary Ham",
-    "price": "$4.99",
+    "price": "4.99",
     "type_of_product": "ham",
     "brand_name": "Market Basket"
   },
   {
     "product_name": "Genoa Salami",
-    "price": "$4.99",
+    "price": "4.99",
     "type_of_product": "italian meat",
     "brand_name": "Carando"
   },
   {
     "product_name": "Pepper Jack Cheese",
-    "price": "$4.99",
+    "price": "4.99",
     "type_of_product": "cheese",
     "brand_name": "Cabot"
   },
   {
     "product_name": "Alpine Cheddar Cheese",
-    "price": "$5.99",
+    "price": "5.99",
     "type_of_product": "cheese",
     "brand_name": "Cabot"
   },
@@ -295,98 +295,99 @@
   },
   {
     "product_name": "Beef Bologna",
-    "price": "$5.99/lb",
+    "price": "5.99",
     "type_of_product": "bologna",
     "brand_name": "Old Neighborhood"
   },
   {
     "product_name": "Hot Ham",
-    "price": "$5.99/lb",
+    "price": "5.99",
     "type_of_product": "ham",
-    "brand_name": "Market Basket"
+    "brand_name": "Margharrita"
   },
   {
     "product_name": "Pepper Salami",
-    "price": "$12.99/lb",
+    "price": "12.99",
     "type_of_product": "italian meat",
     "brand_name": "Columbus"
   },
   {
     "product_name": "Polish Loaf",
-    "price": "$3.99/lb",
+    "price": "3.99",
     "type_of_product": "bologna",
     "brand_name": "Kayem"
   },
   {
-    "product_name": "Lewerwurst",
-    "price": "$4.99/lb",
+    "product_name": "Liverwurst",
+    "price": "4.99",
     "type_of_product": "bologna",
-    "brand_name": "Deitcheutfi"
+    "brand_name": "Deuchtmacher"
   },
   {
     "product_name": "Canadian Bacon",
-    "price": "$6.99/lb",
+    "price": "6.99",
     "type_of_product": "ham",
     "brand_name": ""
   },
   {
     "product_name": "Beef Bologna",
-    "price": "$2.99/lb",
+    "price": "2.99",
     "type_of_product": "bologna",
     "brand_name": "Old Neighborhood"
   },
   {
     "product_name": "Swiss Cheese",
-    "price": "$8.99",
+    "price": "8.99",
     "type_of_product": "cheese",
     "brand_name": "Finlandia"
   },
   {
     "product_name": "Havarti Cheese",
-    "price": "$5.99",
+    "price": "5.99",
     "type_of_product": "cheese",
     "brand_name": ""
   },
   {
     "product_name": "Cheddar Cheese",
-    "price": "$3.99",
+    "price": "3.99",
     "type_of_product": "cheese",
     "brand_name": "Market Basket"
   },
   {
     "product_name": "Simple Turkey",
-    "price": "$5.99",
+    "price": "5.99",
     "type_of_product": "turkey",
     "brand_name": "Farmers and Cooks"
   },
   {
     "product_name": "Fireside Turkey",
-    "price": "$5.99",
+    "price": "5.99",
     "type_of_product": "turkey",
     "brand_name": "Farmers and Cooks"
   },
   {
     "product_name": "Holiday Roast Turkey",
-    "price": "$5.99",
+    "price": "5.99",
     "type_of_product": "turkey",
     "brand_name": "Farmers and Cooks"
   },
   {
     "product_name": "Sopressata",
-    "price": "$12.99",
+    "price": "12.99",
     "type_of_product": "italian meat",
     "brand_name": "Columbus"
   },
   {
     "product_name": "Hard Salami",
-    "price": "$5.99",
+    "price": "5.99",
     "type_of_product": "italian meat",
     "brand_name": "Carando"
   },
   {
     "product_name": "Pepperoni Salami",
-    "price": "$5.99",
+    "price": "5.99",
     "type_of_product": "italian meat",
     "brand_name": "Carando"
   }
 ]
+

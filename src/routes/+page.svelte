@@ -22,43 +22,43 @@
   ];
 
   let colorKey = [
-        {
-            "name": "on sale!",
-            "color": "#FF0000"
-        },
-        {
-            "name": "ham",
-            "color": "#FFA07A"
-        },
-        {
-            "name": "cheese",
-            "color": "#b3a100"
-        },
-        {
-            "name": "bologna",
-            "color": "#FF6347"
-        },
-        {
-            "name": "beef",
-            "color": "#8B0000"
-        },
-        {
-            "name": "pastrami",
-            "color": "#8B4513"
-        },
-        {
-            "name": "italian meat",
-            "color": "#A52A2A"
-        },
-        {
-            "name": "chicken",
-            "color": "#ffb433"
-        },
-        {
-            "name": "turkey",
-            "color": "#edc478"
-        }
-    ];
+    {
+      name: "on sale!",
+      color: "#FF0000",
+    },
+    {
+      name: "ham",
+      color: "#FFA07A",
+    },
+    {
+      name: "cheese",
+      color: "#b3a100",
+    },
+    {
+      name: "bologna",
+      color: "#FF6347",
+    },
+    {
+      name: "beef",
+      color: "#8B0000",
+    },
+    {
+      name: "pastrami",
+      color: "#8B4513",
+    },
+    {
+      name: "italian meat",
+      color: "#A52A2A",
+    },
+    {
+      name: "chicken",
+      color: "#ffb433",
+    },
+    {
+      name: "turkey",
+      color: "#edc478",
+    },
+  ];
 
   let thicknessAmt = $state(0);
 
@@ -89,10 +89,9 @@
   }
 
   $effect(() => {
-    if(product_search_value == "") {
+    if (product_search_value == "") {
       shownProducts = products;
     }
-
   });
 
   function productSearchEvt(e) {
@@ -237,17 +236,15 @@
 
   <div class="flex-1 gap-2 overflow-hidden">
     {#if !curProduct}
-    <div class="flex-1 overflow-y-scroll overflow-y-contain h-full">
-
-      <List
-        displayProduct={(product) => {
-          curProduct = product;
-        }}
-        {colorKey}
-        {shownProducts}
-      />
-    </div>
-    
+      <div class="flex-1 overflow-y-scroll overflow-y-contain h-full">
+        <List
+          displayProduct={(product) => {
+            curProduct = product;
+          }}
+          {colorKey}
+          {shownProducts}
+        />
+      </div>
     {:else}
       <div class="w-full flex border-b flex-1 gap-2 p-2">
         <div class="flex-1">{curProduct.type_of_product}</div>
@@ -292,23 +289,37 @@
       {:else}
         <div class="flex flex-1 h-full">
           {#if curProduct}
-          <div in:fly={{x: 40}} class="flex-1 justify-center items-center flex border-r border-slate-300">
-            <div class="bg-contain bg-top sm:bg-center bg-no-repeat size-[70%] sm:size-80" style={`background-image: url(/deli_imgs/${curProduct.type_of_product}/${curProduct.type_of_product}_${curProduct.product_name.split(" ")[0].toLowerCase()}s_cheddar.png)`} />
-
-          </div>
+            <div
+              in:fly={{ x: 40 }}
+              class="flex-1 justify-center items-center flex border-r border-slate-300"
+            >
+              <div
+                class="bg-contain bg-top sm:bg-center bg-no-repeat size-[70%] sm:size-80"
+                style={`background-image: url(/deli_imgs/${curProduct.type_of_product}/${curProduct.type_of_product}_${curProduct.product_name.split(" ")[0].toLowerCase()}s_cheddar.png)`}
+              />
+            </div>
           {/if}
-          <div class="flex-1 p-4 gap-2 flex flex-col">
-            <div class="p-4 bg-slate-200 rounded-md border-3">Nutritional Information</div>
-            <div class="p-4 bg-slate-200 rounded-md border-3">User Ratings</div>
-            <div class="p-4 bg-slate-200 rounded-md border-3">Visit Product Page</div>
-
+          <div class="flex-1 p-4 gap-2 flex flex-col overflow-y-scroll">
+            <div class="p-2 bg-slate-200 rounded-md border-3">
+              Nutritional Information
+            </div>
+            <div class="p-2 bg-slate-200 rounded-md border-3">User Ratings</div>
+            <div class="p-2 bg-slate-200 rounded-md border-3">
+              Visit Product Page
+            </div>
+            <div class="p-2 bg-slate-200 rounded-md border-3">
+              Visit Product Page
+            </div>
+            <div class="p-2 bg-slate-200 rounded-md border-3">
+              Visit Product Page
+            </div>
           </div>
         </div>
       {/if}
     {/if}
   </div>
 
-  <div class="p-2 border-t-2">
+  <div class="border-t-2">
     {#if product_search_value !== ""}
       <div class="text-slate-400 mb-1 text-center">
         {shownProducts.length} Results
@@ -328,11 +339,7 @@
             Clear Search
           </div>
         {:else if mode == "list"}
-          <div
-            class="action_btn"
-          >
-            Show Categories
-          </div>
+          <div class="action_btn">Show Categories</div>
         {:else}
           <div class="action_btn" onclick={() => (mode = "list")}>
             Show List
@@ -340,14 +347,19 @@
         {/if}
       </div>
     {:else}
+      <!--
       <div class="flex items-center justify-center gap-2 w-full text-center">
-        <div onclick={() => curProduct = null} class="cursor-pointer text-white font-bold rounded-md bg-red-400 flex-1 p-2">
+        <div
+          onclick={() => (curProduct = null)}
+          class="cursor-pointer text-white font-bold rounded-md bg-red-400 flex-1 p-2"
+        >
           Cancel
         </div>
         <div class="text-white font-bold rounded-md bg-green-500 flex-1 p-2">
           Start Order
         </div>
       </div>
+-->
     {/if}
   </div>
 </div>
