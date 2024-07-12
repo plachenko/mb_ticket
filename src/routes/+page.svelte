@@ -69,6 +69,24 @@
   let productTypes = new Set();
   let product_search_value = $state("");
 
+  let productLinks = [
+    {name: 'Nutritional Information', action: showNutrition()},
+    {name: 'User Ratings', action: showUserRatings()},
+    {name: 'Visit Product Page', action: visitProductPage()},
+  ]
+
+  function showNutrition(){
+
+  }
+
+  function showUserRatings(){
+
+  }
+
+  function visitProductPage(){
+
+  }
+
   let shownProducts = $state([]);
   let listNum = 0;
   let showProductList = false;
@@ -88,9 +106,17 @@
     showProductList = true;
   }
 
+  let imglink = $state(null);
+
   $effect(() => {
     if (product_search_value == "") {
       shownProducts = products;
+    }
+
+    if(curProduct !== null){
+      let brand = curProduct.brand_name.replace("Thin N' Trim", "tnt");
+      imglink = `/deli_imgs/${curProduct.type_of_product}/${curProduct.type_of_product}_${brand}_virginia.png`
+      console.log(imglink);
     }
   });
 
@@ -295,25 +321,19 @@
             >
               <div
                 class="bg-contain bg-top sm:bg-center bg-no-repeat size-[70%] sm:size-80"
-                style={`background-image: url(/deli_imgs/${curProduct.type_of_product}/${curProduct.type_of_product}_${curProduct.product_name.split(" ")[0].toLowerCase()}s_cheddar.png)`}
+                style={`background-image: url(${imglink})`}
               />
             </div>
           {/if}
+
           <div class="flex-1 p-4 gap-2 flex flex-col overflow-y-scroll">
-            <div class="p-2 bg-slate-200 rounded-md border-3">
-              Nutritional Information
-            </div>
-            <div class="p-2 bg-slate-200 rounded-md border-3">User Ratings</div>
-            <div class="p-2 bg-slate-200 rounded-md border-3">
-              Visit Product Page
-            </div>
-            <div class="p-2 bg-slate-200 rounded-md border-3">
-              Visit Product Page
-            </div>
-            <div class="p-2 bg-slate-200 rounded-md border-3">
-              Visit Product Page
-            </div>
+            {#each productLinks as link}
+              <div class="p-2 bg-slate-200 rounded-md border-3 cursor-pointer hover:bg-slate-300">
+                {link.name}
+              </div>
+            {/each}
           </div>
+
         </div>
       {/if}
     {/if}
