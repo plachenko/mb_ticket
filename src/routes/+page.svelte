@@ -11,6 +11,10 @@
 
   let showHeader = $state(false);
   let showOrder = $state(false);
+  let showNutritionInfo = $state(false);
+  let showCurProduct = $state(false);
+
+  let curlinkInt = $state(-1);
 
   let thicknessArr = [
     "shredded",
@@ -70,22 +74,18 @@
   let product_search_value = $state("");
 
   let productLinks = [
-    {name: 'Nutritional Information', action: showNutrition()},
-    {name: 'User Ratings', action: showUserRatings()},
-    {name: 'Visit Product Page', action: visitProductPage()},
-  ]
+    { name: "Nutritional Information", action: showNutrition },
+    { name: "User Ratings", action: showUserRatings },
+    { name: "Visit Product Page", action: visitProductPage },
+  ];
 
-  function showNutrition(){
-
+  function showNutrition() {
+    showNutritionInfo = true;
   }
 
-  function showUserRatings(){
+  function showUserRatings() {}
 
-  }
-
-  function visitProductPage(){
-
-  }
+  function visitProductPage() {}
 
   let shownProducts = $state([]);
   let listNum = 0;
@@ -113,10 +113,17 @@
       shownProducts = products;
     }
 
-    if(curProduct !== null){
+    if (curProduct !== null) {
+      showCurProduct = true;
+      setInterval(() => {
+        curlinkInt++;
+      }, 100);
       let brand = curProduct.brand_name.replace("Thin N' Trim", "tnt");
-      imglink = `/deli_imgs/${curProduct.type_of_product}/${curProduct.type_of_product}_${brand}_virginia.png`
+      imglink = `/deli_imgs/${curProduct.type_of_product}/${curProduct.type_of_product}_${brand}_virginia.png`;
       console.log(imglink);
+    } else {
+      showNutritionInfo = false;
+      showCurProduct = false;
     }
   });
 
@@ -314,9 +321,9 @@
         </div>
       {:else}
         <div class="flex flex-1 h-full">
-          {#if curProduct}
+          {#if showCurProduct}
             <div
-              in:fly={{ x: 40 }}
+              in:fly={{ x: 30 }}
               class="flex-1 justify-center items-center flex border-r border-slate-300"
             >
               <div
@@ -326,20 +333,29 @@
             </div>
           {/if}
 
-          <div class="flex-1 p-4 gap-2 flex flex-col overflow-y-scroll">
-            {#each productLinks as link}
-              <div class="p-2 bg-slate-200 rounded-md border-3 cursor-pointer hover:bg-slate-300">
-                {link.name}
-              </div>
-            {/each}
+          <div class="flex-1 p-2 gap-2 flex flex-col overflow-y-scroll">
+            {#if showNutritionInfo}<Nutritional />{:else}
+              {#each productLinks as link, idx}
+                <div class="h-400">
+                  {#if curlinkInt >= idx}
+                    <div
+                      in:fly={{ x: -40, delay: idx * 100 }}
+                      onclick={link.action}
+                      class="p-2 bg-slate-200 rounded-md border-3 cursor-pointer hover:bg-slate-300"
+                    >
+                      {link.name}
+                    </div>
+                  {/if}
+                </div>
+              {/each}
+            {/if}
           </div>
-
         </div>
       {/if}
     {/if}
   </div>
 
-  <div class="border-t-2">
+  <div class="border-t-2 shrink p-2">
     {#if product_search_value !== ""}
       <div class="text-slate-400 mb-1 text-center">
         {shownProducts.length} Results
@@ -367,19 +383,17 @@
         {/if}
       </div>
     {:else}
-      <!--
       <div class="flex items-center justify-center gap-2 w-full text-center">
         <div
           onclick={() => (curProduct = null)}
           class="cursor-pointer text-white font-bold rounded-md bg-red-400 flex-1 p-2"
         >
-          Cancel
+          Back
         </div>
         <div class="text-white font-bold rounded-md bg-green-500 flex-1 p-2">
           Start Order
         </div>
       </div>
--->
     {/if}
   </div>
 </div>

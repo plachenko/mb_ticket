@@ -1,0 +1,9 @@
+<div class="flex flex-col h-full w-full">
+  <div class="bg-green-400 border-b-2 flex-1 w-full">testasf</div>
+  <!--
+  <div class="flex-1 bg-blue-300 relative">
+    <div class="h-[400px] absolute bg-red-100 w-full flex-1">test</div>
+  </div>
+  <div class="border-t-5 shrink bg-blue-400 border-slate-400">test</div>
+  -->
+</div>
