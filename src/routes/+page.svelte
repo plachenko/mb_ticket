@@ -107,6 +107,7 @@
   }
 
   let imglink = $state(null);
+  let linkInterval = null;
 
   $effect(() => {
     if (product_search_value == "") {
@@ -115,9 +116,14 @@
 
     if (curProduct !== null) {
       showCurProduct = true;
-      setInterval(() => {
+      linkInterval = setInterval(() => {
+        if (curlinkInt >= 2) {
+          clearInterval(linkInterval);
+          linkInterval = null;
+          return;
+        }
         curlinkInt++;
-      }, 100);
+      }, 200);
       let brand = curProduct.brand_name.replace("Thin N' Trim", "tnt");
       imglink = `/deli_imgs/${curProduct.type_of_product}/${curProduct.type_of_product}_${brand}_virginia.png`;
     } else {
@@ -295,7 +301,7 @@
                 <div class="h-400">
                   {#if curlinkInt >= idx}
                     <div
-                      in:fly={{ x: -40, delay: idx * 100 }}
+                      in:fly={{ x: -40 }}
                       onclick={link.action}
                       class="p-2 bg-slate-200 rounded-md border-3 cursor-pointer hover:bg-slate-300"
                     >
