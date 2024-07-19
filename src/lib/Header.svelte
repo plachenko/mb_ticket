@@ -1,6 +1,10 @@
 <script>
   let { product_search_value, showOrder, productSearchEvt, curProduct } =
     $props();
+
+    $effect(() => {
+      productSearchEvt(product_search_value);
+    });
 </script>
 
 <div
@@ -15,7 +19,6 @@
       class="w-full rounded-md p-2 border-2 border-slate-300"
       placeholder="search for a product..."
       bind:value={product_search_value}
-      oninput={productSearchEvt}
       type="text"
     />
   {:else}

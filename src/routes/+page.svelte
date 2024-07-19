@@ -132,10 +132,10 @@
     }
   });
 
-  function productSearchEvt(e) {
+  function productSearchEvt(search_value = '') {
     showProductList = true;
 
-    if (!product_search_value) {
+    if (!search_value) {
       shownProducts = products;
       showProductList = false;
       return;
@@ -144,10 +144,9 @@
     shownProducts = products.filter((e) => {
       return e.product_name
         .toLowerCase()
-        .includes(product_search_value.toLowerCase());
+        .includes(search_value.toLowerCase());
     });
 
-    // console.log(shownProducts);
   }
 
   function setTicket() {
@@ -218,7 +217,7 @@
     </div>
   {/if}
 
-  <div class="touch-none relative">
+  <div class="relative">
     {#if showHeader}
       <Header
         {showOrder}
@@ -350,7 +349,7 @@
         <div
           onclick={() => (curProduct = null)}
           class="cursor-pointer text-white font-bold rounded-md bg-red-400 flex-1 p-2"
-        >
+        >  
           Back
         </div>
         <div class="text-white font-bold rounded-md bg-green-500 flex-1 p-2">
@@ -359,7 +358,7 @@
       </div>
     {/if}
   </div>
--->
+--> 
 </div>
 
 <!--
