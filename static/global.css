@@ -1,4 +1,9 @@
+[contentEditable="true"]:empty:before {
+  content: attr(placeholder);
+  color: #ccc;
+}
 body,
 html {
   height: 100%;
+  overscroll-behavior: contain;
 }

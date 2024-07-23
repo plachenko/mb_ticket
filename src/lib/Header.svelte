@@ -1,10 +1,15 @@
 <script>
-  let { product_search_value, showOrder, productSearchEvt, curProduct } =
-    $props();
+  let {
+    product_search_value,
+    showOrder,
+    productSearchEvt,
+    curProduct,
+    setMainMenu,
+  } = $props();
 
-    $effect(() => {
-      productSearchEvt(product_search_value);
-    });
+  $effect(() => {
+    productSearchEvt(product_search_value);
+  });
 </script>
 
 <div
@@ -12,7 +17,7 @@
   in:fly={{ y: -10 }}
   out:fade
 >
-  <img src="mbstacked.png" class="h-10" />
+  <img src="mbstacked.png" class="h-10" onclick={setMainMenu} />
   {#if !curProduct}
     <input
       autocomplete="disabled"
@@ -28,10 +33,7 @@
       </h2>
     </div>
   {/if}
-  <div
-    onclick={() => (showOrder = true)}
-    class="flex items-center justify-center relative"
-  >
+  <div onclick={showOrder} class="flex items-center justify-center relative">
     <div
       class="absolute rounded-full bg-red-300 size-4 top-[-2px] right-[-9px] text-xs flex items-center justify-center"
     >
@@ -53,4 +55,3 @@
     </svg>
   </div>
 </div>
-

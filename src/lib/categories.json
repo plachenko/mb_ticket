@@ -1,0 +1,38 @@
+[
+  {
+    "name": "on sale!",
+    "color": "#FF0000"
+  },
+  {
+    "name": "ham",
+    "color": "#FFA07A"
+  },
+  {
+    "name": "cheese",
+    "color": "#b3a100"
+  },
+  {
+    "name": "bologna",
+    "color": "#FF6347"
+  },
+  {
+    "name": "beef",
+    "color": "#8B0000"
+  },
+  {
+    "name": "pastrami",
+    "color": "#8B4513"
+  },
+  {
+    "name": "italian meat",
+    "color": "#A52A2A"
+  },
+  {
+    "name": "chicken",
+    "color": "#ffb433"
+  },
+  {
+    "name": "turkey",
+    "color": "#edc478"
+  }
+]
