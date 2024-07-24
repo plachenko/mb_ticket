@@ -2,11 +2,14 @@
   import products from "$lib/meats.json";
   import categories from "$lib/categories.json";
   import { onMount } from "svelte";
-  import { fly } from "svelte/transition";
+  import { fly, fade } from "svelte/transition";
 
   let imglink = $state(null);
   let curProduct = $state(products[0]);
   let col = $state("test");
+
+  let mainMenuShowing = $state(false);
+  let shoppingCartShowing = $state(false);
 
   let showCart = $state(false);
 
@@ -23,11 +26,47 @@
       return false;
     }
   }
+
+  function showMainMenu(){
+    mainMenuShowing = !mainMenuShowing;
+  }
+
+  let menuItems = [
+    
+    {
+      text: "Back to Order",
+      action: () => {
+        mainMenuShowing = false
+      },
+    },
+    {
+      text: "Request Assistance",
+      action: () => {},
+    },
+    
+    {
+      text: "Cancel Order",
+      action: () => {},
+    },
+  ]
 </script>
 
-<div class="h-full flex flex-col flex-1 pointer-none">
+<div class="h-full flex flex-col flex-1 pointer-none relative overflow-hidden">
+  {#if mainMenuShowing}
+    <div in:fly={{ y: 20 }} out:fly={{ y: 20 }} class="bg-slate-200 flex absolute h-full w-full z-10">
+      <div class="flex flex-1 items-center justify-center flex-col gap-2">
+        <img src="mbstacked.png" class="h-10" />
+        <h2 class="text-2xl bold pb-5">Main Menu</h2>
+        <div class="w-[80%] flex-col gap-2 flex">
+        {#each menuItems as menuItem}
+          <div onclick={menuItem.action} class="hover:bg-slate-100 p-2 border border-slate-500 bg-slate-300 rounded cursor-pointer w-full flex justify-center">{menuItem.text}</div>
+        {/each}
+      </div>
+      </div>
+    </div>
+  {/if}
   <div class="border-b flex gap-4 px-4 py-2 items-center">
-    <div class="rounded-md p-2 border border-slate-300 flex gap-2">
+    <div class="rounded-md p-2 border border-slate-300 flex gap-2 cursor-pointer hover:bg-slate-100" onclick={showMainMenu}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -53,6 +92,7 @@
     <div onclick={() => (showCart = true)}>cart</div>
   </div>
   <div class="flex flex-1 landscape:flex-row portrait:flex-col">
+    
     <div class="flex-1 items-center justify-center flex">
       <div
         in:fly={{ x: 30 }}
