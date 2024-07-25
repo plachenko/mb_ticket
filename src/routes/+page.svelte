@@ -12,6 +12,14 @@
   let shoppingCartShowing = $state(false);
 
   let showCart = $state(false);
+  let order = $state({
+    id: crypto.randomUUID(),
+    dateStarted: new Date(),
+    dateEnded: null,
+    items: [],
+  });
+
+  console.log(order)
 
   onMount(() => {
     imglink = `/deli_imgs/ham/ham_fnc_appleGlazed.png`;
@@ -64,7 +72,7 @@
 
         <div class="flex w-[80%] gap-2 flex h-full flex-col pb-4 text-xl">
           <div
-            class="h-20 rounded-md flex justify-center p-4 bg-slate-300 border border-slate-400 items-center"
+            class="h-20 rounded-md flex justify-center hover:bg-slate-100 cursor-pointer p-4 bg-slate-300 border border-slate-400 items-center"
           >
             <div class="flex-1 flex justify-center items-center">
               <svg
@@ -87,8 +95,9 @@
             </div>
           </div>
           <div class="w-full gap-2 flex h-full">
+            {#if order.items.length}
             <div
-              class="rounded-md flex p-4 flex-1 bg-slate-300 border border-slate-400 justify-center items-center h-full"
+              class="rounded-md flex p-4 flex-1 cursor-pointer hover:bg-slate-100 bg-slate-300 border border-slate-400 justify-center items-center h-full"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -108,11 +117,12 @@
                 >Edit Order</span
               >
             </div>
+            {/if}
             <div
               onclick={() => {
                 mainMenuShowing = false;
               }}
-              class="rounded-md flex flex-1 p-4 bg-slate-300 border border-slate-400 justify-center items-center h-full"
+              class="rounded-md flex flex-1 cursor-pointer hover:bg-slate-100 p-4 bg-slate-300 border border-slate-400 justify-center items-center h-full"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -135,7 +145,7 @@
             </div>
           </div>
           <div
-            class="h-20 rounded-md flex justify-center p-4 bg-red-400 border border-red-600 items-center"
+            class="h-20 rounded-md flex justify-center hover:bg-red-300 cursor-pointer p-4 bg-red-400 border border-red-600 items-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
