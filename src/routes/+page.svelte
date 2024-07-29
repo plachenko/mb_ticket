@@ -19,7 +19,26 @@
     items: [],
   });
 
-  console.log(order);
+  let curItem = $state(null);
+
+  let options = [
+    {
+      name: "cancel",
+      type: -1,
+      action: cancelOrderItem,
+    },
+    {
+      name: "add to order",
+      type: 1,
+      action: addOrderItem,
+    },
+  ];
+
+  function addOrderItem() {}
+
+  function cancelOrderItem() {
+    curItem = null;
+  }
 
   onMount(() => {
     imglink = `/deli_imgs/ham/ham_fnc_appleGlazed.png`;
@@ -37,6 +56,10 @@
 
   function askAssistance() {
     navigator.vibrate(200);
+  }
+
+  function showOrder() {
+    console.log("test");
   }
 
   function showMainMenu() {
@@ -102,35 +125,6 @@
             </div>
           </div>
 
-          <!--
--->
-          <!--
-          <div
-            class="h-20 rounded-md flex justify-center hover:bg-slate-100 cursor-pointer p-4 bg-slate-300 border border-slate-400 items-center"
-          >
-            <div class="flex justify-center items-center bg-blue-400">
-              <div
-                class="w-20 flex-1 flex border-r justify-center bg-red-400 border-slate-400"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="size-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M10.05 4.575a1.575 1.575 0 1 0-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 0 1 3.15 0v1.5m-3.15 0 .075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 0 1 3.15 0V15M6.9 7.575a1.575 1.575 0 1 0-3.15 0v8.175a6.75 6.75 0 0 0 6.75 6.75h2.018a5.25 5.25 0 0 0 3.712-1.538l1.732-1.732a5.25 5.25 0 0 0 1.538-3.712l.003-2.024a.668.668 0 0 1 .198-.471 1.575 1.575 0 1 0-2.228-2.228 3.818 3.818 0 0 0-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0 1 16.35 15m.002 0h-.002"
-                  />
-                </svg>
-              </div>
-              <span class="pl-2 text-sm w-[80%]">Ask for Assistance</span>
-            </div>
-          </div>
-          -->
           <div class="w-full gap-2 flex h-full">
             {#if order.items.length}
               <div
@@ -240,7 +234,30 @@
       onkeydown={checkKey}
       class="flex-1 text-nowrap inline-block overflow-hidden p-2 border rounded-md"
     ></div>
-    <div onclick={() => (showCart = true)}>cart</div>
+    <div
+      onclick={showOrder}
+      class="flex rounded-md border-slate-300 text-slate-400 items-center p-2 border justify-center relative"
+    >
+      <div
+        class="absolute rounded-full bg-red-300 text-white size-4 top-[-2px] right-[-9px] text-xs flex items-center justify-center"
+      >
+        2
+      </div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class={`size-6 order.length ? "text-slate-300" : "text-red-500"`}
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+        />
+      </svg>
+    </div>
   </div>
   <div class="flex flex-1 landscape:flex-row portrait:flex-col">
     <div class="flex-1 items-center justify-center flex">
@@ -259,8 +276,12 @@
     </div>
   </div>
   <div class="p-2 flex gap-2 border-t">
-    {#each Array(2) as opt}
-      <div class="bg-red-300 rounded flex-1 text-center p-1">option</div>
+    {#each options as opt}
+      <div
+        class={` ${opt.type == 1 ? "bg-green-500" : "bg-red-500"} text-white rounded flex-1 text-center p-1`}
+      >
+        {opt.name}
+      </div>
     {/each}
   </div>
 </div>
