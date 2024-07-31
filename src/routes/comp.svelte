@@ -63,7 +63,6 @@
       color: "#edc478",
     },
   ];
-
   let thicknessAmt = $state(0);
 
   let divInt = $state(null);

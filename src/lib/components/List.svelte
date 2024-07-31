@@ -2,7 +2,7 @@
   let { displayProduct, shownProducts, colorKey } = $props();
 </script>
 
-<div class="h-full">
+<div class="h-full w-full">
   {#if shownProducts.length}
     {#each shownProducts as product}
       <div
@@ -19,8 +19,9 @@
           </span>
           &ndash;
           <span
-          style={`color: ${colorKey.find((e) => e.name == product.type_of_product).color}`}>
-          {product.product_name}
+            style={`color: ${colorKey.find((e) => e.name == product.type_of_product).color}`}
+          >
+            {product.product_name}
           </span>
         </div>
       </div>{/each}
