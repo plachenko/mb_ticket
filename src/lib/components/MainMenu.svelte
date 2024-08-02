@@ -107,7 +107,9 @@
         </svg>
       </div>
 
-      <span class="text-white w-[80%] text-sm pl-2 ml-2 border-l border-white"
+      <span
+        onclick={() => MenuOpen("ticket")}
+        class="text-white w-[80%] text-sm pl-2 ml-2 border-l border-white"
         >Cancel Order</span
       >
     </div>
