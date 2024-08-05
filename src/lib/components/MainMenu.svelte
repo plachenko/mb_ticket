@@ -1,6 +1,7 @@
 <script>
+  import Time from "$lib/components/Time.svelte";
   let order = $state({ items: [] });
-  let { MenuOpen } = $props();
+  let { MenuOpen, dateTime } = $props();
 </script>
 
 <div
@@ -9,6 +10,7 @@
   <img src="mbstacked.png" class="h-10" />
 
   <div class="flex w-[80%] gap-2 flex h-full flex-col text-xl">
+    <Time />
     <div
       onclick={() => {}}
       class="h-20 rounded-md flex justify-center hover:bg-slate-100 cursor-pointer p-4 bg-slate-300 border border-slate-400 items-center"

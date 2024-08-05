@@ -5,17 +5,28 @@
   import MainMenu from "$lib/components/MainMenu.svelte";
   import OrderList from "$lib/components/OrderList.svelte";
 
+  import Time from "$lib/components/Time.svelte";
+
   import List from "$lib/components/List.svelte";
   import products from "$lib/meats.json";
   import { onMount } from "svelte";
 
+  let prodList = $state(false);
+
   let shownProducts = $state([]);
+  // let dateTime = $state(formatDate());
 
   onMount(() => {
+    setInterval(() => {
+      // dateTime = formatDate();
+    }, 1000);
+
     shownProducts = products;
   });
 
-  function displayProduct(product) {}
+  function displayProduct(product) {
+    console.log(product);
+  }
 
   let colorKey = [
     {
@@ -122,6 +133,8 @@
         <MainMenu {MenuOpen} />
       {:else if menuType == "shopping"}
         <OrderList {MenuOpen} />
+      {:else if menuType == "curProduct"}
+        <div>Current product</div>
       {:else if menuType == "ticket"}
         <div
           class="rel w-full"
@@ -134,9 +147,15 @@
               style="margin: 0 auto; align-content: center; align-items: center;"
               class="flex-1 w-[45%] text-center gap-4 flex-col flex align-center"
             >
+              <Time />
+              <!--
+              <div class="w-full border-b flex justify-center text-lg">
+                {dateTime}
+              </div>
+-->
               <img
                 style="box-shadow: rgb(255, 0, 0) 0px 0px 0px 4px;"
-                class="p-4 px-10 mb-2 border-4 rounded-lg border-blue-500 s:w-[450px]"
+                class="p-4 px-10 border-4 rounded-lg border-blue-500 s:w-[450px]"
                 src="mbstacked.png"
               />
               <div
@@ -156,7 +175,9 @@
   <Header {searchVal} {productSearchEvt} {MenuOpen} />
 
   <div class="flex flex-1 overflow-y-auto">
-    <List {displayProduct} {shownProducts} {colorKey} />
+    {#if prodList}
+      <List {displayProduct} {shownProducts} {colorKey} />
+    {:else}categories{/if}
   </div>
   <!-- Content -->
 
