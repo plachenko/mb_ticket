@@ -44,7 +44,7 @@
   onMount(() => {
     imglink = `/deli_imgs/ham/ham_fnc_appleGlazed.png`;
     categories.filter((e) => {
-      e.type_of_product == "ham";
+      e.category == "ham";
     });
   });
 

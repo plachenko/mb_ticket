@@ -1,5 +1,6 @@
 <script>
-  let { displayProduct, shownProducts, colorKey } = $props();
+  import ColorKey from "$lib/ColorKey.json";
+  let { curCategory, displayProduct, shownProducts } = $props();
 </script>
 
 <div class="h-full w-full">
@@ -19,7 +20,7 @@
           </span>
           &ndash;
           <span
-            style={`color: ${colorKey.find((e) => e.name == product.type_of_product).color}`}
+            style={`color: ${ColorKey.find((e) => e.name == product.category).color}`}
           >
             {product.product_name}
           </span>

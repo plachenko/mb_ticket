@@ -1,20 +1,26 @@
 <script>
   import { fly, fade } from "svelte/transition";
   import Header from "$lib/components/Header.svelte";
+  import Categories from "$lib/components/Categories.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import MainMenu from "$lib/components/MainMenu.svelte";
   import OrderList from "$lib/components/OrderList.svelte";
+  import { hexToRgba } from "$lib/ColorUtils";
+
+  import Brands from "$lib/Brands.json";
 
   import Time from "$lib/components/Time.svelte";
 
   import List from "$lib/components/List.svelte";
   import products from "$lib/meats.json";
   import { onMount } from "svelte";
+  import Product from "$lib/components/Product.svelte";
+  import ColorKey from "$lib/ColorKey.json";
 
   let prodList = $state(false);
-
   let shownProducts = $state([]);
-  // let dateTime = $state(formatDate());
+  let curProduct = $state(null);
+  let curBrand = $state(null);
 
   onMount(() => {
     setInterval(() => {
@@ -24,48 +30,13 @@
     shownProducts = products;
   });
 
-  function displayProduct(product) {
-    console.log(product);
+  function addBrand(brand) {
+    curBrand = brand;
   }
 
-  let colorKey = [
-    {
-      name: "on sale!",
-      color: "#FF0000",
-    },
-    {
-      name: "ham",
-      color: "#FFA07A",
-    },
-    {
-      name: "cheese",
-      color: "#b3a100",
-    },
-    {
-      name: "bologna",
-      color: "#FF6347",
-    },
-    {
-      name: "beef",
-      color: "#8B0000",
-    },
-    {
-      name: "pastrami",
-      color: "#8B4513",
-    },
-    {
-      name: "italian meat",
-      color: "#A52A2A",
-    },
-    {
-      name: "chicken",
-      color: "#ffb433",
-    },
-    {
-      name: "turkey",
-      color: "#edc478",
-    },
-  ];
+  function displayProduct(product) {
+    curProduct = product;
+  }
 
   let searchVal = $state("");
 
@@ -83,9 +54,19 @@
   ]);
 
   let menuType = $state("ticket");
+  let curCategory = $state(null);
 
   function MenuOpen(type = null) {
     menuType = type;
+  }
+
+  function setCategory(category) {
+    console.log("category set...", category);
+    curCategory = category;
+    prodList = true;
+    shownProducts = products.filter((e) => {
+      return e.category == category;
+    });
   }
 
   function productSearchEvt(val) {
@@ -94,10 +75,20 @@
       // showProductList = false;
       curOptions = [
         {
-          name: "show categories",
+          name: "show list",
           type: 0,
           action: () => {
-            searchVal = "";
+            prodList = true;
+            curOptions = [
+              {
+                name: "show categories",
+                type: 0,
+                action: () => {
+                  prodList = false;
+                },
+              },
+            ];
+            // searchVal = "";
           },
         },
       ];
@@ -105,7 +96,10 @@
     }
 
     shownProducts = products.filter((e) => {
-      return e.product_name.toLowerCase().includes(val.toLowerCase());
+      return e.product_name
+        .toLowerCase()
+        .replace(/\s/g, "")
+        .includes(val.toLowerCase().replace(/\s/g, ""));
     });
 
     curOptions = [
@@ -126,7 +120,7 @@
   {#if menuType}
     <div
       in:fly={{ y: -100 }}
-      out:fly={{ x: 100, delay: 100 }}
+      out:fly={{ y: -100, delay: 100 }}
       class="w-full h-full absolute left-0 top-0 z-10 bg-white flex"
     >
       {#if menuType == "main"}
@@ -172,12 +166,39 @@
   {/if}
 
   <!-- Header -->
-  <Header {searchVal} {productSearchEvt} {MenuOpen} />
+  <Header {curProduct} {searchVal} {productSearchEvt} {MenuOpen} />
+
+  {#if curCategory && !curProduct && prodList}
+    <div class="p-1 px-4">
+      <div class="pr-2">
+        <div
+          style={`background-color: ${hexToRgba(ColorKey.find((e) => e.name == curCategory).color, 0.3)}`}
+          class="p-2 rounded-md float-left mr-1"
+        >
+          {curCategory}
+        </div>
+        <div class="gap-1 flex flex-1 overflow-y-auto pb-2 pl-1">
+          {#each Brands as brand}
+            <div
+              class={`${brand.name == curBrand ? "bg-slate-400" : "bg-slate-500"} text-nowrap cursor-pointer hover:bg-slate-400 rounded-md p-2`}
+              onclick={() => addBrand(brand.name)}
+            >
+              {brand.name}
+            </div>
+          {/each}
+        </div>
+      </div>
+    </div>
+  {/if}
 
   <div class="flex flex-1 overflow-y-auto">
-    {#if prodList}
-      <List {displayProduct} {shownProducts} {colorKey} />
-    {:else}categories{/if}
+    {#if curProduct !== null}
+      <Product {curOptions} {curProduct} />
+    {:else if prodList}
+      <List {curCategory} {displayProduct} {shownProducts} />
+    {:else}
+      <Categories {setCategory} />
+    {/if}
   </div>
   <!-- Content -->
 

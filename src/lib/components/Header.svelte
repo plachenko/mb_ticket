@@ -1,6 +1,6 @@
 <script>
   let imglink = $state("");
-  let { MenuOpen, productSearchEvt, searchVal } = $props();
+  let { curProduct, MenuOpen, productSearchEvt, searchVal } = $props();
 
   function checkKey(e) {
     e.preventDefault();
@@ -35,13 +35,17 @@
     </svg>
     <img src="mbstacked.png" class="h-6" />
   </div>
-  <div
-    contenteditable="true"
-    placeholder="Enter a product..."
-    onkeydown={checkKey}
-    bind:textContent={searchVal}
-    class="flex-1 text-nowrap inline-block overflow-hidden p-2 border rounded-md"
-  ></div>
+  {#if !curProduct}
+    <div
+      contenteditable="true"
+      placeholder="Enter a product..."
+      onkeydown={checkKey}
+      bind:textContent={searchVal}
+      class="flex-1 text-nowrap inline-block overflow-hidden p-2 border rounded-md"
+    ></div>
+  {:else}
+    <span class="flex-1 font-bold text-center">{curProduct?.product_name}</span>
+  {/if}
   <div
     onclick={() => {
       MenuOpen("shopping");

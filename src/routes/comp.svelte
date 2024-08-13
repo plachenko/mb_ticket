@@ -124,7 +124,7 @@
         curlinkInt++;
       }, 200);
       let brand = curProduct.brand_name.replace("Thin N' Trim", "tnt");
-      imglink = `/deli_imgs/${curProduct.type_of_product}/${curProduct.type_of_product}_${brand}_virginia.png`;
+      imglink = `/deli_imgs/${curProduct.category}/${curProduct.category}_${brand}_virginia.png`;
     } else {
       showNutritionInfo = false;
       showCurProduct = false;
@@ -189,7 +189,7 @@
 
     productTypes.add("on sale!");
     products.map((e) => {
-      productTypes.add(e.type_of_product);
+      productTypes.add(e.category);
     });
   });
 
@@ -240,7 +240,7 @@
       </div>
     {:else}
       <div class="w-full flex border-b gap-2 p-2 shrink">
-        <div class="flex-1">{curProduct.type_of_product}</div>
+        <div class="flex-1">{curProduct.category}</div>
         <div class="flex-1 text-center">{curProduct.brand_name}</div>
         <div class="flex-1 text-right text-slate-400">
           $<span class="border-dashed border-b-2">{curProduct.price}</span> / lb
@@ -405,7 +405,7 @@
                   {#if arrNum >= idx}
                     <div
                       onclick={() =>
-                        applyFilter({ type: "type_of_product", item: item })}
+                        applyFilter({ type: "category", item: item })}
                       transition:fly={{ y: 20 }}
                       class="bg-blue-400 absolute w-full rounded-md shadow flex h-full flex-col"
                     >
