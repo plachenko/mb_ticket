@@ -1,6 +1,7 @@
 <script>
   import { fly, fade } from "svelte/transition";
   import Header from "$lib/components/Header.svelte";
+  import Ticket from '$lib/components/Ticket.svelte';
   import Categories from "$lib/components/Categories.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import MainMenu from "$lib/components/MainMenu.svelte";
@@ -84,6 +85,10 @@
     });
   }
 
+  function setMenuType(type) {
+    menuType = type;
+  }
+
   function productSearchEvt(val) {
     if (!val) {
       shownProducts = products;
@@ -130,7 +135,7 @@
   }
 </script>
 
-<div class="h-full flex flex-col flex-1 pointer-none relative overflow-hidden">
+<div class="h-full flex flex-col flex-1 pointer-none relative overflow-hidden select-none">
   <!-- Top Menus -->
   {#if menuType}
     <div
@@ -145,39 +150,7 @@
       {:else if menuType == "curProduct"}
         <div>Current product</div>
       {:else if menuType == "ticket"}
-        <div
-          class="rel w-full"
-          in:fade={{}}
-          out:fade={{}}
-          onclick={() => {
-            menuType = null;
-          }}
-        >
-          <div class="h-full flex flex-row items-center">
-            <div
-              style="margin: 0 auto; align-content: center; align-items: center;"
-              class="flex-1 w-[45%] text-center gap-4 flex-col flex align-center"
-            >
-              <Time />
-              <!--
-              <div class="w-full border-b flex justify-center text-lg">
-                {dateTime}
-              </div>
--->
-              <img
-                style="box-shadow: rgb(255, 0, 0) 0px 0px 0px 4px;"
-                class="p-4 px-10 border-4 rounded-lg border-blue-500 s:w-[450px]"
-                src="mbstacked.png"
-              />
-              <div
-                style="margin: 0 auto"
-                class="animate-pulse p-4 border-4 border-red-300 shadow-md font-bold text-red-300 rounded-lg sm:text-[2em] text-center capitalize"
-              >
-                please tap to get ticket
-              </div>
-            </div>
-          </div>
-        </div>
+        <Ticket {setMenuType} />
       {/if}
     </div>
   {/if}
@@ -186,15 +159,15 @@
   <Header {curProduct} {searchVal} {productSearchEvt} {MenuOpen} />
 
   {#if curCategory && !curProduct && prodList}
-    <div class="p-1 px-4">
+    <div class="px-4">
       <div class="pr-2">
         <div
           style={`background-color: ${hexToRgba(ColorKey.find((e) => e.name == curCategory).color, 0.3)}`}
-          class="p-2 rounded-md float-left mr-1"
+          class="rounded-md float-left mr-1"
         >
           {curCategory}
         </div>
-        <div class="gap-1 flex flex-1 overflow-y-auto pb-2 pl-1">
+        <div class="gap-1 flex flex-1 overflow-y-auto pl-1">
           {#each Brands as brand}
             <div
               class={`${brand.name == curBrand ? "bg-slate-400" : "bg-slate-500"} text-nowrap cursor-pointer hover:bg-slate-400 rounded-md p-2`}

@@ -13,9 +13,9 @@
     <Time />
     <div
       onclick={() => {}}
-      class="h-20 rounded-md flex justify-center hover:bg-slate-100 cursor-pointer p-4 bg-slate-300 border border-slate-400 items-center"
+      class="rounded-md flex-1 flex justify-center hover:bg-slate-100 cursor-pointer p-4 bg-slate-300 border border-slate-400 items-center"
     >
-      <div class="flex justify-center w-full items-center">
+      <div class="flex justify-center w-full items-center flex-1">
         <div
           class="w-[20%] flex-1 flex border-r justify-center border-slate-400"
         >
@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="w-full gap-2 flex h-full">
+    <div class="w-full gap-2 flex flex-1">
       {#if order.items.length}
         <div
           class="rounded-md flex p-4 flex-1 cursor-pointer hover:bg-slate-100 bg-slate-300 border border-slate-400 justify-center items-center h-full"
@@ -90,7 +90,8 @@
       </div>
     </div>
     <div
-      class="h-20 rounded-md flex justify-center hover:bg-red-300 cursor-pointer p-4 bg-red-400 border border-red-600 items-center"
+      onclick={() => MenuOpen("ticket")}
+      class="flex-1 rounded-md flex justify-center hover:bg-red-300 cursor-pointer p-4 bg-red-400 border border-red-600 items-center"
     >
       <div class="w-[20%] flex-1 flex justify-center items-center">
         <svg
@@ -110,7 +111,6 @@
       </div>
 
       <span
-        onclick={() => MenuOpen("ticket")}
         class="text-white w-[80%] text-sm pl-2 ml-2 border-l border-white"
         >Cancel Order</span
       >
