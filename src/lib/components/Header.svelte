@@ -50,7 +50,7 @@
     onclick={() => {
       MenuOpen("shopping");
     }}
-    class="flex rounded-md border-slate-300 text-slate-400 items-center p-2 border justify-center relative"
+    class="flex rounded-md border-slate-300 text-slate-400 cursor-pointer hover:bg-slate-100 items-center p-2 border justify-center relative"
   >
     <div
       class="absolute rounded-full bg-red-300 text-white size-4 top-[-2px] right-[-9px] text-xs flex items-center justify-center"

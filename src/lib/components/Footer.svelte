@@ -24,6 +24,9 @@
       class={` ${opt.type == 1 ? "bg-green-500" : "bg-red-500"} text-white select-none cursor-pointer rounded flex-1 text-center p-1`}
     >
       {opt.name}
+      {#if opt.value}
+        (<span class="border-b border-dashed mx-1">${opt.value}</span>)
+      {/if}
     </div>
   {/each}
 </div>

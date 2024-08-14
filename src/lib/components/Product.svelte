@@ -4,61 +4,81 @@
   import Nutritional from "$lib/nutritional.svelte";
   import DeliCase from "./DeliCase.svelte";
 
-  let { curProduct, curOptions } = $props();
+  let { curProduct, setCurOptions } = $props();
   let imglink = $state(null);
   let showNutritionInfo = $state(false);
 
   let productLinks = $state([]);
+  let price = $state(0);
 
   let prodOpts = $state([
-    { name: "Amount", max: 10, value: 0 },
-    { name: "thickness", max: 2, value: 2 },
+    { name: "Thickness", min: 1, max: 12, value: 2 },
+    { name: "Amount", min: 1, max: 10, value: 0 },
   ]);
 
   onMount(() => {
-    curOptions = [
-      {
-        name: "test",
-        type: 0,
-        action: () => {},
-      },
-    ];
+    setCurOptions(price);
     imglink = `/deli_imgs/loaf/loaf_deutschmacher_liverwurst.png`;
     categories.filter((e) => {
       e.category == "ham";
     });
   });
+
+  function amtEvt() {
+    setCurOptions();
+  }
+
+  function thicknessEvt() {
+    setCurOptions();
+  }
 </script>
 
-<div class="w-full h-full flex">
-  <div class="w-[50%] border-r h-full flex items-center flex-col flex-1">
-    <DeliCase />
-
-    <div class="flex-1 flex w-full justify-center items-center">
-      {#if imglink}
-        <div
-          in:fly={{ x: -30 }}
-          class="bg-contain bg-top drop-shadow-lg sm:bg-center bg-no-repeat size-[70%] sm:size-80"
-          style={`background-image: url(${imglink})`}
-        />
-      {/if}
+<div class="w-full h-full flex flex-col">
+  <!--
+  <div class="w-full h-10">
+    <div class="bg-slate-200 p-2 rounded-md text-center w-full">More Info</div>
+  </div>
+-->
+  <!-- <DeliCase /> -->
+  <div class="w-full flex-1 flex">
+    <div class="w-[50%] border-r h-full flex items-center flex-col flex-1">
+      <div class="flex-1 flex w-full justify-center items-center">
+        {#if imglink}
+          <div
+            in:fly={{ x: -30 }}
+            class="bg-contain bg-top drop-shadow-lg sm:bg-center bg-no-repeat size-[70%] sm:size-80"
+            style={`background-image: url(${imglink})`}
+          />
+        {/if}
+      </div>
+    </div>
+    <div class="p-2 w-[50%] h-full overflow-auto">
+      {#each prodOpts as opt, idx}
+        <div class={`${idx ? "border-t" : ""}`}>
+          <div class="p-1 flex">
+            <div class="flex-1">{opt.name}</div>
+            <div>{opt.value}</div>
+          </div>
+          <input
+            min={opt.min}
+            max={opt.max}
+            bind:value={opt.value}
+            class="w-full"
+            type="range"
+          />
+        </div>
+      {/each}
+      <div class="border-t pt-2">
+        <select class="p-2 w-full" name="amount type">
+          <option value="">lb</option>
+          <option value="">slice</option>
+          <option value="">gram</option>
+        </select>
+      </div>
     </div>
   </div>
-  <div class="bg-blue-400 w-[50%] h-full">
-    {#each prodOpts as opt}<div class="border-t bg-red-300">
-        <div class="p-1 flex">
-          <div class="flex-1">{opt.name}</div>
-          <div>{opt.value}</div>
-        </div>
-        <input
-          max={opt.max}
-          bind:value={opt.value}
-          class="w-full"
-          type="range"
-        />
-      </div>
-    {/each}
-  </div>
+  <!--
+-->
   <!--
   <div class="flex flex-1">
     <div

@@ -21,6 +21,18 @@
   let shownProducts = $state([]);
   let curProduct = $state(null);
   let curBrand = $state(null);
+  let curOptions = $state([
+    {
+      name: "cancel",
+      type: -1,
+      action: () => {},
+    },
+    {
+      name: "add to order",
+      type: 1,
+      action: () => {},
+    },
+  ]);
 
   onMount(() => {
     setInterval(() => {
@@ -34,24 +46,27 @@
     curBrand = brand;
   }
 
+  function setCurOptions() {
+    curOptions = [
+      {
+        name: "cancel",
+        type: -1,
+        action: () => {},
+      },
+      {
+        name: "add to order",
+        type: 1,
+        value: "3.99",
+        action: () => {},
+      },
+    ];
+  }
+
   function displayProduct(product) {
     curProduct = product;
   }
 
   let searchVal = $state("");
-
-  let curOptions = $state([
-    {
-      name: "cancel",
-      type: -1,
-      action: () => {},
-    },
-    {
-      name: "add to order",
-      type: 1,
-      action: () => {},
-    },
-  ]);
 
   let menuType = $state("ticket");
   let curCategory = $state(null);
@@ -132,6 +147,8 @@
       {:else if menuType == "ticket"}
         <div
           class="rel w-full"
+          in:fade={{}}
+          out:fade={{}}
           onclick={() => {
             menuType = null;
           }}
@@ -193,7 +210,7 @@
 
   <div class="flex flex-1 overflow-y-auto">
     {#if curProduct !== null}
-      <Product {curOptions} {curProduct} />
+      <Product {setCurOptions} {curProduct} />
     {:else if prodList}
       <List {curCategory} {displayProduct} {shownProducts} />
     {:else}
