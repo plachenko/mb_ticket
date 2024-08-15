@@ -11,17 +11,83 @@
   let productLinks = $state([]);
   let price = $state(0);
 
+  let curAmtType = $state(0);
+
   let prodOpts = $state([
-    { name: "Thickness", min: 1, max: 12, value: 2 },
-    { name: "Amount", min: 1, max: 10, value: 0 },
+    {
+      name: "Thickness",
+      min: 0,
+      max: 12,
+      value: 2,
+    },
+    {
+      name: "Amount",
+      min: 0,
+      max: 20,
+      value: 0,
+    },
+  ]);
+
+  let fracArr = [
+    {
+      amt: "1/4",
+      value: 1 / 4,
+      label: "quarter of a pound",
+    },
+    {
+      amt: "1/3",
+      value: 1 / 3,
+      label: "third of a pound",
+    },
+    {
+      amt: "2/4",
+      value: 2 / 4,
+      label: "half a pound",
+    },
+    {
+      amt: "2/3",
+      value: 2 / 3,
+      label: "two thirds of a pound",
+    },
+    {
+      amt: "3/4",
+      value: 3 / 4,
+      label: "3 quarters of a pound",
+    },
+    {
+      amt: "",
+    },
+  ];
+
+  let sliceTypes = ["shredded", "shaved", "thin", "normal", "thick"];
+
+  let curSliceType = $state(0);
+  let AmtType = $state([
+    {
+      label: "lbs",
+      type: "pounds",
+    },
+    {
+      type: "metric",
+      label: "grams",
+    },
+    {
+      type: "slice",
+      label: "slices",
+    },
   ]);
 
   onMount(() => {
-    setCurOptions(price);
+    console.log(curProduct.price, fracArr[1].value);
+    setCurOptions(
+      (curProduct.price * fracArr[prodOpts[1].value % 6].value).toFixed(2),
+    );
     imglink = `/deli_imgs/loaf/loaf_deutschmacher_liverwurst.png`;
+    /*
     categories.filter((e) => {
       e.category == "ham";
     });
+    */
   });
 
   function amtEvt() {
@@ -31,13 +97,20 @@
   function thicknessEvt() {
     setCurOptions();
   }
+
+  function inputChange(field) {
+    console.log("hi");
+    setCurOptions(
+      (curProduct.price * fracArr[prodOpts[1].value % 6].value).toFixed(2),
+    );
+  }
 </script>
 
 <div class="w-full h-full flex flex-col">
   <!--
   <div class="w-full h-10">
+</div>
     <div class="bg-slate-200 p-2 rounded-md text-center w-full">More Info</div>
-  </div>
 -->
   <!-- <DeliCase /> -->
   <div class="w-full flex-1 flex">
@@ -52,28 +125,71 @@
         {/if}
       </div>
     </div>
-    <div class="p-2 w-[50%] h-full overflow-auto">
-      {#each prodOpts as opt, idx}
-        <div class={`${idx ? "border-t" : ""}`}>
-          <div class="p-1 flex">
-            <div class="flex-1">{opt.name}</div>
-            <div>{opt.value}</div>
+    <div class="p-2 w-[50%] h-full overflow-auto gap-2 flex flex-col relative">
+      <div class="absolute flex flex-col gap-2 pr-2">
+        {#each prodOpts as opt, idx}
+          <div class={`${idx ? "border-t" : ""}`}>
+            <div class="p-1 flex">
+              <div class="flex-1">
+                {opt.name}
+              </div>
+              <div>
+                {#if curAmtType == 0 && opt.name == "Amount"}
+                  <span>
+                    {#if Math.floor(opt.value / 5)}
+                      {Math.floor(opt.value / 5)}
+                    {/if}
+                  </span>
+                  <span class="diagonal-fractions">
+                    {fracArr[opt.value % 5].amt}
+                  </span>
+                {:else}
+                  <span>
+                    {opt.value}
+                  </span>
+                {/if}
+                {opt.name == "Amount"
+                  ? AmtType[curAmtType].label
+                  : sliceTypes[opt.value]}
+              </div>
+            </div>
+            <div class="flex gap-2">
+              {#if idx == 1}
+                <div
+                  class="border rounded-md px-3 cursor-pointer hover:bg-slate-200"
+                >
+                  -
+                </div>
+              {/if}
+              <input
+                min={opt.min}
+                max={opt.max}
+                oninput={() => inputChange(opt.name)}
+                bind:value={opt.value}
+                class="w-full"
+                type="range"
+              />
+              {#if idx == 1}
+                <div
+                  class="border rounded-md px-3 cursor-pointer hover:bg-slate-200"
+                >
+                  +
+                </div>
+              {/if}
+            </div>
           </div>
-          <input
-            min={opt.min}
-            max={opt.max}
-            bind:value={opt.value}
-            class="w-full"
-            type="range"
-          />
+        {/each}
+        <div class="border-t pt-2">
+          <select
+            bind:value={curAmtType}
+            class="p-2 w-full pr-4 border-r-[10px] border-slate-100 bg-slate-100"
+            name="amount type"
+          >
+            {#each AmtType as type, idx}
+              <option value={idx}>{type.label}</option>
+            {/each}
+          </select>
         </div>
-      {/each}
-      <div class="border-t pt-2">
-        <select class="p-2 w-full" name="amount type">
-          <option value="">lb</option>
-          <option value="">slice</option>
-          <option value="">gram</option>
-        </select>
       </div>
     </div>
   </div>

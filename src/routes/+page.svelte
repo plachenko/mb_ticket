@@ -1,7 +1,7 @@
 <script>
   import { fly, fade } from "svelte/transition";
   import Header from "$lib/components/Header.svelte";
-  import Ticket from '$lib/components/Ticket.svelte';
+  import Ticket from "$lib/components/Ticket.svelte";
   import Categories from "$lib/components/Categories.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import MainMenu from "$lib/components/MainMenu.svelte";
@@ -47,7 +47,7 @@
     curBrand = brand;
   }
 
-  function setCurOptions() {
+  function setCurOptions(value) {
     curOptions = [
       {
         name: "cancel",
@@ -57,7 +57,7 @@
       {
         name: "add to order",
         type: 1,
-        value: "3.99",
+        value: value,
         action: () => {},
       },
     ];
@@ -135,7 +135,9 @@
   }
 </script>
 
-<div class="h-full flex flex-col flex-1 pointer-none relative overflow-hidden select-none">
+<div
+  class="h-full flex flex-col flex-1 pointer-none relative overflow-hidden select-none"
+>
   <!-- Top Menus -->
   {#if menuType}
     <div
@@ -160,14 +162,14 @@
 
   {#if curCategory && !curProduct && prodList}
     <div class="px-4">
-      <div class="pr-2">
+      <div class="p-1">
         <div
           style={`background-color: ${hexToRgba(ColorKey.find((e) => e.name == curCategory).color, 0.3)}`}
-          class="rounded-md float-left mr-1"
+          class="rounded-md p-2 float-left mr-1"
         >
           {curCategory}
         </div>
-        <div class="gap-1 flex flex-1 overflow-y-auto pl-1">
+        <div class="gap-1 flex pb-2 flex-1 overflow-y-auto pl-1">
           {#each Brands as brand}
             <div
               class={`${brand.name == curBrand ? "bg-slate-400" : "bg-slate-500"} text-nowrap cursor-pointer hover:bg-slate-400 rounded-md p-2`}
