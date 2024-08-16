@@ -43,6 +43,11 @@
     shownProducts = products;
   });
 
+  let curbrand = $state(null);
+  function setBrand(brandIdx) {
+    curbrand = brandIdx;
+  }
+
   function addBrand(brand) {
     curBrand = brand;
   }
@@ -58,7 +63,9 @@
         name: "add to order",
         type: 1,
         value: value,
-        action: () => {},
+        action: () => {
+          curProduct = null;
+        },
       },
     ];
   }
@@ -88,6 +95,8 @@
   function setMenuType(type) {
     menuType = type;
   }
+
+  let brandList = $state([]);
 
   function productSearchEvt(val) {
     if (!val) {
@@ -160,14 +169,42 @@
   <!-- Header -->
   <Header {curProduct} {searchVal} {productSearchEvt} {MenuOpen} />
 
-  {#if curCategory && !curProduct && prodList}
-    <div class="px-4">
+  <div class="flex flex-1 overflow-y-auto">
+    {#if curProduct !== null}
+      <Product {setCurOptions} {curProduct} />
+    {:else if prodList}
+      {#if curCategory && !curProduct && prodList}
+        <div class=" w-[35%] p-1 border-r">
+          <div class="border-b box-shadow pb-1 border-slate-400">
+            <div
+              style={`background-color: ${hexToRgba(ColorKey.find((e) => e.name == curCategory).color, 0.3)}`}
+              class="w-full rounded-md text-center p-1"
+            >
+              {curCategory}
+            </div>
+          </div>
+          <div class="relative overflow-y-auto h-full w-full">
+            <div class="absolute top-0 left-0 w-full">
+              {#each brandList as brand, idx}
+                <div
+                  href={"#" + brand}
+                  onclick={() => setBrand(idx)}
+                  class={`my-1 w-full text-xs bg-slate-200 rounded-md p-2 ${idx == curbrand ? "text-white bg-slate-400" : ""}`}
+                >
+                  {brand}
+                </div>
+              {/each}
+            </div>
+          </div>
+          <!--
       <div class="p-1">
-        <div
-          style={`background-color: ${hexToRgba(ColorKey.find((e) => e.name == curCategory).color, 0.3)}`}
-          class="rounded-md p-2 float-left mr-1"
-        >
-          {curCategory}
+        <div class="bg-red-400 border-r pr-2">
+          <div
+            style={`background-color: ${hexToRgba(ColorKey.find((e) => e.name == curCategory).color, 0.3)}`}
+            class="rounded-md p-2 float-left mr-1"
+          >
+            {curCategory}
+          </div>
         </div>
         <div class="gap-1 flex pb-2 flex-1 overflow-y-auto pl-1">
           {#each Brands as brand}
@@ -180,14 +217,18 @@
           {/each}
         </div>
       </div>
-    </div>
-  {/if}
-
-  <div class="flex flex-1 overflow-y-auto">
-    {#if curProduct !== null}
-      <Product {setCurOptions} {curProduct} />
-    {:else if prodList}
-      <List {curCategory} {displayProduct} {shownProducts} />
+-->
+        </div>
+      {/if}
+      <div class="relative w-full overflow-y-auto">
+        <List
+          {brandList}
+          {curbrand}
+          {curCategory}
+          {displayProduct}
+          {shownProducts}
+        />
+      </div>
     {:else}
       <Categories {setCategory} />
     {/if}

@@ -76,6 +76,7 @@
       label: "slices",
     },
   ]);
+  let thickShow = $state(false);
 
   onMount(() => {
     console.log(curProduct.price, fracArr[1].value);
@@ -83,6 +84,7 @@
       (curProduct.price * fracArr[prodOpts[1].value % 6].value).toFixed(2),
     );
     imglink = `/deli_imgs/loaf/loaf_deutschmacher_liverwurst.png`;
+    thickShow = true;
     /*
     categories.filter((e) => {
       e.category == "ham";
@@ -99,14 +101,21 @@
   }
 
   function inputChange(field) {
-    console.log("hi");
+    thickShow = false;
+    setTimeout(() => {
+      thickShow = true;
+    }, 30);
     setCurOptions(
       (curProduct.price * fracArr[prodOpts[1].value % 6].value).toFixed(2),
     );
   }
 </script>
 
-<div class="w-full h-full flex flex-col">
+<div
+  in:fly={{ x: -100 }}
+  out:fly={{ x: -100 }}
+  class="w-full h-full flex flex-col"
+>
   <!--
   <div class="w-full h-10">
 </div>
@@ -148,19 +157,14 @@
                     {opt.value}
                   </span>
                 {/if}
-                {opt.name == "Amount"
-                  ? AmtType[curAmtType].label
-                  : sliceTypes[opt.value]}
+                <span>
+                  {opt.name == "Amount"
+                    ? AmtType[curAmtType].label
+                    : sliceTypes[opt.value]}
+                </span>
               </div>
             </div>
             <div class="flex gap-2">
-              {#if idx == 1}
-                <div
-                  class="border rounded-md px-3 cursor-pointer hover:bg-slate-200"
-                >
-                  -
-                </div>
-              {/if}
               <input
                 min={opt.min}
                 max={opt.max}
@@ -170,16 +174,36 @@
                 type="range"
               />
               {#if idx == 1}
+                <select
+                  bind:value={curAmtType}
+                  class="p-1 w-[10] pr-4 border-r-[5px] text-center rounded-md border-slate-100 bg-slate-100"
+                  name="amount type"
+                >
+                  {#each AmtType as type, idx}
+                    <option value={idx}>{type.label}</option>
+                  {/each}
+                </select>
+                <!--
                 <div
                   class="border rounded-md px-3 cursor-pointer hover:bg-slate-200"
                 >
-                  +
+                  other
                 </div>
+-->
               {/if}
             </div>
           </div>
         {/each}
-        <div class="border-t pt-2">
+        <div class="border-t pt-2 relative">
+          <div class="flex justify-center absolute top-[-8px] w-full">
+            <div class="bg-white rounded-md px-2 text-xs">or</div>
+          </div>
+          <div
+            class="py-1 text-center border rounded-md cursor-pointer hover:bg-slate-200"
+          >
+            special order
+          </div>
+          <!--
           <select
             bind:value={curAmtType}
             class="p-2 w-full pr-4 border-r-[10px] border-slate-100 bg-slate-100"
@@ -189,6 +213,7 @@
               <option value={idx}>{type.label}</option>
             {/each}
           </select>
+-->
         </div>
       </div>
     </div>
