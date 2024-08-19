@@ -21,7 +21,7 @@
   let prodList = $state(false);
   let shownProducts = $state([]);
   let curProduct = $state(null);
-  let curBrand = $state(null);
+  let curBrand = $state(0);
   let curOptions = $state([
     {
       name: "cancel",
@@ -43,7 +43,7 @@
     shownProducts = products;
   });
 
-  let curbrand = $state(null);
+  let curbrand = $state(0);
   function setBrand(brandIdx) {
     curbrand = brandIdx;
   }
@@ -90,6 +90,15 @@
     shownProducts = products.filter((e) => {
       return e.category == category;
     });
+  }
+
+  function checkBrandNum(brandName) {
+    let brandFilter = [];
+    brandFilter = shownProducts.filter((e) => {
+      return e.brand_name == brandName;
+    });
+
+    return brandFilter.length;
   }
 
   function setMenuType(type) {
@@ -174,7 +183,8 @@
       <Product {setCurOptions} {curProduct} />
     {:else if prodList}
       {#if curCategory && !curProduct && prodList}
-        <div class=" w-[35%] p-1 border-r">
+        <div class=" w-[35%] p-1 border-r relative">
+          <!--
           <div class="border-b box-shadow pb-1 border-slate-400">
             <div
               style={`background-color: ${hexToRgba(ColorKey.find((e) => e.name == curCategory).color, 0.3)}`}
@@ -183,15 +193,34 @@
               {curCategory}
             </div>
           </div>
+-->
+          <div
+            class="absolute left-0 top-0 bg-white z-[99] shadow border-b w-full flex justify-center p-1"
+          >
+            <div
+              style={`background-color: ${hexToRgba(ColorKey.find((e) => e.name == curCategory).color, 0.3)}`}
+              class="w-full rounded-md text-center p-1"
+            >
+              {curCategory}
+            </div>
+          </div>
           <div class="relative overflow-y-auto h-full w-full">
-            <div class="absolute top-0 left-0 w-full">
+            <div class="absolute top-0 left-0 w-full pt-[40px]">
               {#each brandList as brand, idx}
                 <div
                   href={"#" + brand}
                   onclick={() => setBrand(idx)}
                   class={`my-1 w-full text-xs bg-slate-200 rounded-md p-2 ${idx == curbrand ? "text-white bg-slate-400" : ""}`}
                 >
-                  {brand}
+                  <div class="w-full clear-both h-[15px]">
+                    <div class="truncate text-nowrap w-[80%] float-left">
+                      {brand}
+                    </div>
+                    <span
+                      class={`float-right border-l pl-1 ${idx == curbrand ? "border-white" : "border-slate-500"}`}
+                      >{checkBrandNum(brand)}</span
+                    >
+                  </div>
                 </div>
               {/each}
             </div>

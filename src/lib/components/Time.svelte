@@ -32,7 +32,7 @@
 </script>
 
 <div
-  class="flex pb-2 flex-col text-slate-400 border-b-2 align-center relative w-full"
+  class="flex py-2 flex-col text-slate-400 border-b-2 align-center relative w-full"
 >
   <!--
   <div class="bg-red-400 w-full h-[5px] absolute bottom-[-5px]">

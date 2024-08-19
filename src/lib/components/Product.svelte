@@ -123,7 +123,7 @@
 -->
   <!-- <DeliCase /> -->
   <div class="w-full flex-1 flex">
-    <div class="w-[50%] border-r h-full flex items-center flex-col flex-1">
+    <div class="flex-1 border-r h-full flex items-center flex-col flex-1">
       <div class="flex-1 flex w-full justify-center items-center">
         {#if imglink}
           <div
@@ -134,8 +134,8 @@
         {/if}
       </div>
     </div>
-    <div class="p-2 w-[50%] h-full overflow-auto gap-2 flex flex-col relative">
-      <div class="absolute flex flex-col gap-2 pr-2">
+    <div class="p-2 flex-1 h-full overflow-auto gap-2 flex flex-col relative">
+      <div class="absolute flex flex-col gap-2 pl-2 pr-4 w-full">
         {#each prodOpts as opt, idx}
           <div class={`${idx ? "border-t" : ""}`}>
             <div class="p-1 flex">
@@ -164,7 +164,7 @@
                 </span>
               </div>
             </div>
-            <div class="flex gap-2">
+            <div class="flex gap-2 w-full">
               <input
                 min={opt.min}
                 max={opt.max}

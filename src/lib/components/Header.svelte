@@ -1,6 +1,7 @@
 <script>
   let imglink = $state("");
   let { curProduct, MenuOpen, productSearchEvt, searchVal } = $props();
+  import { fly } from "svelte/transition";
 
   function checkKey(e) {
     e.preventDefault();
@@ -14,7 +15,7 @@
   });
 </script>
 
-<div class="border-b flex gap-2 px-2 py-2 items-center">
+<div in:fly={{ y: -100 }} class="border-b flex gap-2 px-2 py-2 items-center">
   <div
     class="rounded-md p-2 border border-slate-300 flex gap-2 cursor-pointer hover:bg-slate-100"
     onclick={() => MenuOpen("main")}

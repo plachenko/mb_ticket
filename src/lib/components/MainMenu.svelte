@@ -5,7 +5,7 @@
 </script>
 
 <div
-  class="flex flex-1 items-center justify-center flex-col gap-6 landscape:p-4 landscape:flex-row"
+  class="flex flex-1 items-center justify-center flex-col gap-6 p-4 landscape:flex-row"
 >
   <img src="mbstacked.png" class="h-10" />
 
@@ -110,8 +110,7 @@
         </svg>
       </div>
 
-      <span
-        class="text-white w-[80%] text-sm pl-2 ml-2 border-l border-white"
+      <span class="text-white w-[80%] text-sm pl-2 ml-2 border-l border-white"
         >Cancel Order</span
       >
     </div>
