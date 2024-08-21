@@ -18,14 +18,14 @@
     <div class="h-[40px] w-full flex justify-center items-center">
       <Time />
     </div>
-    <div class="h-full w-full flex justify-center p-[10px] items-center">
+    <div class="flex-1 flex justify-center p-[10px] items-center">
       <img
         style="box-shadow: rgb(255, 0, 0) 0px 0px 0px 4px;"
         class="p-4 px-10 border-4 rounded-lg border-blue-500 h-[150px]"
         src="mbstacked.png"
       />
     </div>
-    <div class="p-2 pb-4 flex-1 flex justify-center items-center">
+    <div class="p-2 pb-4 flex-1 max-h-[350px] flex justify-center items-center">
       <div
         class="p-2 animate-pulse border-4 bg-white border-red-300 shadow-md font-bold text-red-300 rounded-lg text-[1.5em] text-center capitalize"
       >

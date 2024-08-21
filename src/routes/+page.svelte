@@ -49,13 +49,12 @@
       }
     });
 
-    console.log(deliItems);
 
     saleProducts = deliItems.map((e) => {
       return {
         product_name: e.node.title[0].value,
         brand_name: e.node.field_brand[0]?.url.substring(1),
-        price: e.node.field_deal_pricing[0].value,
+        price: e.node.field_deal_pricing[0].value.replace(' lb.', ' '),
         deal: e.node.field_save_deal_language[0]?.value,
       };
     });
@@ -114,9 +113,7 @@
     destroyCategories = true;
 
     curCategory = category;
-    prodList = true;
-
-    console.log(saleProducts);
+    prodList = true
 
     if (curCategory == "on sale!") {
       shownProducts = saleProducts;
@@ -241,7 +238,7 @@
             class="absolute left-0 top-0 bg-white z-[99] shadow border-b w-full h-full flex gap-1 flex-col justify-center p-1"
           >
             <div
-              style={`background-color: ${hexToRgba(ColorKey.find((e) => e.name == curCategory).color, 0.3)}`}
+              style={`background-color: ${hexToRgba(ColorKey.find((e) => e.name == curCategory).color, 0.3) || '#000'}`}
               class="w-full rounded-md text-center p-1"
             >
               {curCategory}

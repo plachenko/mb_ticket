@@ -25,9 +25,13 @@
 
     // observer.observe(document.querySelector(".brandHeading"));
   });
+
   $effect(() => {
     if (curbrand !== null) {
-      document.getElementById("current").scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => {
+
+        document.getElementById("current").scrollIntoView({ behavior: "smooth" });
+      }, 10);
     }
   });
 </script>
@@ -41,16 +45,16 @@
 <div id="listContainer" class="h-full w-full absolute">
   {#if shownProducts.length}
     {#each brandList as brand, idx}
-      <div class="[&:last-child]:h-full">
+      <div class="[&:last-child]:h-full relative">
         <div
-          id={idx == curbrand ? "current" : ""}
-          class={`brandHeading ${idx == curbrand ? "bg-slate-400 text-white" : "bg-slate-200 text-slate-500"} border-b text-center border-slate-500 p-2`}
+          class={`brandHeading ${idx == curbrand ? "bg-slate-400 text-white" : "bg-slate-200 text-slate-500"} sticky top-0 border-b text-center border-slate-500 p-2`}
         >
           {brand}
         </div>
+        <div id={(idx == curbrand) ? "current" : ""} class="absolute top-[0px]"></div>
         {#each shownProducts.filter((e) => {
           return e.brand_name == brand;
-        }) as product}
+        }) as product, pIdx}
           <div
             class="[&:not(:first-child)]:border-t py-3 pl-2 flex gap-2 hover:bg-slate-100 cursor-pointer"
             onclick={() => displayProduct(product)}
@@ -61,7 +65,7 @@
             </div>
             <div>
               <span
-                style={`color: ${ColorKey.find((e) => e.name == product.category).color}`}
+                style={`color: ${ColorKey.find((e) => e.name == product.category)?.color || '#000'}`}
               >
                 {product.product_name}
               </span>
