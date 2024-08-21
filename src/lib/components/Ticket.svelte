@@ -25,7 +25,7 @@
         src="mbstacked.png"
       />
     </div>
-    <div class="p-1 flex-1 flex justify-center items-center">
+    <div class="p-2 pb-4 flex-1 flex justify-center items-center">
       <div
         class="p-2 animate-pulse border-4 bg-white border-red-300 shadow-md font-bold text-red-300 rounded-lg text-[1.5em] text-center capitalize"
       >

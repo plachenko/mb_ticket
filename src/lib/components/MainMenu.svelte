@@ -5,7 +5,7 @@
 </script>
 
 <div
-  class="flex flex-1 items-center justify-center flex-col gap-6 p-4 landscape:flex-row"
+  class="z-[20] flex flex-1 items-center justify-center flex-col gap-6 p-4 landscape:flex-row"
 >
   <img src="mbstacked.png" class="h-10" />
 

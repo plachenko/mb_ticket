@@ -134,9 +134,12 @@
         {/if}
       </div>
     </div>
-    <div class="p-2 flex-1 h-full overflow-auto gap-2 flex flex-col relative">
-      <div class="absolute flex flex-col gap-2 pl-2 pr-4 w-full">
+    <div
+      class="flex-1 h-full overflow-y-auto overflow-x-hidden gap-2 flex flex-col relative"
+    >
+      <div class="absolute flex flex-col w-full h-full">
         {#each prodOpts as opt, idx}
+          <!--
           <div class={`${idx ? "border-t" : ""}`}>
             <div class="p-1 flex">
               <div class="flex-1">
@@ -183,18 +186,37 @@
                     <option value={idx}>{type.label}</option>
                   {/each}
                 </select>
-                <!--
-                <div
-                  class="border rounded-md px-3 cursor-pointer hover:bg-slate-200"
-                >
-                  other
-                </div>
--->
               {/if}
             </div>
           </div>
+-->
+          <div class="p-2 border-b">
+            <div class="flex flex-1 w-full items-center">
+              <span class="text-sm font-bold flex-1">
+                {opt.name}
+              </span>
+              <span class="float-right flex-1 text-right text-sm"
+                >{opt.value}</span
+              >
+            </div>
+            <div>
+              <input
+                min={opt.min}
+                max={opt.max}
+                oninput={() => inputChange(opt.name)}
+                bind:value={opt.value}
+                class="w-full"
+                type="range"
+              />
+            </div>
+          </div>
         {/each}
-        <div class="border-t pt-2 relative">
+
+        <div class="relative p-2 items-end flex flex-1">
+          <div class="border-2 rounded-md text-center p-2 w-full">
+            Add Instructions
+          </div>
+          <!--
           <div class="flex justify-center absolute top-[-8px] w-full">
             <div class="bg-white rounded-md px-2 text-xs">or</div>
           </div>
@@ -203,6 +225,7 @@
           >
             special order
           </div>
+-->
           <!--
           <select
             bind:value={curAmtType}

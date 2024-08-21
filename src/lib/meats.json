@@ -146,7 +146,7 @@
   {
     "product_name": "Genoa Salami",
     "price": "4.99",
-    "category": "italian meat",
+    "category": "italian",
     "brand_name": "Carando"
   },
   {
@@ -308,7 +308,7 @@
   {
     "product_name": "Pepper Salami",
     "price": "12.99",
-    "category": "italian meat",
+    "category": "italian",
     "brand_name": "Columbus"
   },
   {
@@ -374,20 +374,19 @@
   {
     "product_name": "Sopressata",
     "price": "12.99",
-    "category": "italian meat",
+    "category": "italian",
     "brand_name": "Columbus"
   },
   {
     "product_name": "Hard Salami",
     "price": "5.99",
-    "category": "italian meat",
+    "category": "italian",
     "brand_name": "Carando"
   },
   {
     "product_name": "Pepperoni Salami",
     "price": "5.99",
-    "category": "italian meat",
+    "category": "italian",
     "brand_name": "Carando"
   }
 ]
-

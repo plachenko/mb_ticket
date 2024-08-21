@@ -3,7 +3,7 @@
   import { fly } from "svelte/transition";
   import { hexToRgba } from "$lib/ColorUtils";
   let arrNum = $state(0);
-  let { setCategory } = $props();
+  let { setCategory, showCategories, destroyCategories } = $props();
   let categories = $state([
     {
       name: "on sale!",
@@ -45,6 +45,25 @@
 
   let catTicker = $state(null);
 
+  $effect(() => {
+    if (destroyCategories) {
+      console.log("calling from effect");
+      catDestroy();
+      destroyCategories = false;
+    }
+  });
+
+  function catDestroy() {
+    catTicker = setInterval(() => {
+      if (arrNum > -1) {
+        arrNum--;
+      } else {
+        clearInterval(catTicker);
+        catTicker = null;
+      }
+    }, 200);
+  }
+
   onMount(() => {
     catTicker = setInterval(() => {
       if (arrNum < categories.length - 1) {
@@ -53,7 +72,7 @@
         clearInterval(catTicker);
         catTicker = null;
       }
-    }, 200);
+    }, 180);
   });
 
   function applyFilter() {}
@@ -70,6 +89,7 @@
           class={`justify-center absolute w-full items-center ${idx == 0 ? "animate-pulse" : ""} h-full rounded-md flex flex-1`}
           style={`background: ${hexToRgba(item.color, 0.3)}`}
           in:fly={{ y: 10 }}
+          out:fly={{ y: 10 }}
         >
           {item.name}
         </div>

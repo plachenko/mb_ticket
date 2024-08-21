@@ -51,7 +51,7 @@
       color: "#8B4513",
     },
     {
-      name: "italian meat",
+      name: "italian",
       color: "#A52A2A",
     },
     {

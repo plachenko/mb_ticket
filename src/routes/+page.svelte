@@ -7,6 +7,7 @@
   import MainMenu from "$lib/components/MainMenu.svelte";
   import OrderList from "$lib/components/OrderList.svelte";
   import { hexToRgba } from "$lib/ColorUtils";
+  import weeklyFlyer from "$lib/weekly-flyer-rest.json";
 
   import Brands from "$lib/Brands.json";
 
@@ -18,7 +19,10 @@
   import Product from "$lib/components/Product.svelte";
   import ColorKey from "$lib/ColorKey.json";
 
+  let showCategories = $state(false);
+  let destroyCategories = $state(false);
   let prodList = $state(false);
+  let catEl = $state(null);
   let shownProducts = $state([]);
   let curProduct = $state(null);
   let curBrand = $state(0);
@@ -35,7 +39,27 @@
     },
   ]);
 
+  let flyerItems = weeklyFlyer[0].field_flyer_item;
+  let saleProducts = $state([]);
+
   onMount(() => {
+    let deliItems = flyerItems.filter((e) => {
+      if (e.node.field_department[0].url == "/deli") {
+        return e;
+      }
+    });
+
+    console.log(deliItems);
+
+    saleProducts = deliItems.map((e) => {
+      return {
+        product_name: e.node.title[0].value,
+        brand_name: e.node.field_brand[0]?.url.substring(1),
+        price: e.node.field_deal_pricing[0].value,
+        deal: e.node.field_save_deal_language[0]?.value,
+      };
+    });
+
     setInterval(() => {
       // dateTime = formatDate();
     }, 1000);
@@ -84,12 +108,24 @@
   }
 
   function setCategory(category) {
-    console.log("category set...", category);
+    // console.log("category set...", category, saleProducts);
+
+    // console.log(catEl);
+    destroyCategories = true;
+
     curCategory = category;
     prodList = true;
-    shownProducts = products.filter((e) => {
-      return e.category == category;
-    });
+
+    console.log(saleProducts);
+
+    if (curCategory == "on sale!") {
+      shownProducts = saleProducts;
+    } else {
+      shownProducts = products.filter((e) => {
+        return e.category == category;
+      });
+      console.log(shownProducts);
+    }
   }
 
   function checkBrandNum(brandName) {
@@ -103,6 +139,10 @@
 
   function setMenuType(type) {
     menuType = type;
+    console.log("setting menu", type);
+    if (type == null) {
+      showCategories = true;
+    }
   }
 
   let brandList = $state([]);
@@ -151,6 +191,9 @@
       },
     ];
   }
+
+  let prodTypes = ["All"];
+  let curType = 0;
 </script>
 
 <div
@@ -195,7 +238,7 @@
           </div>
 -->
           <div
-            class="absolute left-0 top-0 bg-white z-[99] shadow border-b w-full flex justify-center p-1"
+            class="absolute left-0 top-0 bg-white z-[99] shadow border-b w-full h-full flex gap-1 flex-col justify-center p-1"
           >
             <div
               style={`background-color: ${hexToRgba(ColorKey.find((e) => e.name == curCategory).color, 0.3)}`}
@@ -203,28 +246,37 @@
             >
               {curCategory}
             </div>
-          </div>
-          <div class="relative overflow-y-auto h-full w-full">
-            <div class="absolute top-0 left-0 w-full pt-[40px]">
-              {#each brandList as brand, idx}
-                <div
-                  href={"#" + brand}
-                  onclick={() => setBrand(idx)}
-                  class={`my-1 w-full text-xs bg-slate-200 rounded-md p-2 ${idx == curbrand ? "text-white bg-slate-400" : ""}`}
-                >
-                  <div class="w-full clear-both h-[15px]">
-                    <div class="truncate text-nowrap w-[80%] float-left">
-                      {brand}
-                    </div>
-                    <span
-                      class={`float-right border-l pl-1 ${idx == curbrand ? "border-white" : "border-slate-500"}`}
-                      >{checkBrandNum(brand)}</span
+            <div
+              class="cursor-pointer hover:bg-slate-200 bg-slate-300 rounded-md p-1 text-center"
+            >
+              Type: {prodTypes[curType]}
+            </div>
+            <div class="h-full w-full">
+              <div class="relative overflow-y-auto h-full w-full">
+                <div class="absolute top-0 left-0 w-full">
+                  {#each brandList as brand, idx}
+                    <div
+                      href={"#" + brand}
+                      onclick={() => setBrand(idx)}
+                      class={`my-1 w-full cursor-pointer text-xs bg-slate-200 rounded-md p-2 ${idx == curbrand ? "text-white bg-slate-400" : "hover:bg-slate-100 "}`}
                     >
-                  </div>
+                      <div class="w-full clear-both h-[15px]">
+                        <div class="truncate text-nowrap w-[80%] float-left">
+                          {brand}
+                        </div>
+                        <span
+                          class={`float-right border-l pl-1 ${idx == curbrand ? "border-white" : "border-slate-500"}`}
+                          >{checkBrandNum(brand)}</span
+                        >
+                      </div>
+                    </div>
+                  {/each}
                 </div>
-              {/each}
+              </div>
             </div>
           </div>
+          <!--
+-->
           <!--
       <div class="p-1">
         <div class="bg-red-400 border-r pr-2">
@@ -258,8 +310,8 @@
           {shownProducts}
         />
       </div>
-    {:else}
-      <Categories {setCategory} />
+    {:else if showCategories}
+      <Categories {destroyCategories} {setCategory} />
     {/if}
   </div>
   <!-- Content -->

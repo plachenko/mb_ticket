@@ -6,6 +6,7 @@
     $props();
 
   onMount(() => {
+    /*
     let observer = new IntersectionObserver(
       (e, ob) => {
         console.log("intersecting", e, ob);
@@ -14,6 +15,7 @@
         root: document.getElementById("listContainer"),
       },
     );
+    */
 
     shownProducts.forEach((e) => {
       if (!brandList.includes(e.brand_name) && e.brand_name) {
@@ -21,7 +23,7 @@
       }
     });
 
-    observer.observe(document.querySelector(".brandHeading"));
+    // observer.observe(document.querySelector(".brandHeading"));
   });
   $effect(() => {
     if (curbrand !== null) {
