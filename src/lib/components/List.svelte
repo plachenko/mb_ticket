@@ -6,7 +6,6 @@
     $props();
 
   onMount(() => {
-    /*
     let observer = new IntersectionObserver(
       (e, ob) => {
         console.log("intersecting", e, ob);
@@ -15,22 +14,23 @@
         root: document.getElementById("listContainer"),
       },
     );
-    */
+
+    // observer.observe(document.querySelector(".brandheading")[0]);
 
     shownProducts.forEach((e) => {
       if (!brandList.includes(e.brand_name) && e.brand_name) {
         brandList.push(e.brand_name);
       }
     });
-
-    // observer.observe(document.querySelector(".brandHeading"));
+    observer.observe(document.getElementsByClassName("brandHeading"));
   });
 
   $effect(() => {
     if (curbrand !== null) {
       setTimeout(() => {
-
-        document.getElementById("current").scrollIntoView({ behavior: "smooth" });
+        document
+          .getElementById("current")
+          .scrollIntoView({ behavior: "smooth" });
       }, 10);
     }
   });
@@ -51,7 +51,10 @@
         >
           {brand}
         </div>
-        <div id={(idx == curbrand) ? "current" : ""} class="absolute top-[0px]"></div>
+        <div
+          id={idx == curbrand ? "current" : ""}
+          class="absolute top-[0px]"
+        ></div>
         {#each shownProducts.filter((e) => {
           return e.brand_name == brand;
         }) as product, pIdx}
@@ -65,7 +68,7 @@
             </div>
             <div>
               <span
-                style={`color: ${ColorKey.find((e) => e.name == product.category)?.color || '#000'}`}
+                style={`color: ${ColorKey.find((e) => e.name == product.category)?.color || "#000"}`}
               >
                 {product.product_name}
               </span>
