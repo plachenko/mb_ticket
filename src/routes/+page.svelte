@@ -49,12 +49,11 @@
       }
     });
 
-
     saleProducts = deliItems.map((e) => {
       return {
         product_name: e.node.title[0].value,
         brand_name: e.node.field_brand[0]?.url.substring(1),
-        price: e.node.field_deal_pricing[0].value.replace(' lb.', ' '),
+        price: e.node.field_deal_pricing[0].value.replace(" lb.", " "),
         deal: e.node.field_save_deal_language[0]?.value,
       };
     });
@@ -69,6 +68,12 @@
   let curbrand = $state(0);
   function setBrand(brandIdx) {
     curbrand = brandIdx;
+    setTimeout(() => {
+      console.log("scrolling");
+      document
+        .getElementById("curBrandEl")
+        .scrollIntoView({ behavior: "smooth", alignToTop: false });
+    }, 80);
   }
 
   function addBrand(brand) {
@@ -113,7 +118,7 @@
     destroyCategories = true;
 
     curCategory = category;
-    prodList = true
+    prodList = true;
 
     if (curCategory == "on sale!") {
       shownProducts = saleProducts;
@@ -121,7 +126,7 @@
       shownProducts = products.filter((e) => {
         return e.category == category;
       });
-      console.log(shownProducts);
+      // console.log(shownProducts);
     }
   }
 
@@ -238,7 +243,7 @@
             class="absolute left-0 top-0 bg-white z-[99] shadow border-b w-full h-full flex gap-1 flex-col justify-center p-1"
           >
             <div
-              style={`background-color: ${hexToRgba(ColorKey.find((e) => e.name == curCategory).color, 0.3) || '#000'}`}
+              style={`background-color: ${hexToRgba(ColorKey.find((e) => e.name == curCategory).color, 0.3) || "#000"}`}
               class="w-full rounded-md text-center p-1"
             >
               {curCategory}
@@ -250,9 +255,10 @@
             </div>
             <div class="h-full w-full">
               <div class="relative overflow-y-auto h-full w-full">
-                <div class="absolute top-0 left-0 w-full">
+                <div id="brandListEl" class="absolute top-0 left-0 w-full">
                   {#each brandList as brand, idx}
                     <div
+                      id={`${curbrand == idx ? "curBrandEl" : ""}`}
                       href={"#" + brand}
                       onclick={() => setBrand(idx)}
                       class={`my-1 w-full cursor-pointer text-xs bg-slate-200 rounded-md p-2 ${idx == curbrand ? "text-white bg-slate-400" : "hover:bg-slate-100 "}`}
@@ -300,6 +306,7 @@
       {/if}
       <div class="relative w-full overflow-y-auto">
         <List
+          {setBrand}
           {brandList}
           {curbrand}
           {curCategory}
@@ -335,3 +342,6 @@
   </div>
 -->
 </div>
+
+<style>
+</style>

@@ -2,18 +2,45 @@
   import ColorKey from "$lib/ColorKey.json";
   import { onMount } from "svelte";
 
-  let { curCategory, brandList, displayProduct, shownProducts, curbrand } =
-    $props();
+  let {
+    curCategory,
+    setBrand,
+    brandList,
+    displayProduct,
+    shownProducts,
+    curbrand,
+  } = $props();
 
   onMount(() => {
-    let observer = new IntersectionObserver(
-      (e, ob) => {
-        console.log("intersecting", e, ob);
-      },
-      {
-        root: document.getElementById("listContainer"),
-      },
+    console.log(
+      "list mounted.",
+      document.getElementById("listContainer").parentElement,
     );
+    document
+
+      .getElementById("listContainer")
+      .parentElement.addEventListener("scroll", (e) => {
+        /*
+        let overlap = getOverlappedElement(
+          document.getElementById("curBrandHeadEl"),
+        );
+        */
+        // console.log("scrolling", overlap.children());
+        /*
+        if (overlap.classList.contains("brandHeading")) {
+          setBrand(brandList.indexOf(overlap.innerText));
+        }
+        */
+      });
+
+    let observer = new IntersectionObserver((e, ob) => {
+      // console.log("intersecting", e, ob);
+      // e.forEach((el) => {
+      // console.log("intersected element", );
+      // el.target.style.backgroundColor = "#FA0";
+      // });
+      console.log(e.target);
+    });
 
     // observer.observe(document.querySelector(".brandheading")[0]);
 
@@ -22,8 +49,36 @@
         brandList.push(e.brand_name);
       }
     });
-    observer.observe(document.getElementsByClassName("brandHeading"));
+
+    // observer.observe(document.getElementById("curBrandHeaderEl"));
   });
+
+  function getOverlappedElement(specifiedElement) {
+    const specifiedRect = specifiedElement.getBoundingClientRect();
+
+    // Get all elements in the document
+    const allElements = document.querySelectorAll("*");
+    let overlappedElement = null;
+
+    allElements.forEach((element) => {
+      if (element !== specifiedElement) {
+        const elementRect = element.getBoundingClientRect();
+
+        if (
+          specifiedRect.left < elementRect.right &&
+          specifiedRect.right > elementRect.left &&
+          specifiedRect.top < elementRect.bottom &&
+          specifiedRect.bottom > elementRect.top
+        ) {
+          // Overlapping detected
+          overlappedElement = element;
+          return; // Break out of the loop early for the first overlapping element found
+        }
+      }
+    });
+
+    return overlappedElement;
+  }
 
   $effect(() => {
     if (curbrand !== null) {
@@ -42,7 +97,8 @@
 </div>
 -->
 
-<div id="listContainer" class="h-full w-full absolute">
+<div id="curBrandHeadingEl" class="sticky top-0 h-[40px] z-30"></div>
+<div id="listContainer" class="h-full w-full absolute top-0">
   {#if shownProducts.length}
     {#each brandList as brand, idx}
       <div class="[&:last-child]:h-full relative">
