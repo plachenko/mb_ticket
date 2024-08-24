@@ -195,28 +195,30 @@
               <span class="text-sm font-bold flex-1">
                 {opt.name}
               </span>
+              <!--
               <span class="float-right flex-1 text-right text-sm"
-                >{opt.value}</span
+                >{opt.value} uh</span
               >
+-->
               {#if curAmtType == 0 && opt.name == "Amount"}
+                <span>
+                  {#if Math.floor(opt.value / 5)}
+                    {Math.floor(opt.value / 5)}
+                  {/if}
+                </span>
+                <span class="diagonal-fractions">
+                  {fracArr[opt.value % 5].amt}
+                </span>
+              {:else}
+                <span>
+                  {opt.value} &nbsp;
+                </span>
+              {/if}
               <span>
-                {#if Math.floor(opt.value / 5)}
-                  {Math.floor(opt.value / 5)}
-                {/if}
+                {opt.name == "Amount"
+                  ? AmtType[curAmtType].label
+                  : sliceTypes[opt.value]}
               </span>
-              <span class="diagonal-fractions">
-                {fracArr[opt.value % 5].amt}
-              </span>
-            {:else}
-              <span>
-                {opt.value}
-              </span>
-            {/if}
-            <span>
-              {opt.name == "Amount"
-                ? AmtType[curAmtType].label
-                : sliceTypes[opt.value]}
-            </span>
             </div>
             <div>
               <input

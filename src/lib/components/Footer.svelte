@@ -1,5 +1,6 @@
 <script>
-  let { curOptions } = $props();
+  import { fly } from "svelte/transition";
+  let { curOptions, showFooter } = $props();
 
   let options = [
     {
@@ -15,18 +16,20 @@
   ];
 </script>
 
-<div class="p-2 flex gap-2 border-t">
-  {#each curOptions as opt}
-    <div
-      onclick={() => {
-        opt.action();
-      }}
-      class={` ${opt.type == 1 ? "bg-green-500" : "bg-red-500"} text-white select-none cursor-pointer rounded flex-1 text-center p-1`}
-    >
-      {opt.name}
-      {#if opt.value}
-        (<span class="border-b border-dashed mx-1">${opt.value}</span>)
-      {/if}
-    </div>
-  {/each}
-</div>
+{#if showFooter}
+  <div in:fly={{ y: 100, duration: 800 }} class="p-2 flex gap-2 border-t">
+    {#each curOptions as opt}
+      <div
+        onclick={() => {
+          opt.action();
+        }}
+        class={` ${opt.type == 1 ? "bg-green-500" : "bg-red-500"} text-white select-none cursor-pointer rounded flex-1 text-center p-1`}
+      >
+        {opt.name}
+        {#if opt.value}
+          (<span class="border-b border-dashed mx-1">${opt.value}</span>)
+        {/if}
+      </div>
+    {/each}
+  </div>
+{/if}

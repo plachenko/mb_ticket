@@ -9,40 +9,28 @@
     displayProduct,
     shownProducts,
     curbrand,
+    ignoreScroll,
   } = $props();
 
   onMount(() => {
-    console.log(
-      "list mounted.",
-      document.getElementById("listContainer").parentElement,
-    );
     document
-
       .getElementById("listContainer")
       .parentElement.addEventListener("scroll", (e) => {
-        /*
+        if (ignoreScroll) return;
         let overlap = getOverlappedElement(
-          document.getElementById("curBrandHeadEl"),
+          document.getElementById("curBrandHeadingEl"),
         );
-        */
-        // console.log("scrolling", overlap.children());
-        /*
-        if (overlap.classList.contains("brandHeading")) {
-          setBrand(brandList.indexOf(overlap.innerText));
+
+        if (overlap) {
+          if (overlap?.parentElement.classList.contains("brandSection")) {
+            setBrand(
+              brandList.indexOf(
+                overlap.parentElement.firstElementChild.innerText,
+              ),
+            );
+          }
         }
-        */
       });
-
-    let observer = new IntersectionObserver((e, ob) => {
-      // console.log("intersecting", e, ob);
-      // e.forEach((el) => {
-      // console.log("intersected element", );
-      // el.target.style.backgroundColor = "#FA0";
-      // });
-      console.log(e.target);
-    });
-
-    // observer.observe(document.querySelector(".brandheading")[0]);
 
     shownProducts.forEach((e) => {
       if (!brandList.includes(e.brand_name) && e.brand_name) {
@@ -85,7 +73,7 @@
       setTimeout(() => {
         document
           .getElementById("current")
-          .scrollIntoView({ behavior: "smooth" });
+          .scrollIntoView({ behavior: "smooth", block: "start" });
       }, 10);
     }
   });
@@ -97,11 +85,11 @@
 </div>
 -->
 
-<div id="curBrandHeadingEl" class="sticky top-0 h-[40px] z-30"></div>
+<div id="curBrandHeadingEl" class="sticky top-[40px] h-[10px] z-30"></div>
 <div id="listContainer" class="h-full w-full absolute top-0">
   {#if shownProducts.length}
     {#each brandList as brand, idx}
-      <div class="[&:last-child]:h-full relative">
+      <div class="brandSection [&:last-child]:h-full relative">
         <div
           class={`brandHeading ${idx == curbrand ? "bg-slate-400 text-white" : "bg-slate-200 text-slate-500"} sticky top-0 border-b text-center border-slate-500 p-2`}
         >

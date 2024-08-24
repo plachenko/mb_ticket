@@ -19,6 +19,9 @@
   import Product from "$lib/components/Product.svelte";
   import ColorKey from "$lib/ColorKey.json";
 
+  let showHeader = $state(false);
+  let showFooter = $state(false);
+
   let showCategories = $state(false);
   let destroyCategories = $state(false);
   let prodList = $state(false);
@@ -58,22 +61,26 @@
       };
     });
 
-    setInterval(() => {
-      // dateTime = formatDate();
-    }, 1000);
-
     shownProducts = products;
   });
 
   let curbrand = $state(0);
+  let ignoreScroll = $state(false);
+
   function setBrand(brandIdx) {
     curbrand = brandIdx;
+    ignoreScroll = true;
     setTimeout(() => {
-      console.log("scrolling");
-      document
-        .getElementById("curBrandEl")
-        .scrollIntoView({ behavior: "smooth", alignToTop: false });
+      document.getElementById("curBrandEl").scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        alignToTop: false,
+      });
     }, 80);
+
+    setTimeout(() => {
+      ignoreScroll = false;
+    }, 400);
   }
 
   function addBrand(brand) {
@@ -118,7 +125,7 @@
     destroyCategories = true;
 
     curCategory = category;
-    prodList = true;
+    // prodList = true;
 
     if (curCategory == "on sale!") {
       shownProducts = saleProducts;
@@ -144,6 +151,8 @@
     console.log("setting menu", type);
     if (type == null) {
       showCategories = true;
+      showHeader = true;
+      showFooter = true;
     }
   }
 
@@ -205,7 +214,7 @@
   {#if menuType}
     <div
       in:fly={{ y: -100 }}
-      out:fly={{ y: -100, delay: 100 }}
+      out:fly={{ y: -100, duration: 1000 }}
       class="w-full h-full absolute left-0 top-0 z-10 bg-white flex"
     >
       {#if menuType == "main"}
@@ -221,7 +230,7 @@
   {/if}
 
   <!-- Header -->
-  <Header {curProduct} {searchVal} {productSearchEvt} {MenuOpen} />
+  <Header {showHeader} {curProduct} {searchVal} {productSearchEvt} {MenuOpen} />
 
   <div class="flex flex-1 overflow-y-auto">
     {#if curProduct !== null}
@@ -306,6 +315,7 @@
       {/if}
       <div class="relative w-full overflow-y-auto">
         <List
+          {ignoreScroll}
           {setBrand}
           {brandList}
           {curbrand}
@@ -321,7 +331,7 @@
   <!-- Content -->
 
   <!-- Button options -->
-  <Footer {curOptions} />
+  <Footer {showFooter} {curOptions} />
 
   <!--
   <div class="flex flex-1 landscape:flex-row portrait:flex-col">

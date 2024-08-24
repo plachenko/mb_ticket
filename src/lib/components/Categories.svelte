@@ -6,10 +6,6 @@
   let { setCategory, showCategories, destroyCategories } = $props();
   let categories = $state([
     {
-      name: "on sale!",
-      color: "#FF0000",
-    },
-    {
       name: "ham",
       color: "#FFA07A",
     },
@@ -44,6 +40,7 @@
   ]);
 
   let catTicker = $state(null);
+  let selectedIdx = $state(null);
 
   $effect(() => {
     if (destroyCategories) {
@@ -61,7 +58,7 @@
         clearInterval(catTicker);
         catTicker = null;
       }
-    }, 200);
+    }, 100);
   }
 
   onMount(() => {
@@ -72,7 +69,17 @@
         clearInterval(catTicker);
         catTicker = null;
       }
-    }, 180);
+    }, 100);
+
+    categories.sort((a, b) => {
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+    });
+
+    categories.unshift({
+      name: "on sale!",
+      color: "#FF0000",
+    });
   });
 
   function applyFilter() {}
@@ -81,15 +88,18 @@
 <div class="p-2 grid grid-cols-3 h-full m-auto gap-2 container">
   {#each categories as item, idx}
     <div
-      onclick={() => setCategory(item.name)}
+      onclick={() => {
+        selectedIdx = idx;
+        setCategory(item.name);
+      }}
       class="cursor-pointer select-none flex flex-1 justify-center overflow-hidden items-center relative"
     >
-      {#if arrNum >= idx}
+      {#if arrNum >= idx && idx !== selectedIdx}
         <div
           class={`justify-center absolute w-full items-center ${idx == 0 ? "animate-pulse" : ""} h-full rounded-md flex flex-1`}
           style={`background: ${hexToRgba(item.color, 0.3)}`}
-          in:fly={{ y: 10 }}
-          out:fly={{ y: 10 }}
+          in:fly={{ y: 30 }}
+          out:fly={{ y: -30 }}
         >
           {item.name}
         </div>
