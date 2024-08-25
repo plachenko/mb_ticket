@@ -58,7 +58,7 @@
         clearInterval(catTicker);
         catTicker = null;
       }
-    }, 100);
+    }, 40);
   }
 
   onMount(() => {
@@ -90,7 +90,7 @@
     <div
       onclick={() => {
         selectedIdx = idx;
-        setCategory(item.name);
+        setCategory(item.name, item.color);
       }}
       class="cursor-pointer select-none flex flex-1 justify-center overflow-hidden items-center relative"
     >

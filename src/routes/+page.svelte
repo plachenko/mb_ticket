@@ -118,8 +118,14 @@
     menuType = type;
   }
 
-  function setCategory(category) {
+  let curSection = $state(null);
+
+  function setCategory(category, color) {
     // console.log("category set...", category, saleProducts);
+    //
+    curSection = color;
+
+    console.log(color);
 
     // console.log(catEl);
     destroyCategories = true;
@@ -203,6 +209,10 @@
     ];
   }
 
+  function setCursection(sec) {
+    curSection = sec;
+  }
+
   let prodTypes = ["All"];
   let curType = 0;
 </script>
@@ -230,7 +240,15 @@
   {/if}
 
   <!-- Header -->
-  <Header {showHeader} {curProduct} {searchVal} {productSearchEvt} {MenuOpen} />
+  <Header
+    {curCategory}
+    {curSection}
+    {showHeader}
+    {curProduct}
+    {searchVal}
+    {productSearchEvt}
+    {MenuOpen}
+  />
 
   <div class="flex flex-1 overflow-y-auto">
     {#if curProduct !== null}

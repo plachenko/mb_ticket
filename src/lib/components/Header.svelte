@@ -1,11 +1,17 @@
 <script>
-  import { fly } from "svelte/transition";
+  import { fly, fade } from "svelte/transition";
   import { onMount } from "svelte";
 
   let imglink = $state("");
-  let { curProduct, MenuOpen, showHeader, productSearchEvt, searchVal } =
-    $props();
-
+  let {
+    curCategory,
+    curProduct,
+    MenuOpen,
+    showHeader,
+    productSearchEvt,
+    searchVal,
+    curSection,
+  } = $props();
   function checkKey(e) {
     e.preventDefault();
     if (e.key == "Enter") {
@@ -23,10 +29,18 @@
 {#if showHeader}
   <div
     in:fly={{ y: -50, duration: 1000 }}
-    class="border-b flex gap-2 px-2 py-2 items-center"
+    out:fly={{ y: -50, duration: 1000 }}
+    class="border-b flex gap-2 px-2 py-2 relative items-center"
   >
+    {#if curSection}
+      <div
+        in:fade={{ duration: 300 }}
+        style={`${curSection !== null ? "background-color: " + curSection : ""}`}
+        class="w-full h-full bg-red-300 left-0 top-0 absolute opacity-40"
+      ></div>
+    {/if}
     <div
-      class="rounded-md p-2 border border-slate-300 flex gap-2 cursor-pointer hover:bg-slate-100"
+      class=" z-10 bg-slate-100 rounded-md p-2 border border-slate-300 flex gap-2 cursor-pointer hover:bg-slate-100"
       onclick={() => MenuOpen("main")}
     >
       <svg
@@ -51,7 +65,7 @@
         placeholder="Enter a product..."
         onkeydown={checkKey}
         bind:textContent={searchVal}
-        class="flex-1 text-nowrap inline-block overflow-hidden p-2 border rounded-md"
+        class="z-10 bg-slate-100 flex-1 text-nowrap inline-block overflow-hidden p-2 border rounded-md"
       ></div>
     {:else}
       <span class="flex-1 font-bold text-center"
@@ -62,7 +76,7 @@
       onclick={() => {
         MenuOpen("shopping");
       }}
-      class="flex rounded-md border-slate-300 text-slate-400 cursor-pointer hover:bg-slate-100 items-center p-2 border justify-center relative"
+      class="flex rounded-md bg-slate-100 border-slate-300 text-slate-400 cursor-pointer hover:bg-slate-100 items-center p-2 border justify-center relative"
     >
       <div
         class="absolute rounded-md bg-red-300 text-white size-3 top-[2px] right-[2px] text-[10px] flex items-center justify-center"
@@ -70,8 +84,8 @@
         2
       </div>
       <svg
-        xmlns="http://www.w3.org/2000/svg"
         fill="none"
+        xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
@@ -85,4 +99,15 @@
       </svg>
     </div>
   </div>
+  {#if curSection}
+    <div in:fly={{ y: -20, duration: 800 }} class="p-1 px-3 relative">
+      <div
+        style={`${curSection ? "background-color: " + curSection : ""}`}
+        class="w-full h-full opacity-20 absolute left-0 top-0"
+      ></div>
+      <span class="">
+        {curCategory}
+      </span>
+    </div>
+  {/if}
 {/if}
