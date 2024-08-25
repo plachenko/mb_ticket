@@ -36,7 +36,7 @@
       <div
         in:fade={{ duration: 300 }}
         style={`${curSection !== null ? "background-color: " + curSection : ""}`}
-        class="w-full h-full bg-red-300 left-0 top-0 absolute opacity-40"
+        class="w-full h-full bg-red-300 left-0 top-0 absolute opacity-40 z-10"
       ></div>
     {/if}
     <div
@@ -100,13 +100,13 @@
     </div>
   </div>
   {#if curSection}
-    <div in:fly={{ y: -20, duration: 800 }} class="p-1 px-3 relative">
+    <div in:fly={{ y: -20, duration: 800 }} class="z-0 relative flex">
       <div
         style={`${curSection ? "background-color: " + curSection : ""}`}
         class="w-full h-full opacity-20 absolute left-0 top-0"
       ></div>
-      <span class="">
-        {curCategory}
+      <span class="bg-red-300 p-2 flex-1 justify-center items-center flex">
+        <div class="flex flex-1">Category:</div><div class="flex-1 flex justify-center font-bold capitalize border-b border-slate-500 border-dashed">{curCategory}</div>
       </span>
     </div>
   {/if}
