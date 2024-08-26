@@ -19,10 +19,20 @@
     }
   }
 
+  let showSection = $state(false);
+
+  let curProductBrand = "Any";
+  let curProductType = "Any";
+
   onMount(() => {});
 
   $effect(() => {
     productSearchEvt(searchVal);
+    if (curSection !== null) {
+      setTimeout(() => {
+        showSection = true;
+      }, 300);
+    }
   });
 </script>
 
@@ -30,7 +40,7 @@
   <div
     in:fly={{ y: -50, duration: 1000 }}
     out:fly={{ y: -50, duration: 1000 }}
-    class="border-b flex gap-2 px-2 py-2 relative items-center"
+    class={`border-b ${curSection ? "border-slate-700" : "border-slate-300"} flex gap-2 px-2 py-2 relative items-center`}
   >
     {#if curSection}
       <div
@@ -76,7 +86,7 @@
       onclick={() => {
         MenuOpen("shopping");
       }}
-      class="flex rounded-md bg-slate-100 border-slate-300 text-slate-400 cursor-pointer hover:bg-slate-100 items-center p-2 border justify-center relative"
+      class="flex z-10 rounded-md bg-slate-100 border-slate-300 text-slate-400 cursor-pointer hover:bg-slate-100 items-center p-2 border justify-center relative"
     >
       <div
         class="absolute rounded-md bg-red-300 text-white size-3 top-[2px] right-[2px] text-[10px] flex items-center justify-center"
@@ -99,15 +109,33 @@
       </svg>
     </div>
   </div>
-  {#if curSection}
-    <div in:fly={{ y: -20, duration: 800 }} class="z-0 relative flex">
+  {#if showSection}
+    <div
+      in:fly={{ y: -20, duration: 400 }}
+      class="border-b-2 border-slate-400 z-20 relative flex"
+    >
       <div
         style={`${curSection ? "background-color: " + curSection : ""}`}
-        class="w-full h-full opacity-20 absolute left-0 top-0"
+        class="w-full h-full opacity-20 absolute left-0 top-0 shadow-md"
       ></div>
-      <span class="bg-red-300 p-2 flex-1 justify-center items-center flex">
-        <div class="flex flex-1">Category:</div><div class="flex-1 flex justify-center font-bold capitalize border-b border-slate-500 border-dashed">{curCategory}</div>
+      <span
+        class="p-2 flex-1 hover:bg-red-300 cursor-pointer justify-center items-center flex"
+      >
+        <div class="relative text-xs flex flex-1 justify-center capitalize">
+          Category &ndash;&nbsp;<span class="font-bold">{curCategory}</span>
+        </div>
       </span>
+      <div
+        class="text-xs border-l-2 border-slate-600/40 flex capitalize flex-1 justify-center items-center"
+      >
+        Type &ndash; &nbsp;<span class="font-bold">{curProductType}</span>
+      </div>
+      <div
+        class="text-xs border-l-2 border-slate-600/40 flex flex-1 justify-center items-center"
+      >
+        <!-- <div class="bg-red-300 w-full h-full absolute top-0 left-0"></div> -->
+        Brand &ndash; &nbsp;<span class="font-bold">{curProductBrand}</span>
+      </div>
     </div>
   {/if}
 {/if}

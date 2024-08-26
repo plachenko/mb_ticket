@@ -8,43 +8,73 @@
     {
       name: "ham",
       color: "#FFA07A",
+      types: [
+        "honey",
+        "cooked",
+        "imported",
+        "hot",
+        "cherrywood",
+        "black forest",
+        "virginia smoked",
+        "spiral",
+      ],
     },
     {
       name: "cheese",
       color: "#b3a100",
+      types: [
+        "havarti",
+        "swiss",
+        "provolone",
+        "american",
+        "cheddar",
+        "pepper jack",
+        "colby jack",
+      ],
     },
     {
       name: "bologna",
       color: "#FF6347",
+      types: ["beef", "vienna", "german", "small"],
     },
     {
       name: "beef",
       color: "#8B0000",
-    },
-    {
-      name: "pastrami",
-      color: "#8B4513",
+      types: ["roast beef", "italian roast beef", "corned beef", "pastrami"],
     },
     {
       name: "italian",
       color: "#A52A2A",
+      types: ["salami", "soppressata"],
     },
     {
       name: "chicken",
       color: "#ffb433",
+      types: [
+        "peppered",
+        "buffalo",
+        "barbeque",
+        "honey mesquite",
+        "oven roasted",
+      ],
     },
     {
       name: "turkey",
       color: "#edc478",
+      types: ["buffalo", "roasted", "homestyle", "honey", "santa fe"],
+    },
+    {
+      name: "franks",
+      color: "#FF0",
     },
   ]);
 
   let catTicker = $state(null);
   let selectedIdx = $state(null);
+  let showTypes = $state(false);
 
   $effect(() => {
     if (destroyCategories) {
-      console.log("calling from effect");
       catDestroy();
       destroyCategories = false;
     }
@@ -57,9 +87,14 @@
       } else {
         clearInterval(catTicker);
         catTicker = null;
+        if (categories[selectedIdx].types.length) {
+          showTypes = true;
+        }
       }
     }, 40);
   }
+
+  let curTypeIdx = $state(null);
 
   onMount(() => {
     catTicker = setInterval(() => {
@@ -86,26 +121,50 @@
 </script>
 
 <div class="p-2 grid grid-cols-3 h-full m-auto gap-2 container">
-  {#each categories as item, idx}
-    <div
-      onclick={() => {
-        selectedIdx = idx;
-        setCategory(item.name, item.color);
-      }}
-      class="cursor-pointer select-none flex flex-1 justify-center overflow-hidden items-center relative"
-    >
-      {#if arrNum >= idx && idx !== selectedIdx}
+  {#if !showTypes}
+    {#each categories as item, idx}
+      <div
+        onclick={() => {
+          selectedIdx = idx;
+          // catDestroy();
+          setCategory(item.name, item.color);
+        }}
+        class="hover:drop-shadow-md capitalize cursor-pointer select-none flex flex-1 justify-center overflow-hidden items-center relative"
+      >
+        {#if arrNum >= idx && idx !== selectedIdx}
+          <div
+            class={`justify-center absolute w-full items-center ${idx == 0 ? "animate-pulse" : ""} h-full rounded-md flex flex-1`}
+            style={`background: ${hexToRgba(item.color, 0.3)}`}
+            in:fly={{ y: 30 }}
+            out:fly={{ y: -30 }}
+          >
+            {item.name}
+          </div>
+        {/if}
+      </div>
+    {/each}
+  {/if}
+  {#if showTypes}
+    {#each categories[selectedIdx].types.sort((a, b) => {
+      if (a > b) return 1;
+      if (a < b) return -1;
+    }) as type, idx}
+      {#if idx <= curTypeIdx}
         <div
-          class={`justify-center absolute w-full items-center ${idx == 0 ? "animate-pulse" : ""} h-full rounded-md flex flex-1`}
-          style={`background: ${hexToRgba(item.color, 0.3)}`}
-          in:fly={{ y: 30 }}
-          out:fly={{ y: -30 }}
+          in:fly={{ y: 20 }}
+          out:fly={{ y: 20 }}
+          class="bg-slate-200 capitalize cursor-pointer flex justify-center items-center rounded-md"
         >
-          {item.name}
+          {type}
         </div>
       {/if}
+    {/each}
+    <div
+      class="bg-slate-200 capitalize cursor-pointer flex justify-center items-center rounded-md"
+    >
+      Any
     </div>
-  {/each}
+  {/if}
 </div>
 <!--
 <div class="flex flex-row gap-1 flex-wrap flex-1">

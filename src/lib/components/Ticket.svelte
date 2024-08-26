@@ -1,5 +1,5 @@
 <script>
-  import { fade } from "svelte/transition";
+  import { fade, fly } from "svelte/transition";
   import Time from "$lib/components/Time.svelte";
 
   let { setMenuType } = $props();
@@ -7,8 +7,7 @@
 
 <div
   class="sm:pt-0 w-full cursor-pointer select-none"
-  in:fade={{}}
-  out:fade={{}}
+  out:fly={{ y: -10, duration: 300 }}
   onclick={() => {
     setMenuType(null);
     //   menuType = null;

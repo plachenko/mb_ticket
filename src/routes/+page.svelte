@@ -121,17 +121,15 @@
   let curSection = $state(null);
 
   function setCategory(category, color) {
-    // console.log("category set...", category, saleProducts);
-    //
     curSection = color;
-
-    console.log(color);
-
-    // console.log(catEl);
     destroyCategories = true;
 
     curCategory = category;
-    // prodList = true;
+    /*
+    setTimeout(() => {
+      prodList = true;
+    }, 700);
+    */
 
     if (curCategory == "on sale!") {
       shownProducts = saleProducts;
@@ -224,7 +222,7 @@
   {#if menuType}
     <div
       in:fly={{ y: -100 }}
-      out:fly={{ y: -100, duration: 1000 }}
+      out:fly={{ y: -100, duration: 800 }}
       class="w-full h-full absolute left-0 top-0 z-10 bg-white flex"
     >
       {#if menuType == "main"}
@@ -269,6 +267,7 @@
           <div
             class="absolute left-0 top-0 bg-white z-[99] shadow border-b w-full h-full flex gap-1 flex-col justify-center p-1"
           >
+            <!--
             <div
               style={`background-color: ${hexToRgba(ColorKey.find((e) => e.name == curCategory).color, 0.3) || "#000"}`}
               class="w-full rounded-md text-center p-1"
@@ -280,6 +279,7 @@
             >
               Type: {prodTypes[curType]}
             </div>
+-->
             <div class="h-full w-full">
               <div class="relative overflow-y-auto h-full w-full">
                 <div id="brandListEl" class="absolute top-0 left-0 w-full">
