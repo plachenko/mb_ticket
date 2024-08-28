@@ -66,6 +66,11 @@
 
   let curbrand = $state(0);
   let ignoreScroll = $state(false);
+  let curType = $state(null);
+
+  function setCurrentType(typeIdx) {
+    curType = typeIdx;
+  }
 
   function setBrand(brandIdx) {
     curbrand = brandIdx;
@@ -212,7 +217,6 @@
   }
 
   let prodTypes = ["All"];
-  let curType = 0;
 </script>
 
 <div
@@ -240,6 +244,7 @@
   <!-- Header -->
   <Header
     {curCategory}
+    {curType}
     {curSection}
     {showHeader}
     {curProduct}
@@ -343,7 +348,7 @@
         />
       </div>
     {:else if showCategories}
-      <Categories {destroyCategories} {setCategory} />
+      <Categories {setCurrentType} {destroyCategories} {setCategory} />
     {/if}
   </div>
   <!-- Content -->

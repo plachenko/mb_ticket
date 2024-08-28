@@ -4,6 +4,7 @@
 
   let imglink = $state("");
   let {
+    curType,
     curCategory,
     curProduct,
     MenuOpen,
@@ -128,17 +129,21 @@
       <div
         class="text-xs border-l-2 border-slate-600/40 relative flex capitalize flex-1 justify-center items-center"
       >
-        Type &ndash; &nbsp;<span class="font-bold">{curProductType}</span>
+        Type
+        {#if curType}
+          &ndash; &nbsp;<span class="font-bold">{curType}</span>
+        {/if}
         <div
           class="absolute w-full h-full border-b-4 top-[0px] border-slate-900/10"
         ></div>
       </div>
+      <!--
       <div
         class="text-xs border-l-2 border-slate-600/40 flex flex-1 justify-center items-center"
       >
-        <!-- <div class="bg-red-300 w-full h-full absolute top-0 left-0"></div> -->
         Brand &ndash; &nbsp;<span class="font-bold">{curProductBrand}</span>
       </div>
+      -->
     </div>
   {/if}
 {/if}

@@ -3,7 +3,10 @@
   import { fly } from "svelte/transition";
   import { hexToRgba } from "$lib/ColorUtils";
   let arrNum = $state(0);
-  let { setCategory, showCategories, destroyCategories } = $props();
+  let { setCategory, setCurrentType, showCategories, destroyCategories } =
+    $props();
+  let showAny = $state(false);
+  let currentType = $state(null);
   let categories = $state([
     {
       name: "ham",
@@ -64,7 +67,7 @@
       types: ["buffalo", "roasted", "homestyle", "honey", "santa fe"],
     },
     {
-      name: "franks",
+      name: "franks & bacon",
       color: "#FF0",
     },
   ]);
@@ -97,6 +100,9 @@
               curTypeIdx++;
             }, 100);
           }
+          setTimeout(() => {
+            showAny = true;
+          }, 700);
         }, 100);
       }
     }, 40);
@@ -162,13 +168,13 @@
           if (a > b) return 1;
           if (a < b) return -1;
         }) as type, idx}
-          <div class="relative">
+          <div class="relative flex-1">
             {#if idx <= curTypeIdx}
               <div
                 in:fly={{ y: 20, duration: 600 }}
                 out:fly={{ y: 20 }}
                 onclick={() => {
-                  console.log("hi");
+                  setCurrentType(type);
                 }}
                 class="capitalize cursor-pointer justify-center absolute w-full items-center h-full relative flex justify-center items-center rounded-md"
               >
@@ -184,11 +190,20 @@
       </div>
 
       <div
-        in:fly={{ x: 30 }}
-        style={`background: ${hexToRgba(curColor, 0.4)}`}
-        class="bg-slate-400 capitalize cursor-pointer px-6 flex justify-center items-center rounded-md"
+        class="w-[80px] h-full capitalize cursor-pointer flex justify-center items-center rounded-md"
       >
-        Any
+        {#if showAny}
+          <div
+            in:fly={{ x: 30 }}
+            style={`background: ${hexToRgba(curColor, 0.4)}`}
+            onclick={() => {
+              setCurrentType("Any");
+            }}
+            class="capitalize cursor-pointer h-full px-6 flex justify-center items-center rounded-md"
+          >
+            Any
+          </div>
+        {/if}
       </div>
     </div>
   {/if}
