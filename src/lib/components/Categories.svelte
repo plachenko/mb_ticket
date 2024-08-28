@@ -80,6 +80,9 @@
     }
   });
 
+  let curTypeIdx = $state(null);
+  let typeTicker = $state(null);
+
   function catDestroy() {
     catTicker = setInterval(() => {
       if (arrNum > -1) {
@@ -87,14 +90,19 @@
       } else {
         clearInterval(catTicker);
         catTicker = null;
-        if (categories[selectedIdx].types.length) {
-          showTypes = true;
-        }
+        setTimeout(() => {
+          if (categories[selectedIdx].types.length) {
+            setInterval(() => {
+              showTypes = true;
+              curTypeIdx++;
+            }, 100);
+          }
+        }, 100);
       }
     }, 40);
   }
 
-  let curTypeIdx = $state(null);
+  let curColor = $state(null);
 
   onMount(() => {
     catTicker = setInterval(() => {
@@ -120,49 +128,68 @@
   function applyFilter() {}
 </script>
 
-<div class="p-2 grid grid-cols-3 h-full m-auto gap-2 container">
+<div class="p-2 flex h-full m-auto gap-2 w-full overflow-hidden">
   {#if !showTypes}
-    {#each categories as item, idx}
-      <div
-        onclick={() => {
-          selectedIdx = idx;
-          // catDestroy();
-          setCategory(item.name, item.color);
-        }}
-        class="hover:drop-shadow-md capitalize cursor-pointer select-none flex flex-1 justify-center overflow-hidden items-center relative"
-      >
-        {#if arrNum >= idx && idx !== selectedIdx}
-          <div
-            class={`justify-center absolute w-full items-center ${idx == 0 ? "animate-pulse" : ""} h-full rounded-md flex flex-1`}
-            style={`background: ${hexToRgba(item.color, 0.3)}`}
-            in:fly={{ y: 30 }}
-            out:fly={{ y: -30 }}
-          >
-            {item.name}
-          </div>
-        {/if}
-      </div>
-    {/each}
+    <div class="flex-1 gap-1 w-full grid grid-cols-3">
+      {#each categories as item, idx}
+        <div
+          onclick={() => {
+            selectedIdx = idx;
+            // catDestroy();
+            curColor = item.color;
+            setCategory(item.name, item.color);
+          }}
+          class="hover:drop-shadow-md capitalize cursor-pointer select-none flex flex-1 justify-center items-center relative"
+        >
+          {#if arrNum >= idx && idx !== selectedIdx}
+            <div
+              class={`justify-center absolute w-full items-center ${idx == 0 ? "animate-pulse" : ""} h-full rounded-md flex flex-1`}
+              style={`background: ${hexToRgba(item.color, 0.3)}`}
+              in:fly={{ y: 30 }}
+              out:fly={{ y: -30 }}
+            >
+              {item.name}
+            </div>
+          {/if}
+        </div>
+      {/each}
+    </div>
   {/if}
   {#if showTypes}
-    {#each categories[selectedIdx].types.sort((a, b) => {
-      if (a > b) return 1;
-      if (a < b) return -1;
-    }) as type, idx}
-      {#if idx <= curTypeIdx}
-        <div
-          in:fly={{ y: 20 }}
-          out:fly={{ y: 20 }}
-          class="bg-slate-200 capitalize cursor-pointer flex justify-center items-center rounded-md"
-        >
-          {type}
-        </div>
-      {/if}
-    {/each}
-    <div
-      class="bg-slate-200 capitalize cursor-pointer flex justify-center items-center rounded-md"
-    >
-      Any
+    <div class="w-full h-full flex gap-1">
+      <div class="grid grid-cols-3 flex-1 gap-1">
+        {#each categories[selectedIdx].types.sort((a, b) => {
+          if (a > b) return 1;
+          if (a < b) return -1;
+        }) as type, idx}
+          <div class="relative">
+            {#if idx <= curTypeIdx}
+              <div
+                in:fly={{ y: 20, duration: 600 }}
+                out:fly={{ y: 20 }}
+                onclick={() => {
+                  console.log("hi");
+                }}
+                class="capitalize cursor-pointer justify-center absolute w-full items-center h-full relative flex justify-center items-center rounded-md"
+              >
+                <div
+                  style={`background: ${hexToRgba(curColor, 0.2)}`}
+                  class="w-full h-full absolute rounded-md"
+                ></div>
+                <span class="text-center">{type}</span>
+              </div>
+            {/if}
+          </div>
+        {/each}
+      </div>
+
+      <div
+        in:fly={{ x: 30 }}
+        style={`background: ${hexToRgba(curColor, 0.4)}`}
+        class="bg-slate-400 capitalize cursor-pointer px-6 flex justify-center items-center rounded-md"
+      >
+        Any
+      </div>
     </div>
   {/if}
 </div>
