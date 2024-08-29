@@ -1,10 +1,16 @@
 <script>
   import { fade, fly } from "svelte/transition";
   import Time from "$lib/components/Time.svelte";
+  import { onMount } from "svelte";
 
   let { setMenuType } = $props();
   let ticketTaken = $state(false);
+  let ticketNumber = $state(null);
 
+  onMount(() => {
+    ticketNumber =
+      "A" + String(Math.floor(Math.random() * 100)).padStart(2, "0");
+  });
 </script>
 
 <div
@@ -12,7 +18,6 @@
   out:fly={{ y: -10, duration: 300 }}
   onclick={() => {
     setTimeout(() => {
-      
       setMenuType(null);
     }, 400);
     ticketTaken = true;
@@ -29,17 +34,61 @@
         class="p-4 px-10 border-4 rounded-lg border-blue-500 h-[150px]"
         src="mbstacked.png"
       />
-      {#if !ticketTaken}
-      <div out:fly={{ y: 20, duration: 500 }} class="flex absolute w-[400px] h-[168px] justify-center items-end">
-        <div class="bottom-0 bg-red-400 absolute flex justify-center">
-          <div class="bg-red-400 w-[80px] h-[20px] z-20 top-[-23px] absolute "></div>
-
-          <div class="bg-red-400 border-4 border-slate-100 w-[40px] h-[40px] z-10 top-[-20px] absolute rounded-full"></div>
-          <div class="w-20 h-[90px] rounded-b-md top-0 bg-red-400 absolute"></div>
-          <div class="w-10 top-[70px] h-[50px] bg-red-400 rounded-b-full absolute"></div>
+      {#if ticketNumber}
+        <div
+          in:fly={{ y: -20 }}
+          class="flex flex-1 w-[320px] h-[150px] absolute justify-center items-end"
+        >
+          <div class="w-20 h-20 relative">
+            <div
+              class="items-end w-full z-30 justify-center flex bg-red-400 absolute bottom-[-28px]"
+            >
+              <div
+                class="bg-red-400 w-[80px] h-[20px] z-20 top-[-20px] absolute"
+              ></div>
+              <div
+                class="bg-red-400 border-4 border-white w-[40px] h-[40px] z-10 top-[-10px] absolute rounded-b-full"
+              ></div>
+            </div>
+            {#if !ticketTaken}
+              <div
+                out:fly={{ y: 20, duration: 500 }}
+                class="flex absolute bottom-[-32px] h-full left-0 w-full justify-center items-end"
+              >
+                <div class="bottom-0 absolute flex justify-center">
+                  <div
+                    class="bg-white w-[40px] h-[24px] rounded-b-full absolute z-20 top-0"
+                  ></div>
+                  <div
+                    class="w-20 h-[90px] flex items-center justify-center rounded-b-md top-0 bg-red-400 absolute"
+                  >
+                    <span class="text-2xl mt-[20px] font-bold text-white">
+                      {ticketNumber}
+                    </span>
+                  </div>
+                  <div
+                    class="w-10 top-[70px] h-[50px] bg-red-400 rounded-b-full absolute"
+                  ></div>
+                </div>
+              </div>
+            {/if}
+          </div>
+        </div>
+      {/if}
+      <!--
+      <div class="flex justify-center items-end">
+        <div
+          class="items-end justify-center flex bg-red-400 absolute bottom-[0px]"
+        >
+          <div
+            class="bg-red-400 w-[80px] h-[20px] z-20 top-[-23px] absolute"
+          ></div>
+          <div
+            class="bg-red-400 border-4 border-slate-100 w-[40px] h-[40px] z-10 top-[-20px] absolute rounded-full"
+          ></div>
         </div>
       </div>
-      {/if}
+-->
     </div>
     <div class="p-2 pb-4 flex-1 max-h-[350px] flex justify-center items-center">
       <div
