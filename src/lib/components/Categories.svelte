@@ -94,16 +94,16 @@
         clearInterval(catTicker);
         catTicker = null;
         setTimeout(() => {
+          showTypes = true;
           if (categories[selectedIdx].types.length) {
             setInterval(() => {
-              showTypes = true;
               curTypeIdx++;
             }, 100);
           }
           setTimeout(() => {
             showAny = true;
           }, 700);
-        }, 100);
+        }, 600);
       }
     }, 40);
   }
@@ -171,6 +171,7 @@
           <div class="relative flex-1">
             {#if idx <= curTypeIdx}
               <div
+                
                 in:fly={{ y: 20, duration: 600 }}
                 out:fly={{ y: 20 }}
                 onclick={() => {

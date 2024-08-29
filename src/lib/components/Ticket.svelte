@@ -2,14 +2,18 @@
   import { fade, fly } from "svelte/transition";
   import Time from "$lib/components/Time.svelte";
   import { onMount } from "svelte";
+  import gsap from "gsap";
 
   let { setMenuType } = $props();
   let ticketTaken = $state(false);
   let ticketNumber = $state(null);
 
   onMount(() => {
-    ticketNumber =
+    gsap.fromTo('#logo', {y: -30},{opacity: 1, y: 0, duration: .5, onComplete: () => {
+      gsap.to("#tapEl", {opacity: 1, duration: .4, y: -20});
+      ticketNumber =
       "A" + String(Math.floor(Math.random() * 100)).padStart(2, "0");
+    }});
   });
 </script>
 
@@ -30,8 +34,9 @@
     </div>
     <div class="flex-1 flex justify-center p-[10px] items-center relative">
       <img
+        id="logo"
         style="box-shadow: rgb(255, 0, 0) 0px 0px 0px 4px;"
-        class="p-4 px-10 border-4 rounded-lg border-blue-500 h-[150px]"
+        class="opacity-0 p-4 px-10 border-4 rounded-lg border-blue-500 h-[150px]"
         src="mbstacked.png"
       />
       {#if ticketNumber}
@@ -92,7 +97,8 @@
     </div>
     <div class="p-2 pb-4 flex-1 max-h-[350px] flex justify-center items-center">
       <div
-        class="p-2 animate-pulse border-4 bg-white border-red-300 shadow-md font-bold text-red-300 rounded-lg text-[1.5em] text-center capitalize"
+        id="tapEl"
+        class="p-2 border-4 bg-white border-red-300 shadow-md opacity-0 font-bold text-red-300 rounded-lg text-[1.5em] text-center capitalize"
       >
         Tap to start an order
       </div>
