@@ -7,6 +7,7 @@
     $props();
   let showAny = $state(false);
   let currentType = $state(null);
+
   let categories = $state([
     {
       name: "ham",
@@ -86,6 +87,14 @@
   let curTypeIdx = $state(null);
   let typeTicker = $state(null);
 
+  function typeDestroy() {
+    setInterval(() => {
+      if (curTypeIdx > 0) {
+        curTypeIdx--;
+      }
+    }, 400);
+  }
+
   function catDestroy() {
     catTicker = setInterval(() => {
       if (arrNum > -1) {
@@ -97,7 +106,9 @@
           showTypes = true;
           if (categories[selectedIdx].types.length) {
             setInterval(() => {
-              curTypeIdx++;
+              if (curTypeIdx <= categories[selectedIdx].types.length - 1) {
+                curTypeIdx++;
+              }
             }, 100);
           }
           setTimeout(() => {
@@ -145,7 +156,7 @@
             curColor = item.color;
             setCategory(item.name, item.color);
           }}
-          class="hover:drop-shadow-md capitalize cursor-pointer select-none flex flex-1 justify-center items-center relative"
+          class="hover:drop-shadow-md overflow-hidden capitalize cursor-pointer select-none flex flex-1 justify-center items-center relative"
         >
           {#if arrNum >= idx && idx !== selectedIdx}
             <div
@@ -162,8 +173,8 @@
     </div>
   {/if}
   {#if showTypes}
-    <div class="w-full h-full flex gap-1">
-      <div class="grid grid-cols-3 flex-1 gap-1">
+    <div class="w-full h-full flex flex-col gap-1">
+      <div class="grid grid-cols-3 w-full flex-1 gap-1">
         {#each categories[selectedIdx].types.sort((a, b) => {
           if (a > b) return 1;
           if (a < b) return -1;
@@ -171,11 +182,12 @@
           <div class="relative flex-1">
             {#if idx <= curTypeIdx}
               <div
-                
                 in:fly={{ y: 20, duration: 600 }}
                 out:fly={{ y: 20 }}
                 onclick={() => {
+                  currentType = idx;
                   setCurrentType(type);
+                  typeDestroy();
                 }}
                 class="capitalize cursor-pointer justify-center absolute w-full items-center h-full relative flex justify-center items-center rounded-md"
               >
@@ -183,24 +195,31 @@
                   style={`background: ${hexToRgba(curColor, 0.2)}`}
                   class="w-full h-full absolute rounded-md"
                 ></div>
-                <span class="text-center">{type}</span>
+                <span
+                  class={`text-center ${idx == currentType ? "font-bold" : ""}`}
+                  >{type}</span
+                >
               </div>
             {/if}
           </div>
         {/each}
       </div>
-
       <div
-        class="w-[80px] h-full capitalize cursor-pointer flex justify-center items-center rounded-md"
+        class="w-full h-[50px] capitalize relative pt-[16px] cursor-pointer relative flex justify-center items-center rounded-md"
       >
+        <div
+          class="w-full border-b h-[3px] absolute top-0 left-0 flex justify-center"
+        >
+          <span class="bg-white absolute top-[-7px] text-sm px-[4px]">or</span>
+        </div>
         {#if showAny}
           <div
-            in:fly={{ x: 30 }}
+            in:fly={{ y: -10 }}
             style={`background: ${hexToRgba(curColor, 0.4)}`}
             onclick={() => {
               setCurrentType("Any");
             }}
-            class="capitalize cursor-pointer h-full px-6 flex justify-center items-center rounded-md"
+            class="capitalize w-full cursor-pointer h-full p-[20px] flex justify-center items-center rounded-md"
           >
             Any
           </div>

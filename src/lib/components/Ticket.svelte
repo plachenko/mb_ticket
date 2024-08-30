@@ -9,11 +9,20 @@
   let ticketNumber = $state(null);
 
   onMount(() => {
-    gsap.fromTo('#logo', {y: -30},{opacity: 1, y: 0, duration: .5, onComplete: () => {
-      gsap.to("#tapEl", {opacity: 1, duration: .4, y: -20});
-      ticketNumber =
-      "A" + String(Math.floor(Math.random() * 100)).padStart(2, "0");
-    }});
+    gsap.fromTo(
+      "#logo",
+      { y: -30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        onComplete: () => {
+          gsap.fromTo("#tapEl", { y: 20 }, { opacity: 1, duration: 0.4, y: 0 });
+          ticketNumber =
+            "A" + String(Math.floor(Math.random() * 100)).padStart(2, "0");
+        },
+      },
+    );
   });
 </script>
 
@@ -42,7 +51,7 @@
       {#if ticketNumber}
         <div
           in:fly={{ y: -20 }}
-          class="flex flex-1 w-[320px] h-[150px] absolute justify-center items-end"
+          class="landscape:hidden flex flex-1 w-[320px] h-[150px] absolute justify-center items-end"
         >
           <div class="w-20 h-20 relative">
             <div
@@ -96,12 +105,15 @@
 -->
     </div>
     <div class="p-2 pb-4 flex-1 max-h-[350px] flex justify-center items-center">
-      <div
-        id="tapEl"
-        class="p-2 border-4 bg-white border-red-300 shadow-md opacity-0 font-bold text-red-300 rounded-lg text-[1.5em] text-center capitalize"
-      >
-        Tap to start an order
-      </div>
+      {#if !ticketTaken}
+        <div
+          out:fly={{ y: 20, delay: 300 }}
+          id="tapEl"
+          class="p-2 border-4 bg-white border-red-300 shadow-md opacity-0 font-bold text-red-300 rounded-lg text-[1.5em] text-center capitalize"
+        >
+          Tap to start an order
+        </div>
+      {/if}
     </div>
   </div>
   <!--
