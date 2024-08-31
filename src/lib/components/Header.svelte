@@ -1,7 +1,9 @@
 <script>
   import { fly, fade } from "svelte/transition";
   import { onMount } from "svelte";
+  import SpeechRecognition from "$lib/components/SpeechRecognition.svelte";
 
+  let textInput = $state(false);
   let imglink = $state("");
   let {
     curType,
@@ -34,6 +36,7 @@
         showSection = true;
       }, 300);
     }
+
   });
 </script>
 
@@ -76,8 +79,14 @@
         placeholder="Enter a product..."
         onkeydown={checkKey}
         bind:textContent={searchVal}
+        id="textInputEl"
         class="z-10 bg-slate-100 flex-1 text-nowrap inline-block overflow-hidden p-2 border rounded-md"
       ></div>
+      {#if textInput}
+        <div in:fly={{ y: -10 }}>
+          <SpeechRecognition />
+        </div>
+      {/if}
     {:else}
       <span class="flex-1 font-bold text-center"
         >{curProduct?.product_name}</span

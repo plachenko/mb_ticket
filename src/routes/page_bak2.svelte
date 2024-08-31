@@ -234,7 +234,9 @@
       placeholder="Enter a product..."
       onkeydown={checkKey}
       class="flex-1 text-nowrap inline-block overflow-hidden p-2 border rounded-md"
-    ></div>
+    >
+      <div class="bg-slate-300 rounded-md">voice</div>
+    </div>
     <div
       onclick={showOrder}
       class="flex rounded-md border-slate-300 text-slate-400 items-center p-2 border justify-center relative"

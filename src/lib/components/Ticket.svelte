@@ -34,6 +34,11 @@
       setMenuType(null);
     }, 400);
     ticketTaken = true;
+    gsap.to("#nextTicket", { y: +20 });
+    gsap.to(document.getElementById("nextTicket").children[0], {
+      height: +30,
+      y: -20,
+    });
     //   menuType = null;
   }}
 >
@@ -50,11 +55,13 @@
       />
       {#if ticketNumber}
         <div
-          in:fly={{ y: -20 }}
-          class="landscape:hidden flex flex-1 w-[320px] h-[150px] absolute justify-center items-end"
+          id="ticketStub"
+          in:fly={{ y: -10 }}
+          class="landscape:hidden flex flex-1 w-[320px] z-0 h-[150px] absolute justify-center items-end"
         >
           <div class="w-20 h-20 relative">
             <div
+              id="nextTicket"
               class="items-end w-full z-30 justify-center flex bg-red-400 absolute bottom-[-28px]"
             >
               <div
