@@ -52,22 +52,25 @@
   }
 </script>
 
-<button
-  class="bg-blue-500 text-white w-[95px] py-2 rounded relative"
-  onclick={toggleListening}
->
-  {#if isListening}
-    <div
-      class="rounded-full absolute top-1 right-1 bg-red-600 size-[8px]"
-    ></div>
-    <div
-      class="rounded-full absolute top-1 right-1 bg-red-400 size-[8px] animate-ping"
-    ></div>
-    Stop
-  {:else}
-    Listen
-  {/if}
-</button>
+<div class="flex flex-col flex-1">
+  <button
+    class="flex items-center justify-center bg-blue-500 text-white w-full py-2 rounded relative"
+    onclick={toggleListening}
+  >
+    {#if isListening}
+      <div
+        class="rounded-full absolute top-1 right-1 bg-red-600 size-[8px]"
+      ></div>
+      <div
+        class="rounded-full absolute top-1 right-1 bg-red-400 size-[8px] animate-ping"
+      ></div>
+      Stop
+    {:else}
+      Listen
+    {/if}
+  </button>
+  <div>test {transcript}</div>
+</div>
 
 <style>
 </style>

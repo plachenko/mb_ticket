@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import gsap from 'gsap';
+  import gsap from "gsap";
   let dateTime = $state(formatDate());
   let blink = $state(false);
   let curTime = new Date();
@@ -16,7 +16,7 @@
       dateTime = formatDate();
     }, 1000);
 
-    gsap.from('#timeCont', {opacity: 0, duration: 1, y: -20});
+    gsap.from("#timeCont", { opacity: 0, duration: 0.4, y: -30, delay: 0.4 });
 
     // Check if date is between 6am and 9pm
   });

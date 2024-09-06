@@ -35,14 +35,17 @@
     }, 400);
     ticketTaken = true;
     gsap.to("#nextTicket", { y: +20 });
+    //
+    /*
     gsap.to(document.getElementById("nextTicket").children[0], {
       height: +30,
       y: -20,
     });
+    */
     //   menuType = null;
   }}
 >
-  <div class="flex h-full w-full flex-col">
+  <div class="flex h-full w-full flex-col z-50">
     <div class="h-[40px] w-full flex justify-center items-center">
       <Time />
     </div>
@@ -60,6 +63,7 @@
           class="landscape:hidden flex flex-1 w-[320px] z-0 h-[150px] absolute justify-center items-end"
         >
           <div class="w-20 h-20 relative">
+            <div class="absolute bottom-[-30px] bg-red-300 h-20 w-full"></div>
             <div
               id="nextTicket"
               class="items-end w-full z-30 justify-center flex bg-red-400 absolute bottom-[-28px]"

@@ -6,6 +6,7 @@
   import Footer from "$lib/components/Footer.svelte";
   import MainMenu from "$lib/components/MainMenu.svelte";
   import OrderList from "$lib/components/OrderList.svelte";
+  import GridList from "$lib/components/gridList.svelte";
   import { hexToRgba } from "$lib/ColorUtils";
   import weeklyFlyer from "$lib/weekly-flyer-rest.json";
 
@@ -17,10 +18,13 @@
   import products from "$lib/meats.json";
   import { onMount } from "svelte";
   import Product from "$lib/components/Product.svelte";
+  import CategoryList from "$lib/categories.json";
   import ColorKey from "$lib/ColorKey.json";
 
   let showHeader = $state(false);
   let showFooter = $state(false);
+
+  let listItems = CategoryList;
 
   let showCategories = $state(false);
   let destroyCategories = $state(false);
@@ -44,6 +48,10 @@
 
   let flyerItems = weeklyFlyer[0].field_flyer_item;
   let saleProducts = $state([]);
+
+  function gridItemSelected(item, itemIdx) {
+    setCurrentType(item);
+  }
 
   onMount(() => {
     let deliItems = flyerItems.filter((e) => {
@@ -70,6 +78,7 @@
 
   function setCurrentType(typeIdx) {
     curType = typeIdx;
+    console.log("setting type", curType);
   }
 
   function setBrand(brandIdx) {
@@ -348,7 +357,8 @@
         />
       </div>
     {:else if showCategories}
-      <Categories {setCurrentType} {destroyCategories} {setCategory} />
+      <GridList {gridItemSelected} {listItems} />
+      <!-- <Categories {setCurrentType} {destroyCategories} {setCategory} /> -->
     {/if}
   </div>
   <!-- Content -->

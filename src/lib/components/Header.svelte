@@ -4,6 +4,7 @@
   import SpeechRecognition from "$lib/components/SpeechRecognition.svelte";
 
   let textInput = $state(false);
+  let handlingSpeech = $state(false);
   let imglink = $state("");
   let {
     curType,
@@ -27,7 +28,18 @@
   let curProductBrand = "Any";
   let curProductType = "Any";
 
+  let voiceElShowing = $state(false);
+  function showVoice() {
+    voiceElShowing = true;
+  }
+
   onMount(() => {});
+
+  let speechText = $state("");
+  function handleSpeech(transcript) {
+    handlingSpeech = true;
+    speechText = transcript;
+  }
 
   $effect(() => {
     productSearchEvt(searchVal);
@@ -36,7 +48,6 @@
         showSection = true;
       }, 300);
     }
-
   });
 </script>
 
@@ -49,8 +60,8 @@
     {#if curSection}
       <div
         in:fade={{ duration: 300 }}
-        style={`${curSection !== null ? "background-color: " + curSection : ""}`}
         class="w-full h-full bg-red-300 left-0 top-0 absolute opacity-40 z-10"
+        style={`${curSection !== null ? "background-color: " + curSection : ""}`}
       ></div>
     {/if}
     <div
@@ -77,14 +88,23 @@
       <div
         contenteditable="true"
         placeholder="Enter a product..."
+        onblur={() => {
+          /*
+          if (!handlingSpeech) {
+            voiceElShowing = false;
+          }
+          */
+        }}
+        onclick={showVoice}
         onkeydown={checkKey}
         bind:textContent={searchVal}
         id="textInputEl"
         class="z-10 bg-slate-100 flex-1 text-nowrap inline-block overflow-hidden p-2 border rounded-md"
       ></div>
       {#if textInput}
-        <div in:fly={{ y: -10 }}>
-          <SpeechRecognition />
+        <div in:fly={{ y: -20 }}>
+          <SpeechRecognition {handleSpeech} />
+          <span>{speechText}</span>
         </div>
       {/if}
     {:else}
@@ -153,6 +173,14 @@
         Brand &ndash; &nbsp;<span class="font-bold">{curProductBrand}</span>
       </div>
       -->
+    </div>
+  {/if}
+  {#if voiceElShowing}
+    <div
+      in:fly={{ y: -20 }}
+      class="border-b h-10 w-full flex justify-center p-1"
+    >
+      <SpeechRecognition />
     </div>
   {/if}
 {/if}
