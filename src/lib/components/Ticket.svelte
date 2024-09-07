@@ -27,14 +27,15 @@
 </script>
 
 <div
-  class="sm:pt-0 w-full cursor-pointer select-none"
+  class="sm:pt-0 w-full cursor-pointer select-none flex items-end justify-center"
   out:fly={{ y: -10, duration: 300 }}
   onclick={() => {
     setTimeout(() => {
       setMenuType(null);
     }, 400);
     ticketTaken = true;
-    gsap.to("#nextTicket", { y: +20 });
+    // gsap.to("#nextTicket", { y: +20, height: +20 });
+    // gsap.to("#nextStubButt", { y: +20, border: "none" });
     //
     /*
     gsap.to(document.getElementById("nextTicket").children[0], {
@@ -60,10 +61,10 @@
         <div
           id="ticketStub"
           in:fly={{ y: -10 }}
-          class="landscape:hidden flex flex-1 w-[320px] z-0 h-[150px] absolute justify-center items-end"
+          class="landscape:hidden flex z-40 flex-1 w-[320px] z-0 h-[150px] absolute justify-center items-end"
         >
-          <div class="w-20 h-20 relative">
-            <div class="absolute bottom-[-30px] bg-red-300 h-20 w-full"></div>
+          <div class="w-20 h-20 absolute bottom-0">
+            <div class="absolute bottom-[-30px] h-20 w-full"></div>
             <div
               id="nextTicket"
               class="items-end w-full z-30 justify-center flex bg-red-400 absolute bottom-[-28px]"
@@ -72,7 +73,8 @@
                 class="bg-red-400 w-[80px] h-[20px] z-20 top-[-20px] absolute"
               ></div>
               <div
-                class="bg-red-400 border-4 border-white w-[40px] h-[40px] z-10 top-[-10px] absolute rounded-b-full"
+                id="nextStubButt"
+                class="bg-red-400 border-4 border-white absolute w-[40px] h-[40px] z-10 top-[-10px] absolute rounded-b-full"
               ></div>
             </div>
             {#if !ticketTaken}

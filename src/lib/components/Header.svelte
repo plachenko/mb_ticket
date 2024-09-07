@@ -2,6 +2,7 @@
   import { fly, fade } from "svelte/transition";
   import { onMount } from "svelte";
   import SpeechRecognition from "$lib/components/SpeechRecognition.svelte";
+  import gsap from "gsap";
 
   let textInput = $state(false);
   let handlingSpeech = $state(false);
@@ -44,6 +45,14 @@
   $effect(() => {
     productSearchEvt(searchVal);
     if (curSection !== null) {
+      gsap.to("#curSectionContainer", { y: +50, duration: 0.5, delay: 0.5 });
+      /*
+      gsap.to(document.getElementById("curSectionContainer"), {
+        y: +30,
+        duration: 0.3,
+      });
+      */
+
       setTimeout(() => {
         showSection = true;
       }, 300);
@@ -55,17 +64,18 @@
   <div
     in:fly={{ y: -50, duration: 1000 }}
     out:fly={{ y: -50, duration: 1000 }}
-    class={`border-b ${curSection ? "border-slate-700" : "border-slate-300"} flex gap-2 px-2 py-2 relative items-center`}
+    class={`border-b ${curSection ? "border-slate-300" : "border-slate-300"} flex gap-2 px-2 py-2 relative items-center`}
   >
+    <div class="absolute top-0 left-0 w-full h-full bg-white z-20"></div>
     {#if curSection}
       <div
         in:fade={{ duration: 300 }}
-        class="w-full h-full bg-red-300 left-0 top-0 absolute opacity-40 z-10"
+        class="w-full h-full bg-red-300 left-0 top-0 absolute"
         style={`${curSection !== null ? "background-color: " + curSection : ""}`}
       ></div>
     {/if}
     <div
-      class=" z-10 bg-slate-100 rounded-md p-2 border border-slate-300 flex gap-2 cursor-pointer hover:bg-slate-100"
+      class=" z-20 bg-slate-100 rounded-md p-2 border border-slate-300 flex gap-2 cursor-pointer hover:bg-slate-100"
       onclick={() => MenuOpen("main")}
     >
       <svg
@@ -99,7 +109,7 @@
         onkeydown={checkKey}
         bind:textContent={searchVal}
         id="textInputEl"
-        class="z-10 bg-slate-100 flex-1 text-nowrap inline-block overflow-hidden p-2 border rounded-md"
+        class="z-20 bg-slate-100 flex-1 text-nowrap inline-block overflow-hidden p-2 border rounded-md"
       ></div>
       {#if textInput}
         <div in:fly={{ y: -20 }}>
@@ -116,7 +126,7 @@
       onclick={() => {
         MenuOpen("shopping");
       }}
-      class="flex z-10 rounded-md bg-slate-100 border-slate-300 text-slate-400 cursor-pointer hover:bg-slate-100 items-center p-2 border justify-center relative"
+      class="flex z-20 rounded-md bg-slate-100 border-slate-300 text-slate-400 cursor-pointer hover:bg-slate-100 items-center p-2 border justify-center relative"
     >
       <div
         class="absolute rounded-md bg-red-300 text-white size-3 top-[2px] right-[2px] text-[10px] flex items-center justify-center"
@@ -139,32 +149,30 @@
       </svg>
     </div>
   </div>
-  {#if showSection}
-    <div
-      in:fly={{ y: -20, duration: 400 }}
-      class="border-b-2 border-slate-400 z-20 relative flex"
-    >
+  {#if curSection}
+    <div class="bg-white w-full z-10 relative flex">
       <div
-        style={`${curSection ? "background-color: " + curSection : ""}`}
-        class="w-full h-full opacity-20 absolute left-0 top-0 shadow-md"
-      ></div>
-      <span
-        class="p-2 flex-1 hover:bg-red-300 cursor-pointer justify-center items-center flex"
+        id="curSectionContainer"
+        class="border-b-2 border-slate-400 flex absolute w-full h-10 bg-white top-[-50px]"
       >
-        <div class="relative text-xs flex flex-1 justify-center capitalize">
-          Category &ndash;&nbsp;<span class="font-bold">{curCategory}</span>
-        </div>
-      </span>
-      <div
-        class="text-xs border-l-2 border-slate-600/40 relative flex capitalize flex-1 justify-center items-center"
-      >
-        Type
-        {#if curType}
-          &ndash; &nbsp;<span class="font-bold">{curType}</span>
-        {/if}
         <div
-          class="absolute w-full h-full border-b-4 top-[0px] border-slate-900/10"
+          style={`${curSection ? "background-color: " + curSection : ""}`}
+          class="w-full h-full opacity-20 absolute shadow-md"
         ></div>
+        <span
+          class="p-2 flex-1 hover:bg-red-300 cursor-pointer justify-center items-center flex"
+        >
+          <div class="relative text-xs flex flex-1 justify-center capitalize">
+            Category &ndash;&nbsp;<span class="font-bold">{curCategory}</span>
+          </div>
+        </span>
+        {#if curType}
+          <div
+            class="text-xs border-l-2 border-slate-600/40 relative flex capitalize flex-1 justify-center items-center"
+          >
+            Type &ndash; &nbsp;<span class="font-bold">{curType}</span>
+          </div>
+        {/if}
       </div>
       <!--
       <div

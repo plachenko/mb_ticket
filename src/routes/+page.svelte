@@ -49,8 +49,9 @@
   let flyerItems = weeklyFlyer[0].field_flyer_item;
   let saleProducts = $state([]);
 
-  function gridItemSelected(item, itemIdx) {
-    setCurrentType(item);
+  function gridItemSelected(item) {
+    // setCurrentType(item);
+    setCategory(item.text, item.color);
   }
 
   onMount(() => {

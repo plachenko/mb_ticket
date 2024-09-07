@@ -2,14 +2,28 @@
   import { onMount } from "svelte";
   import gsap from "gsap";
 
-  let { listItems, gridItemSelected } = $props();
+  let { listItems, gridItemSelected, createList } = $props();
   let itemArr = $state(null);
 
   let ready = $state(false);
 
+  $effect(() => {
+    if (listItems) {
+      console.log(listItems);
+    }
+  });
+
   onMount(() => {
     if (!listItems.length) return;
 
+    setTimeout(() => {
+      gsap.to("#gridContainer", { opacity: 1, duration: 0.3 });
+
+      createGrid(listItems);
+    }, 30);
+  });
+
+  function createGrid(list) {
     itemArr = listItems.map((e) => {
       return {
         text: typeof e == "Object" ? e.name : e.name,
@@ -17,14 +31,6 @@
       };
     });
 
-    setTimeout(() => {
-      gsap.to("#gridContainer", { opacity: 1, duration: 0.3 });
-
-      createGrid();
-    }, 30);
-  });
-
-  function createGrid() {
     setTimeout(() => {
       gsap.from(".gridItem", {
         y: -40,
