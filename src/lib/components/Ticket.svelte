@@ -4,7 +4,7 @@
   import { onMount } from "svelte";
   import gsap from "gsap";
 
-  let { setMenuType } = $props();
+  let { setMenuType, setTicketNumber } = $props();
   let ticketTaken = $state(false);
   let ticketNumber = $state(null);
 
@@ -17,14 +17,33 @@
         y: 0,
         duration: 0.5,
         onComplete: () => {
+          gsap.to("#timeContainer", { opacity: 1 });
           gsap.fromTo("#tapEl", { y: 20 }, { opacity: 1, duration: 0.4, y: 0 });
           ticketNumber =
             "A" + String(Math.floor(Math.random() * 100)).padStart(2, "0");
+          setTicketNumber(ticketNumber);
         },
       },
     );
   });
 </script>
+
+<div class="flex flex-col left-[30px] h-[140px] absolute w-[50px]">
+  <div class="bg-red-400 relative flex-1">
+    <div
+      class="absolute bg-red-400 top-[35px] left-[32px] w-[30px] skew-x-[-20deg] h-full"
+    ></div>
+    <div
+      class="absolute bg-red-400 top-[35px] left-[-12px] w-[30px] skew-x-[20deg] h-full"
+    ></div>
+  </div>
+  <div class="h-[40px] w-full flex justify-center relative">
+    <div
+      class="h-0 absolute top-[10px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
+    ></div>
+    <div class="bg-red-400 size-[45px] absolute rounded-full"></div>
+  </div>
+</div>
 
 <div
   class="sm:pt-0 w-full cursor-pointer select-none flex items-end justify-center"
@@ -47,7 +66,10 @@
   }}
 >
   <div class="flex h-full w-full flex-col z-50">
-    <div class="h-[40px] w-full flex justify-center items-center">
+    <div
+      id="timeContainer"
+      class="opacity-0 h-[40px] w-full flex justify-center items-center"
+    >
       <Time />
     </div>
     <div class="flex-1 flex justify-center p-[10px] items-center relative">

@@ -24,15 +24,18 @@
   let showHeader = $state(false);
   let showFooter = $state(false);
 
+  let listItemsChange = $state(false);
+
   let listItems = CategoryList;
+  let gridEl = $state(null);
 
   let showCategories = $state(false);
-  let destroyCategories = $state(false);
   let prodList = $state(false);
   let catEl = $state(null);
   let shownProducts = $state([]);
   let curProduct = $state(null);
   let curBrand = $state(0);
+  let curTicketNum = $state(null);
   let curOptions = $state([
     {
       name: "cancel",
@@ -50,8 +53,14 @@
   let saleProducts = $state([]);
 
   function gridItemSelected(item) {
+    console.log(item);
     // setCurrentType(item);
     setCategory(item.text, item.color);
+  }
+
+  function setTicketNumber(ticketNumber) {
+    curTicketNum = ticketNumber;
+    console.log("setting the ticketNumber to ", curTicketNum);
   }
 
   onMount(() => {
@@ -136,24 +145,27 @@
   let curSection = $state(null);
 
   function setCategory(category, color) {
-    curSection = color;
-    destroyCategories = true;
+    // curSection = color;
 
     curCategory = category;
-    /*
-    setTimeout(() => {
-      prodList = true;
-    }, 700);
-    */
 
+    console.log(category);
+
+    gridEl.createGrid({
+      sections: [category],
+      items: [{ name: "test" }, { name: "uh" }],
+    });
+    setTimeout(() => {}, 900);
+
+    /*
     if (curCategory == "on sale!") {
       shownProducts = saleProducts;
     } else {
       shownProducts = products.filter((e) => {
         return e.category == category;
       });
-      // console.log(shownProducts);
     }
+    */
   }
 
   function checkBrandNum(brandName) {
@@ -167,11 +179,13 @@
 
   function setMenuType(type) {
     menuType = type;
-    console.log("setting menu", type);
+
     if (type == null) {
       showCategories = true;
       showHeader = true;
-      showFooter = true;
+      if (curTicketNum) {
+        showFooter = true;
+      }
     }
   }
 
@@ -180,7 +194,6 @@
   function productSearchEvt(val) {
     if (!val) {
       shownProducts = products;
-      // showProductList = false;
       curOptions = [
         {
           name: "show list",
@@ -196,7 +209,6 @@
                 },
               },
             ];
-            // searchVal = "";
           },
         },
       ];
@@ -209,13 +221,11 @@
         .replace(/\s/g, "")
         .includes(val.toLowerCase().replace(/\s/g, ""));
     });
-
     curOptions = [
       {
         name: "Clear Search",
         type: 0,
         action: () => {
-          // searchVal = "";
           console.log("uh searching clear", searchVal);
         },
       },
@@ -246,7 +256,7 @@
       {:else if menuType == "curProduct"}
         <div>Current product</div>
       {:else if menuType == "ticket"}
-        <Ticket {setMenuType} />
+        <Ticket {setMenuType} {setTicketNumber} />
       {/if}
     </div>
   {/if}
@@ -358,14 +368,20 @@
         />
       </div>
     {:else if showCategories}
-      <GridList {gridItemSelected} {listItems} />
+      <GridList
+        bind:this={gridEl}
+        {setCursection}
+        {gridItemSelected}
+        {listItems}
+        {listItemsChange}
+      />
       <!-- <Categories {setCurrentType} {destroyCategories} {setCategory} /> -->
     {/if}
   </div>
   <!-- Content -->
 
   <!-- Button options -->
-  <Footer {showFooter} {curOptions} />
+  <Footer {showFooter} {curOptions} {curTicketNum} />
 
   <!--
   <div class="flex flex-1 landscape:flex-row portrait:flex-col">

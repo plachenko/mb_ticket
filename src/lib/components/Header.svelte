@@ -55,7 +55,7 @@
 
       setTimeout(() => {
         showSection = true;
-      }, 300);
+      }, 750);
     }
   });
 </script>
@@ -70,7 +70,7 @@
     {#if curSection}
       <div
         in:fade={{ duration: 300 }}
-        class="w-full h-full bg-red-300 left-0 top-0 absolute"
+        class="w-full h-full z-20 opacity-40 left-0 top-0 absolute"
         style={`${curSection !== null ? "background-color: " + curSection : ""}`}
       ></div>
     {/if}
@@ -153,15 +153,13 @@
     <div class="bg-white w-full z-10 relative flex">
       <div
         id="curSectionContainer"
-        class="border-b-2 border-slate-400 flex absolute w-full h-10 bg-white top-[-50px]"
+        class={`border-b-2 cursor-pointer border-slate-400 flex relative w-full h-10 bg-white top-[-50px]`}
       >
         <div
           style={`${curSection ? "background-color: " + curSection : ""}`}
           class="w-full h-full opacity-20 absolute shadow-md"
         ></div>
-        <span
-          class="p-2 flex-1 hover:bg-red-300 cursor-pointer justify-center items-center flex"
-        >
+        <span class="p-2 flex-1 justify-center items-center flex">
           <div class="relative text-xs flex flex-1 justify-center capitalize">
             Category &ndash;&nbsp;<span class="font-bold">{curCategory}</span>
           </div>
