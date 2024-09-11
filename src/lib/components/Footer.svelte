@@ -31,7 +31,22 @@
   {#if showFooter}
     <div id="ticketButt" class="w-full flex flex-col justify-center absolute">
       <div class="bg-red-400 w-full h-[40px] rounded-b-md flex justify-center">
-        <span class="text-white z-40 absolute font-bold top-[20px]"
+        <div class="absolute w-20">
+          <div
+            class="bg-red-400 w-[33px] top-[35px] absolute h-[20px] left-[6px] z-40 skew-x-[48deg]"
+          ></div>
+          <div
+            class="bg-red-400 w-[33px] top-[40px] absolute h-[20px] right-[12px] z-40 skew-x-[-48deg]"
+          ></div>
+        </div>
+
+        <div class="h-[40px] w-full flex justify-center relative">
+          <div
+            class="h-0 absolute top-[35px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
+          ></div>
+          <div class="bg-red-400 size-[45px] absolute rounded-full"></div>
+        </div>
+        <span class="text-white z-40 absolute font-bold top-[8px]"
           >{curTicketNum}</span
         >
       </div>

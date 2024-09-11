@@ -53,9 +53,15 @@
   let saleProducts = $state([]);
 
   function gridItemSelected(item) {
-    console.log(item);
     // setCurrentType(item);
     setCategory(item.text, item.color);
+
+    setTimeout(() => {
+      gridEl.createGrid({
+        sections: "test",
+        items: [{ name: "test" }, { name: "div" }],
+      });
+    }, 40);
   }
 
   function setTicketNumber(ticketNumber) {
@@ -149,13 +155,11 @@
 
     curCategory = category;
 
-    console.log(category);
-
-    gridEl.createGrid({
-      sections: [category],
-      items: [{ name: "test" }, { name: "uh" }],
-    });
-    setTimeout(() => {}, 900);
+    // console.log(category);
+    // gridEl.createGrid({
+    //   sections: [category],
+    //   items: [{ name: "test" }, { name: "uh" }],
+    // });
 
     /*
     if (curCategory == "on sale!") {

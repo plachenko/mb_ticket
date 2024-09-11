@@ -30,15 +30,19 @@
       gsap.to("#gridContainer", { opacity: 1, duration: 0.3 });
 
       createGrid(listItems);
+      console.log("creating a grid from mount");
     }, 30);
   });
 
   export function createGrid(list) {
+    itemArr = [];
     let innerList = list;
 
     if (list.sections) {
       innerList = list.items;
     }
+
+    console.log("creating a grid...");
 
     itemArr = innerList.map((e, idx) => {
       return {
@@ -48,19 +52,25 @@
     });
 
     setTimeout(() => {
-      gsap.from(".gridItem", {
-        y: -40,
-        opacity: 0,
-        stagger: 0.1,
-        delay: 0.2,
-        duration: 0.4,
-        oncomplete: () => {
-          // canDestroy = true;
-          if (list.sections) {
-            setCursection("#F00");
-          }
+      gsap.fromTo(
+        ".gridItem",
+        {
+          y: -40,
+          opacity: 0,
         },
-      });
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.1,
+          delay: 0.8,
+          duration: 0.4,
+          oncomplete: (e) => {
+            if (list.sections) {
+              setCursection("#F00");
+            }
+          },
+        },
+      );
     }, 10);
 
     setTimeout(() => {
@@ -74,14 +84,15 @@
       {
         y: -40,
         opacity: 0,
-        duration: 0.3,
+        duration: 0.25,
         onComplete: () => {
+          // gridItemSelected(itemArr[idx], idx);
           // canRenew = true;
         },
       },
     );
 
-    gridItemSelected(itemArr[idx], idx);
+    // gridItemSelected(itemArr[idx], idx);
 
     gsap.to(".gridItem", {
       y: -40,
@@ -90,7 +101,7 @@
       delay: 0.15,
       duration: 0.17,
       onComplete: () => {
-        // gridEl.createGrid(["testing", "whasdf"]);
+        gridItemSelected(itemArr[idx], idx);
       },
     });
   }
@@ -110,7 +121,7 @@
               destroyGrid(itemIdx);
             }
           }}
-          class="gridItem border-slate-400 rounded-md absolute top-0 flex cursor-pointer justify-center items-center h-full w-full"
+          class="gridItem border-slate-400 z-40 rounded-md absolute top-0 flex cursor-pointer justify-center items-center h-full w-full"
         >
           <div
             style={`${item?.color ? "background-color: " + item.color : ""}  `}

@@ -11,12 +11,17 @@
   onMount(() => {
     gsap.fromTo(
       "#logo",
-      { y: -30 },
+      { opacity: 0 },
       {
         opacity: 1,
         y: 0,
-        duration: 0.5,
+        duration: 1.2,
         onComplete: () => {
+          gsap.fromTo(
+            "#nextTicket",
+            { opacity: 0, y: -10 },
+            { opacity: 1, y: 0 },
+          );
           gsap.to("#timeContainer", { opacity: 1 });
           gsap.fromTo("#tapEl", { y: 20 }, { opacity: 1, duration: 0.4, y: 0 });
           ticketNumber =
@@ -28,6 +33,7 @@
   });
 </script>
 
+<!--
 <div class="flex flex-col left-[30px] h-[140px] absolute w-[50px]">
   <div class="bg-red-400 relative flex-1">
     <div
@@ -44,6 +50,7 @@
     <div class="bg-red-400 size-[45px] absolute rounded-full"></div>
   </div>
 </div>
+-->
 
 <div
   class="sm:pt-0 w-full cursor-pointer select-none flex items-end justify-center"
@@ -79,7 +86,102 @@
         class="opacity-0 p-4 px-10 border-4 rounded-lg border-blue-500 h-[150px]"
         src="mbstacked.png"
       />
-      {#if ticketNumber}
+
+      <!--
+      <div
+        class="flex flex-col h-[100px] bottom-[-11px] z-90 absolute w-[50px]"
+      >
+        <div
+          class="bg-red-400 w-[100px] left-[-25px] top-[-30px] rounded-b-md h-[80px] absolute z-50"
+        ></div>
+
+        <div class="bg-red-400 relative flex-1">
+          <div
+            class="absolute bg-red-400 top-[27px] left-[28px] w-[30px] skew-x-[-20deg] h-full"
+          ></div>
+          <div
+            class="absolute bg-red-400 top-[27px] left-[-8px] w-[30px] skew-x-[20deg] h-full"
+          ></div>
+        </div>
+        <div class="h-[40px] w-full flex justify-center relative">
+          <div
+            class="h-0 absolute top-[10px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
+          ></div>
+          <div class="bg-red-400 size-[45px] absolute rounded-full"></div>
+        </div>
+      </div>
+-->
+      <div
+        id="nextTicket"
+        class="overflow-hidden opacity-0 flex justify-center align-center w-[60px] h-[30px] absolute bottom-[-27px] z-[100]"
+      >
+        <div
+          class="bg-red-400 border-4 absolute bottom-[12px] size-[30px] z-[100] rounded-full"
+        ></div>
+        <div
+          class="h-0 bottom-[17px] absolute scale-[0.6] z-[101] w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
+        ></div>
+        <!-- <div class="bg-green-300 size-[20px] absolute"></div> -->
+        <!--
+-->
+        <!--
+        <div
+          class="bg-red-400 border-4 absolute bottom-[-17px] z-[100] rounded-full"
+        >
+        </div>
+-->
+      </div>
+
+      {#if ticketNumber && !ticketTaken}
+        <div
+          in:fly={{ y: -10 }}
+          out:fly={{ y: 20, duration: 500 }}
+          class="flex landscape:scale-[0.6] flex-col h-[100px] bottom-[-80px] landscape:bottom-[-95px] absolute w-[50px]"
+        >
+          <!--
+          <div
+            class="bg-green-300 border-white border-4 w-[60px] h-[60px] absolute z-[100] top-[-60px] left-[-4px] rounded-full"
+          >
+            <div
+              class="h-0 absolute top-[10px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
+            ></div>
+          </div>
+-->
+
+          <div
+            class="bg-red-400 w-[100px] left-[-25px] top-[-30px] rounded-b-md h-[80px] absolute z-50"
+          ></div>
+          <div
+            class="absolute text-white absolute z-50 font-bold w-full top-[10px] text-center text-2xl"
+          >
+            {ticketNumber}
+          </div>
+
+          <div class="bg-white absolute top-[0px] z-90 w-full flex-1">
+            <div
+              class="absolute bg-white top-[27px] left-[28px] w-[30px] skew-x-[-20deg] h-full"
+            ></div>
+            <div
+              class="absolute bg-white top-[27px] left-[-8px] w-[30px] skew-x-[20deg] h-full"
+            ></div>
+          </div>
+
+          <div class="bg-red-400 relative flex-1">
+            <div
+              class="absolute bg-red-400 top-[27px] left-[28px] w-[30px] skew-x-[-20deg] h-full"
+            ></div>
+            <div
+              class="absolute bg-red-400 top-[27px] left-[-8px] w-[30px] skew-x-[20deg] h-full"
+            ></div>
+          </div>
+          <div class="h-[40px] w-full flex justify-center relative">
+            <div
+              class="h-0 absolute top-[10px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
+            ></div>
+            <div class="bg-red-400 size-[45px] absolute rounded-full"></div>
+          </div>
+        </div>
+        <!--
         <div
           id="ticketStub"
           in:fly={{ y: -10 }}
@@ -121,22 +223,13 @@
                 </div>
               </div>
             {/if}
+
           </div>
         </div>
+-->
       {/if}
+
       <!--
-      <div class="flex justify-center items-end">
-        <div
-          class="items-end justify-center flex bg-red-400 absolute bottom-[0px]"
-        >
-          <div
-            class="bg-red-400 w-[80px] h-[20px] z-20 top-[-23px] absolute"
-          ></div>
-          <div
-            class="bg-red-400 border-4 border-slate-100 w-[40px] h-[40px] z-10 top-[-20px] absolute rounded-full"
-          ></div>
-        </div>
-      </div>
 -->
     </div>
     <div class="p-2 pb-4 flex-1 max-h-[350px] flex justify-center items-center">
@@ -144,7 +237,7 @@
         <div
           out:fly={{ y: 20, delay: 300 }}
           id="tapEl"
-          class="p-2 border-4 bg-white border-red-300 shadow-md opacity-0 font-bold text-red-300 rounded-lg text-[1.5em] text-center capitalize"
+          class="p-2 border-4 bg-white border-red-300 landscape:hidden shadow-md opacity-0 font-bold text-red-300 rounded-lg text-[1.5em] text-center capitalize"
         >
           Tap to start an order
         </div>
