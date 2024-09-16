@@ -30,7 +30,6 @@
       gsap.to("#gridContainer", { opacity: 1, duration: 0.3 });
 
       createGrid(listItems);
-      console.log("creating a grid from mount");
     }, 30);
   });
 
@@ -42,13 +41,17 @@
       innerList = list.items;
     }
 
-    console.log("creating a grid...");
-
     itemArr = innerList.map((e, idx) => {
       return {
         text: typeof innerList[idx] == "string" ? e : e.name,
         color: e.color || "#CCC",
+        items: e?.types,
       };
+    });
+
+    itemArr.sort((a, b) => {
+      if (a.text < b.text) return -1;
+      if (a.text > b.text) return 1;
     });
 
     setTimeout(() => {
@@ -66,7 +69,7 @@
           duration: 0.4,
           oncomplete: (e) => {
             if (list.sections) {
-              setCursection("#F00");
+              // setCursection("#F00");
             }
           },
         },
@@ -86,6 +89,8 @@
         opacity: 0,
         duration: 0.25,
         onComplete: () => {
+          console.log(itemArr[idx]);
+          setCursection(itemArr[idx].color);
           // gridItemSelected(itemArr[idx], idx);
           // canRenew = true;
         },
@@ -97,9 +102,9 @@
     gsap.to(".gridItem", {
       y: -40,
       opacity: 0,
-      stagger: 0.1,
-      delay: 0.15,
-      duration: 0.17,
+      stagger: 0.04,
+      delay: 0.1,
+      duration: 0.2,
       onComplete: () => {
         gridItemSelected(itemArr[idx], idx);
       },
@@ -110,7 +115,7 @@
 <div class="p-2 flex h-full m-auto gap-2 w-full overflow-hidden relative">
   <div
     id="gridContainer"
-    class="gridItems flex-1 gap-1 w-full grid grid-cols-3 opacity-0"
+    class={`gridItems flex-1 gap-1 w-full grid ${itemArr?.length >= 1 ? "grid-cols-3" : "grid-cols-2"}  opacity-0`}
   >
     {#each itemArr as item, itemIdx}
       <div class="relative overflow-hidden flex justify-center items-center">
@@ -121,15 +126,28 @@
               destroyGrid(itemIdx);
             }
           }}
-          class="gridItem border-slate-400 z-40 rounded-md absolute top-0 flex cursor-pointer justify-center items-center h-full w-full"
+          class="gridItem border-slate-400 z-40 rounded-md absolute top-0 flex p-2 cursor-pointer justify-center items-center h-full w-full"
         >
           <div
             style={`${item?.color ? "background-color: " + item.color : ""}  `}
             class="absolute top-0 h-full w-full opacity-40 rounded-md"
           ></div>
-          <span class="z-30">
-            {item.text}
-          </span>
+
+          <div class="w-full h-full absolute flex portrait:flex-col">
+            <div
+              class="landscape:w-10 bg-white/50 portrait:w-full h-full items-center justify-center flex"
+            >
+              <img
+                src={`icons/${item.text}.svg`}
+                class="opacity-30 landscape:size-7 portrait:size-20"
+              />
+            </div>
+            <div
+              class="portrait:border-t-2 landscape:border-l-2 border-white/50 border-dashed flex-1 p-2 h-full justify-center items-center flex"
+            >
+              {item.text}
+            </div>
+          </div>
         </div>
       </div>
     {/each}

@@ -7,21 +7,31 @@
   let { setMenuType, setTicketNumber } = $props();
   let ticketTaken = $state(false);
   let ticketNumber = $state(null);
+  let isTouching = $state(false);
 
   onMount(() => {
+    document.addEventListener("touchstart", () => {
+      isTouching = true;
+    });
+    document.addEventListener("touchmove", (e) => {
+      console.log(e.touches[0].clientY);
+      if (isTouching) {
+      }
+    });
+    document.addEventListener("touchend", () => {
+      isTouching = false;
+    });
+
+    gsap.to("#nextTicket", { opacity: 1, y: 0, duration: 0.6, delay: 0.7 });
+
     gsap.fromTo(
       "#logo",
       { opacity: 0 },
       {
         opacity: 1,
         y: 0,
-        duration: 1.2,
+        duration: 0.6,
         onComplete: () => {
-          gsap.fromTo(
-            "#nextTicket",
-            { opacity: 0, y: -10 },
-            { opacity: 1, y: 0 },
-          );
           gsap.to("#timeContainer", { opacity: 1 });
           gsap.fromTo("#tapEl", { y: 20 }, { opacity: 1, duration: 0.4, y: 0 });
           ticketNumber =
@@ -33,25 +43,6 @@
   });
 </script>
 
-<!--
-<div class="flex flex-col left-[30px] h-[140px] absolute w-[50px]">
-  <div class="bg-red-400 relative flex-1">
-    <div
-      class="absolute bg-red-400 top-[35px] left-[32px] w-[30px] skew-x-[-20deg] h-full"
-    ></div>
-    <div
-      class="absolute bg-red-400 top-[35px] left-[-12px] w-[30px] skew-x-[20deg] h-full"
-    ></div>
-  </div>
-  <div class="h-[40px] w-full flex justify-center relative">
-    <div
-      class="h-0 absolute top-[10px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
-    ></div>
-    <div class="bg-red-400 size-[45px] absolute rounded-full"></div>
-  </div>
-</div>
--->
-
 <div
   class="sm:pt-0 w-full cursor-pointer select-none flex items-end justify-center"
   out:fly={{ y: -10, duration: 300 }}
@@ -60,16 +51,7 @@
       setMenuType(null);
     }, 400);
     ticketTaken = true;
-    // gsap.to("#nextTicket", { y: +20, height: +20 });
-    // gsap.to("#nextStubButt", { y: +20, border: "none" });
-    //
-    /*
-    gsap.to(document.getElementById("nextTicket").children[0], {
-      height: +30,
-      y: -20,
-    });
-    */
-    //   menuType = null;
+    gsap.to("#nextTicket", { duration: 0.3, opacity: 0, delay: 0.2 });
   }}
 >
   <div class="flex h-full w-full flex-col z-50">
@@ -83,53 +65,28 @@
       <img
         id="logo"
         style="box-shadow: rgb(255, 0, 0) 0px 0px 0px 4px;"
-        class="opacity-0 p-4 px-10 border-4 rounded-lg border-blue-500 h-[150px]"
+        class="opacity-0 p-4 px-10 border-4 rounded-lg border-blue-500 bg-white h-[150px] z-[180]"
         src="mbstacked.png"
       />
 
-      <!--
-      <div
-        class="flex flex-col h-[100px] bottom-[-11px] z-90 absolute w-[50px]"
-      >
-        <div
-          class="bg-red-400 w-[100px] left-[-25px] top-[-30px] rounded-b-md h-[80px] absolute z-50"
-        ></div>
-
-        <div class="bg-red-400 relative flex-1">
-          <div
-            class="absolute bg-red-400 top-[27px] left-[28px] w-[30px] skew-x-[-20deg] h-full"
-          ></div>
-          <div
-            class="absolute bg-red-400 top-[27px] left-[-8px] w-[30px] skew-x-[20deg] h-full"
-          ></div>
-        </div>
-        <div class="h-[40px] w-full flex justify-center relative">
-          <div
-            class="h-0 absolute top-[10px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
-          ></div>
-          <div class="bg-red-400 size-[45px] absolute rounded-full"></div>
-        </div>
-      </div>
--->
       <div
         id="nextTicket"
-        class="overflow-hidden opacity-0 flex justify-center align-center w-[60px] h-[30px] absolute bottom-[-27px] z-[100]"
+        class="opacity-0 flex justify-center drop-shadow-lg landscape:scale-[0.6] align-center w-[60px] h-[30px] bottom-[-15px] landscape:bottom-[-42px] absolute z-[180]"
       >
+        <div class="bg-red-400 w-12 h-7 absolute top-[-35px]"></div>
         <div
-          class="bg-red-400 border-4 absolute bottom-[12px] size-[30px] z-[100] rounded-full"
+          class="bg-red-400 z-[102] skew-x-[20deg] border-white left-[2px] w-[12px] h-[40px] absolute top-[-35px] z-[104]"
         ></div>
         <div
-          class="h-0 bottom-[17px] absolute scale-[0.6] z-[101] w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
+          class="bg-red-400 z-[102] skew-x-[-20deg] right-[2px] border-white w-[12px] h-[40px] absolute top-[-35px] z-[104]"
         ></div>
-        <!-- <div class="bg-green-300 size-[20px] absolute"></div> -->
-        <!--
--->
-        <!--
         <div
-          class="bg-red-400 border-4 absolute bottom-[-17px] z-[100] rounded-full"
+          class="bg-red-400 border-white absolute bottom-[10px] size-[45px] z-[100] rounded-full"
+        ></div>
         >
-        </div>
--->
+        <div
+          class="h-0 bottom-[18px] absolute z-[101] w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
+        ></div>
       </div>
 
       {#if ticketNumber && !ticketTaken}
@@ -138,6 +95,23 @@
           out:fly={{ y: 20, duration: 500 }}
           class="flex landscape:scale-[0.6] flex-col h-[100px] bottom-[-80px] landscape:bottom-[-95px] absolute w-[50px]"
         >
+          <div class="absolute top-[-17px] left-[5px] z-[80]">
+            <div
+              class={`bg-white z-[103] ${ticketTaken ? "w-[70px] left-[-16px] top-[-13px]" : "w-[74px] left-[-17px] top-[-15px]"} h-[8px] rounded-b absolute`}
+            ></div>
+            <div
+              class="bg-white absolute top-[-9px] let-0 w-10 h-2 z-[202]"
+            ></div>
+            <div
+              class="bg-white rounded-full size-[50px] left-[-5px] top-[-5px] absolute"
+            ></div>
+            <div
+              class="bg-white w-[20px] h-[42px] skew-x-[20deg] absolute top-[-9px] left-[-9px]"
+            ></div>
+            <div
+              class="bg-white w-[20px] h-[42px] skew-x-[-20deg] absolute top-[-9px] right-[-49px]"
+            ></div>
+          </div>
           <!--
           <div
             class="bg-green-300 border-white border-4 w-[60px] h-[60px] absolute z-[100] top-[-60px] left-[-4px] rounded-full"
@@ -152,7 +126,7 @@
             class="bg-red-400 w-[100px] left-[-25px] top-[-30px] rounded-b-md h-[80px] absolute z-50"
           ></div>
           <div
-            class="absolute text-white absolute z-50 font-bold w-full top-[10px] text-center text-2xl"
+            class="absolute text-white absolute z-50 font-bold w-full top-[27px] text-center text-2xl"
           >
             {ticketNumber}
           </div>

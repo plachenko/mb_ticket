@@ -53,20 +53,23 @@
   let saleProducts = $state([]);
 
   function gridItemSelected(item) {
-    // setCurrentType(item);
+    console.log(item);
     setCategory(item.text, item.color);
 
     setTimeout(() => {
       gridEl.createGrid({
         sections: "test",
-        items: [{ name: "test" }, { name: "div" }],
+        items: item.items.map((e) => {
+          return {
+            name: e,
+          };
+        }),
       });
     }, 40);
   }
 
   function setTicketNumber(ticketNumber) {
     curTicketNum = ticketNumber;
-    console.log("setting the ticketNumber to ", curTicketNum);
   }
 
   onMount(() => {
@@ -94,7 +97,6 @@
 
   function setCurrentType(typeIdx) {
     curType = typeIdx;
-    console.log("setting type", curType);
   }
 
   function setBrand(brandIdx) {
@@ -155,7 +157,6 @@
 
     curCategory = category;
 
-    // console.log(category);
     // gridEl.createGrid({
     //   sections: [category],
     //   items: [{ name: "test" }, { name: "uh" }],

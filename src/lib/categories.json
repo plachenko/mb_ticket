@@ -1,38 +1,64 @@
 [
   {
-    "name": "on sale!",
-    "color": "#FF0000"
-  },
-  {
     "name": "ham",
-    "color": "#FFA07A"
+    "color": "#FFA07A",
+    "types": [
+      "honey",
+      "cooked",
+      "imported",
+      "hot",
+      "cherrywood",
+      "black forest",
+      "virginia smoked",
+      "spiral"
+    ]
   },
   {
     "name": "cheese",
-    "color": "#b3a100"
+    "color": "#b3a100",
+    "types": [
+      "havarti",
+      "swiss",
+      "provolone",
+      "american",
+      "cheddar",
+      "pepper jack",
+      "colby jack"
+    ]
   },
   {
     "name": "bologna",
-    "color": "#FF6347"
+    "color": "#FF6347",
+    "types": ["beef", "vienna", "german", "small"]
   },
   {
     "name": "beef",
-    "color": "#8B0000"
-  },
-  {
-    "name": "pastrami",
-    "color": "#8B4513"
+    "color": "#8B0000",
+    "types": ["roast beef", "italian roast beef", "corned beef", "pastrami"]
   },
   {
     "name": "italian",
-    "color": "#A52A2A"
+    "color": "#A52A2A",
+    "types": ["salami", "soppressata"]
   },
   {
     "name": "chicken",
-    "color": "#ffb433"
+    "color": "#ffb433",
+    "types": [
+      "peppered",
+      "buffalo",
+      "barbeque",
+      "honey mesquite",
+      "oven roasted"
+    ]
   },
   {
     "name": "turkey",
-    "color": "#edc478"
+    "color": "#edc478",
+    "types": ["buffalo", "roasted", "homestyle", "honey", "santa fe"]
+  },
+  {
+    "name": "franks",
+    "color": "#FF0"
   }
 ]

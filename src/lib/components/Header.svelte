@@ -44,8 +44,10 @@
 
   $effect(() => {
     productSearchEvt(searchVal);
-    if (curSection !== null) {
+    if (curSection !== null && curCategory) {
       gsap.to("#curSectionContainer", { y: +50, duration: 0.5, delay: 0.5 });
+      gsap.from("#catImg", { x: +10, opacity: 0, duration: 0.4, delay: 0.7 });
+      gsap.from("#catTxt", { opacity: 0, x: -10, duration: 0.4, delay: 0.7 });
       /*
       gsap.to(document.getElementById("curSectionContainer"), {
         y: +30,
@@ -75,9 +77,26 @@
       ></div>
     {/if}
     <div
-      class=" z-20 bg-slate-100 rounded-md p-2 border border-slate-300 flex gap-2 cursor-pointer hover:bg-slate-100"
+      class="font-bold z-20 bg-red-400 rounded-md p-2 border text-red-100 drop-shadow flex gap-2 cursor-pointer"
       onclick={() => MenuOpen("main")}
     >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"
+        />
+      </svg>
+
+      <span> On Sale! </span>
+      <!--
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -93,6 +112,7 @@
         />
       </svg>
       <img src="mbstacked.png" class="h-6" />
+-->
     </div>
     {#if !curProduct}
       <div
@@ -149,7 +169,7 @@
       </svg>
     </div>
   </div>
-  {#if curSection}
+  {#if curSection && curCategory}
     <div class="bg-white w-full z-10 relative flex">
       <div
         id="curSectionContainer"
@@ -159,11 +179,25 @@
           style={`${curSection ? "background-color: " + curSection : ""}`}
           class="w-full h-full opacity-20 absolute shadow-md"
         ></div>
-        <span class="p-2 flex-1 justify-center items-center flex">
-          <div class="relative text-xs flex flex-1 justify-center capitalize">
-            Category &ndash;&nbsp;<span class="font-bold">{curCategory}</span>
+        <div class="flex items-center justify-center">
+          <div class="px-2">
+            <img
+              id="catImg"
+              src={`icons/${curCategory}.svg`}
+              class="opacity-30 size-8 w-10"
+            />
           </div>
-        </span>
+          <span
+            class="p-2 flex-1 justify-center items-center flex border-l-2 pl-2 border-dashed border-slate-800/20"
+          >
+            <div
+              id="catTxt"
+              class="relative text-xs flex flex-1 justify-center capitalize"
+            >
+              Category &ndash;&nbsp;<span class="font-bold">{curCategory}</span>
+            </div>
+          </span>
+        </div>
         {#if curType}
           <div
             class="text-xs border-l-2 border-slate-600/40 relative flex capitalize flex-1 justify-center items-center"
