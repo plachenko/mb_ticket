@@ -45,8 +45,6 @@
       innerList = list.items;
     }
 
-    console.log("inner", list.category);
-
     itemArr = innerList.map((e, idx) => {
       return {
         text: typeof innerList[idx] == "string" ? e : e.name,

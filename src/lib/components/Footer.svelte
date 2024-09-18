@@ -5,7 +5,6 @@
   let { curOptions, showFooter, curTicketNum } = $props();
 
   $effect(() => {
-    console.log("ticketNum", curTicketNum);
     if (showFooter && curTicketNum !== null) {
       gsap.from("#ticketButt", { y: -100 });
     }
