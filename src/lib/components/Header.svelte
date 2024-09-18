@@ -13,6 +13,7 @@
     curProduct,
     MenuOpen,
     showHeader,
+    curProdType,
     productSearchEvt,
     searchVal,
     curSection,
@@ -179,7 +180,7 @@
           style={`${curSection ? "background-color: " + curSection : ""}`}
           class="w-full h-full opacity-20 absolute shadow-md"
         ></div>
-        <div class="flex items-center justify-center">
+        <div class="flex flex-1 items-center justify-center">
           <div class="px-2">
             <img
               id="catImg"
@@ -190,12 +191,10 @@
           <span
             class="p-2 flex-1 justify-center items-center flex border-l-2 pl-2 border-dashed border-slate-800/20"
           >
-            <div
-              id="catTxt"
-              class="relative text-xs flex flex-1 justify-center capitalize"
-            >
+            <div id="catTxt" class="relative text-xs flex pr-2 capitalize">
               Category &ndash;&nbsp;<span class="font-bold">{curCategory}</span>
             </div>
+            <div class="flex-1 border-l-2 px-2 text-xs">{curProdType}</div>
           </span>
         </div>
         {#if curType}

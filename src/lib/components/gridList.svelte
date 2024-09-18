@@ -11,9 +11,11 @@
     createList,
   } = $props();
   let itemArr = $state(null);
+  let innerList = $state(null);
 
   let ready = $state(false);
   let canDestroy = $state(false);
+  let category = $state(null);
 
   $effect(() => {
     /*
@@ -35,11 +37,15 @@
 
   export function createGrid(list) {
     itemArr = [];
-    let innerList = list;
+    innerList = list;
 
-    if (list.sections) {
+    category = list?.category;
+
+    if (list.category) {
       innerList = list.items;
     }
+
+    console.log("inner", list.category);
 
     itemArr = innerList.map((e, idx) => {
       return {
@@ -68,7 +74,7 @@
           delay: 0.8,
           duration: 0.4,
           oncomplete: (e) => {
-            if (list.sections) {
+            if (list.category) {
               // setCursection("#F00");
             }
           },
@@ -89,15 +95,10 @@
         opacity: 0,
         duration: 0.25,
         onComplete: () => {
-          console.log(itemArr[idx]);
           setCursection(itemArr[idx].color);
-          // gridItemSelected(itemArr[idx], idx);
-          // canRenew = true;
         },
       },
     );
-
-    // gridItemSelected(itemArr[idx], idx);
 
     gsap.to(".gridItem", {
       y: -40,
@@ -106,6 +107,10 @@
       delay: 0.1,
       duration: 0.2,
       onComplete: () => {
+        if (category) {
+          itemArr[idx].category = category;
+        }
+
         gridItemSelected(itemArr[idx], idx);
       },
     });
@@ -138,12 +143,12 @@
               class="landscape:w-10 bg-white/50 portrait:w-full h-full items-center justify-center flex"
             >
               <img
-                src={`icons/${item.text}.svg`}
+                src={`icons/${category ? category : item.text}.svg`}
                 class="opacity-30 landscape:size-7 portrait:size-20"
               />
             </div>
             <div
-              class="portrait:border-t-2 landscape:border-l-2 border-white/50 border-dashed flex-1 p-2 h-full justify-center items-center flex"
+              class="text-center capitalize text-xs portrait:border-t-2 landscape:border-l-2 border-white/50 border-dashed flex-1 p-2 h-full justify-center items-center flex"
             >
               {item.text}
             </div>

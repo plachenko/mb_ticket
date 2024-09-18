@@ -39,7 +39,7 @@
   {
     "name": "italian",
     "color": "#A52A2A",
-    "types": ["salami", "soppressata"]
+    "types": ["salami", "soppressata", "mortadella"]
   },
   {
     "name": "chicken",
@@ -55,7 +55,14 @@
   {
     "name": "turkey",
     "color": "#edc478",
-    "types": ["buffalo", "roasted", "homestyle", "honey", "santa fe"]
+    "types": [
+      "buffalo",
+      "oven roasted",
+      "golden roasted",
+      "uncured",
+      "honey",
+      "santa fe"
+    ]
   },
   {
     "name": "franks",

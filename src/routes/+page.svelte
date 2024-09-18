@@ -36,6 +36,8 @@
   let curProduct = $state(null);
   let curBrand = $state(0);
   let curTicketNum = $state(null);
+  let curProdType = $state(null);
+
   let curOptions = $state([
     {
       name: "cancel",
@@ -53,15 +55,24 @@
   let saleProducts = $state([]);
 
   function gridItemSelected(item) {
-    console.log(item);
-    setCategory(item.text, item.color);
+    if (!item?.items) {
+      prodList = true;
+      curProdType = item.text;
+    }
+
+    if (item.category) {
+      setCategory(item.category, item.color);
+    } else {
+      setCategory(item.text, item.color);
+    }
 
     setTimeout(() => {
       gridEl.createGrid({
-        sections: "test",
+        category: item.text,
         items: item.items.map((e) => {
           return {
             name: e,
+            color: item.color,
           };
         }),
       });
@@ -272,6 +283,7 @@
     {curType}
     {curSection}
     {showHeader}
+    {curProdType}
     {curProduct}
     {searchVal}
     {productSearchEvt}
