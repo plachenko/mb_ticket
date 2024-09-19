@@ -11,6 +11,7 @@
 
   let touchStartPos = $state(null);
   let curTick = $state(0);
+  let ydiff = $state(0);
 
   onMount(() => {
     document.addEventListener("touchstart", (e) => {
@@ -20,10 +21,21 @@
 
     document.addEventListener("touchmove", (e) => {
       if (touchStartPos) {
-        let ydiff = e.touches[0].clientY - touchStartPos;
+        ydiff = e.touches[0].clientY - touchStartPos;
 
+        if(ydiff > 0 && ydiff < 100) {
+          document.getElementById('slideTick').style.top = `${16 + ydiff}px`;
+        } else{
+            document.getElementById('slideTick').style.top = ydiff < 0 ? '16px' : '115px';
+        }
+
+        if(ydiff > 100){
+          takeTicket();
+        }
+        
         // document.getElementById('mbTicket').style.transform = `scale(1, ${1+ydiff/400})`;
 
+        /*
         console.log(Math.round(ydiff % 40) == 0)
         if(Math.round(ydiff % 40) < 2) {
           curTick++;
@@ -33,6 +45,7 @@
           curTick = 0;
           takeTicket();
         }
+        */
 
         /*
         if (ydiff > 70) {
@@ -45,6 +58,8 @@
     document.addEventListener("touchend", () => {
       isTouching = false;
       touchStartPos = null;
+      console.log(touchStartPos, ticketTaken)
+      console.log('resetting touch start')
     });
 
     gsap.to("#nextTicket", { opacity: 1, y: 0, duration: 0.6, delay: 0.7 });
@@ -58,7 +73,7 @@
         duration: 0.6,
         onComplete: () => {
           gsap.to("#timeContainer", { opacity: 1 });
-          gsap.fromTo("#tapEl", { y: 20 }, { opacity: 1, duration: 0.4, y: 0 });
+          // gsap.fromTo("#tapEl", { y: 20 }, { opacity: 1, duration: 0.4, y: 0 });
           ticketNumber =
             "A" + String(Math.floor(Math.random() * 100)).padStart(2, "0");
           setTicketNumber(ticketNumber);
@@ -83,7 +98,6 @@
 <div
   class="sm:pt-0 w-full cursor-pointer select-none flex items-end justify-center"
   out:fly={{ y: -10, duration: 300 }}
-  onclick={takeTicket}
 >
   <div class="flex h-full w-full flex-col z-50">
     <div
@@ -103,7 +117,12 @@
 
         <div class="h-[30px] absolute bottom-[-52px] flex justify-center">
           
-          <div class="border-l-4 border-r-4 w-[100px] h-[160px] bottom-[-285px] absolute flex justify-center flex-col items-center gap-7">
+          {#if touchStartPos}
+          <div in:fly={{y:20}} out:fly={{y:20}} class="border-4 rounded-lg w-[100px] h-[160px] bottom-[-285px] absolute flex justify-center flex-col items-center gap-7">
+            <div
+              id="slideTick"
+              class={`absolute top-[16px] h-0 z-[101] w-0 border-x-[16px] border-x-transparent border-t-[22px] border-red-400 opacity-60`}
+            ></div>
             {#each Array(3) as tick, idx}
             <div
               class={`h-0 z-[101] ${idx + 1  > curTick ? 'opacity-20' : 'opacity-100'} w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700`}
@@ -111,6 +130,7 @@
             {/each}
 
           </div>
+          {/if}
           
           <div
             id="nextTicket"
@@ -194,11 +214,11 @@
       </div>
     </div>
     <div class="p-2 pb-4 flex-1 max-h-[350px] flex justify-center items-center">
-      {#if !ticketTaken}
+      {#if !touchStartPos}
         <div
-          out:fly={{ y: 20, delay: 300 }}
-          id="tapEl"
-          class="p-2 border-4 bg-white border-red-300 landscape:hidden shadow-md opacity-0 font-bold text-red-300 rounded-lg text-[1.5em] text-center capitalize"
+          in:fly={{y: 20}}
+          out:fly={{ y: 20}}
+          class="p-2 border-4 bg-white border-red-300 landscape:hidden shadow-md font-bold text-red-300 rounded-lg text-[1.5em] text-center capitalize"
         >
           Swipe down to start an order
         </div>
