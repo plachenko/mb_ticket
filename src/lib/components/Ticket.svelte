@@ -10,6 +10,7 @@
   let isTouching = $state(false);
 
   let touchStartPos = $state(null);
+  let curTick = $state(0);
 
   onMount(() => {
     document.addEventListener("touchstart", (e) => {
@@ -23,9 +24,21 @@
 
         // document.getElementById('mbTicket').style.transform = `scale(1, ${1+ydiff/400})`;
 
+        console.log(Math.round(ydiff % 40) == 0)
+        if(Math.round(ydiff % 40) < 2) {
+          curTick++;
+        }
+
+        if(curTick > 3){
+          curTick = 0;
+          takeTicket();
+        }
+
+        /*
         if (ydiff > 70) {
           takeTicket();
         }
+          */
       }
     });
 
@@ -89,6 +102,16 @@
         />
 
         <div class="h-[30px] absolute bottom-[-52px] flex justify-center">
+          
+          <div class="border-l-4 border-r-4 w-[100px] h-[160px] bottom-[-285px] absolute flex justify-center flex-col items-center gap-7">
+            {#each Array(3) as tick, idx}
+            <div
+              class={`h-0 z-[101] ${idx + 1  > curTick ? 'opacity-20' : 'opacity-100'} w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700`}
+            ></div>
+            {/each}
+
+          </div>
+          
           <div
             id="nextTicket"
             class="opacity-0 flex justify-center drop-shadow-lg landscape:scale-[0.6] align-center w-[60px] h-[30px] top-[20px] landscape:top-[0px] absolute z-[180]"

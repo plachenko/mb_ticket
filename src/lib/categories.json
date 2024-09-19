@@ -34,12 +34,12 @@
   {
     "name": "beef",
     "color": "#8B0000",
-    "types": ["roast beef", "italian roast beef", "corned beef", "pastrami"]
+    "types": ["roast beef", "italian roast beef", "corn ed beef", "pastrami"]
   },
   {
     "name": "italian",
     "color": "#A52A2A",
-    "types": ["salami", "soppressata", "mortadella"]
+    "types": ["salami", "soppressata"]
   },
   {
     "name": "chicken",
@@ -55,14 +55,7 @@
   {
     "name": "turkey",
     "color": "#edc478",
-    "types": [
-      "buffalo",
-      "oven roasted",
-      "golden roasted",
-      "uncured",
-      "honey",
-      "santa fe"
-    ]
+    "types": ["buffalo", "roasted", "homestyle", "honey", "santa fe"]
   },
   {
     "name": "franks",
