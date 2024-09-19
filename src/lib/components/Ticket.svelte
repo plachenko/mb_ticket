@@ -214,7 +214,7 @@
       </div>
     </div>
     <div class="p-2 pb-4 flex-1 max-h-[350px] flex justify-center items-center">
-      {#if !touchStartPos}
+      {#if !touchStartPos && !ticketTaken}
         <div
           in:fly={{y: 20}}
           out:fly={{ y: 20}}
