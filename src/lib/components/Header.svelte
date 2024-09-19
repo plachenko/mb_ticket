@@ -37,10 +37,11 @@
 
   onMount(() => {});
 
-  let speechText = $state("");
+  let speechText = $state("test");
   function handleSpeech(transcript) {
     handlingSpeech = true;
     speechText = transcript;
+    console.log(transcript);
   }
 
   $effect(() => {
@@ -134,7 +135,7 @@
       ></div>
       {#if textInput}
         <div in:fly={{ y: -20 }}>
-          <SpeechRecognition {handleSpeech} />
+          <SpeechRecognition {speechText} {handleSpeech} />
           <span>{speechText}</span>
         </div>
       {/if}

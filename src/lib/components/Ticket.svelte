@@ -16,20 +16,19 @@
       isTouching = true;
       touchStartPos = e.touches[0].clientY;
     });
-    
+
     document.addEventListener("touchmove", (e) => {
       if (touchStartPos) {
         let ydiff = e.touches[0].clientY - touchStartPos;
 
         // document.getElementById('mbTicket').style.transform = `scale(1, ${1+ydiff/400})`;
 
-
-        if(ydiff > 70){
+        if (ydiff > 70) {
           takeTicket();
         }
       }
     });
-    
+
     document.addEventListener("touchend", () => {
       isTouching = false;
       touchStartPos = null;
@@ -55,12 +54,16 @@
     );
   });
 
-  function takeTicket(){
+  function takeTicket() {
     ticketTaken = true;
-    gsap.to("#nextTicket", { duration: 0.3, opacity: 0, delay: 0.2, onComplete: () => {
-      
-      setMenuType(null);
-    } });
+    gsap.to("#nextTicket", {
+      duration: 0.3,
+      opacity: 0,
+      delay: 0.2,
+      onComplete: () => {
+        setMenuType(null);
+      },
+    });
   }
 </script>
 
@@ -79,14 +82,14 @@
     <div class="flex-1 flex justify-center p-[10px] items-center relative">
       <div class="h-[150px] relative flex justify-center">
         <img
-        id="logo"
-        style="box-shadow: rgb(255, 0, 0) 0px 0px 0px 4px;"
-        class="opacity-0 p-4 px-10 border-4 rounded-lg border-blue-500 bg-white h-[150px] z-[180]"
-        src="mbstacked.png"
-      />
+          id="logo"
+          style="box-shadow: rgb(255, 0, 0) 0px 0px 0px 4px;"
+          class="opacity-0 p-4 px-10 border-4 rounded-lg border-blue-500 bg-white h-[150px] z-[180]"
+          src="mbstacked.png"
+        />
 
         <div class="h-[30px] absolute bottom-[-52px] flex justify-center">
-            <div
+          <div
             id="nextTicket"
             class="opacity-0 flex justify-center drop-shadow-lg landscape:scale-[0.6] align-center w-[60px] h-[30px] top-[20px] landscape:top-[0px] absolute z-[180]"
           >
@@ -104,71 +107,68 @@
             <div
               class="h-0 bottom-[18px] absolute z-[101] w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
             ></div>
-          </div>          
+          </div>
         </div>
         {#if ticketNumber && !ticketTaken}
-        <div
-          in:fly={{ y: -10 }}
-          out:fly={{ y: 20, duration: 500 }}
-          id="mbTicket"
-          class="flex landscape:scale-[0.6] flex-col h-[100px] bottom-[-137px] landscape:bottom-[-105px] absolute w-[50px]"
-        >
-          <div class="absolute top-[-17px] left-[5px] z-[80]">
-            <div
-              class={`bg-white z-[103] ${ticketTaken ? "w-[70px] left-[-16px] top-[-13px]" : "w-[74px] left-[-17px] top-[-15px]"} h-[8px] rounded-b absolute`}
-            ></div>
-            <div
-              class="bg-white absolute top-[-9px] let-0 w-10 h-2 z-[202]"
-            ></div>
-            <div
-              class="bg-white rounded-full size-[50px] left-[-5px] top-[-5px] absolute"
-            ></div>
-            <div
-              class="bg-white w-[20px] h-[42px] skew-x-[20deg] absolute top-[-9px] left-[-9px]"
-            ></div>
-            <div
-              class="bg-white w-[20px] h-[42px] skew-x-[-20deg] absolute top-[-9px] right-[-49px]"
-            ></div>
-          </div>
-
           <div
-            class="bg-red-400 w-[100px] left-[-25px] top-[-30px] rounded-b-md h-[80px] absolute z-50"
-          ></div>
-          <div
-            class="absolute text-white absolute z-50 font-bold w-full top-[27px] text-center text-2xl"
+            in:fly={{ y: -10 }}
+            out:fly={{ y: 20, duration: 500 }}
+            id="mbTicket"
+            class="flex landscape:scale-[0.6] flex-col h-[100px] bottom-[-137px] landscape:bottom-[-105px] absolute w-[50px]"
           >
-            {ticketNumber}
-          </div>
+            <div class="absolute top-[-17px] left-[5px] z-[80]">
+              <div
+                class={`bg-white z-[103] ${ticketTaken ? "w-[70px] left-[-16px] top-[-13px]" : "w-[74px] left-[-17px] top-[-15px]"} h-[8px] rounded-b absolute`}
+              ></div>
+              <div
+                class="bg-white absolute top-[-9px] let-0 w-10 h-2 z-[202]"
+              ></div>
+              <div
+                class="bg-white rounded-full size-[50px] left-[-5px] top-[-5px] absolute"
+              ></div>
+              <div
+                class="bg-white w-[20px] h-[42px] skew-x-[20deg] absolute top-[-9px] left-[-9px]"
+              ></div>
+              <div
+                class="bg-white w-[20px] h-[42px] skew-x-[-20deg] absolute top-[-9px] right-[-49px]"
+              ></div>
+            </div>
 
-          <div class="bg-white absolute top-[0px] z-90 w-full flex-1">
             <div
-              class="absolute bg-white top-[27px] left-[28px] w-[30px] skew-x-[-20deg] h-full"
+              class="bg-red-400 w-[100px] left-[-25px] top-[-30px] rounded-b-md h-[80px] absolute z-50"
             ></div>
             <div
-              class="absolute bg-white top-[27px] left-[-8px] w-[30px] skew-x-[20deg] h-full"
-            ></div>
-          </div>
+              class="absolute text-white absolute z-50 font-bold w-full top-[27px] text-center text-2xl"
+            >
+              {ticketNumber}
+            </div>
 
-          <div class="bg-red-400 relative flex-1">
-            <div
-              class="absolute bg-red-400 top-[27px] left-[28px] w-[30px] skew-x-[-20deg] h-full"
-            ></div>
-            <div
-              class="absolute bg-red-400 top-[27px] left-[-8px] w-[30px] skew-x-[20deg] h-full"
-            ></div>
-          </div>
-          <div class="h-[40px] w-full flex justify-center relative">
-            <div
-              class="h-0 absolute top-[10px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
-            ></div>
-            <div class="bg-red-400 size-[45px] absolute rounded-full"></div>
-          </div>
-        </div>
-      {/if}
+            <div class="bg-white absolute top-[0px] z-90 w-full flex-1">
+              <div
+                class="absolute bg-white top-[27px] left-[28px] w-[30px] skew-x-[-20deg] h-full"
+              ></div>
+              <div
+                class="absolute bg-white top-[27px] left-[-8px] w-[30px] skew-x-[20deg] h-full"
+              ></div>
+            </div>
 
+            <div class="bg-red-400 relative flex-1">
+              <div
+                class="absolute bg-red-400 top-[27px] left-[28px] w-[30px] skew-x-[-20deg] h-full"
+              ></div>
+              <div
+                class="absolute bg-red-400 top-[27px] left-[-8px] w-[30px] skew-x-[20deg] h-full"
+              ></div>
+            </div>
+            <div class="h-[40px] w-full flex justify-center relative">
+              <div
+                class="h-0 absolute top-[10px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
+              ></div>
+              <div class="bg-red-400 size-[45px] absolute rounded-full"></div>
+            </div>
+          </div>
+        {/if}
       </div>
-
-
     </div>
     <div class="p-2 pb-4 flex-1 max-h-[350px] flex justify-center items-center">
       {#if !ticketTaken}
