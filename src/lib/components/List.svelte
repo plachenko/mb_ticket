@@ -103,7 +103,7 @@
           return e.brand_name == brand;
         }) as product, pIdx}
           <div
-            class="listItem opacity-0 [&:not(:first-child)]:border-t py-3 pl-2 flex gap-2 hover:bg-slate-100 cursor-pointer"
+            class="listItem [&:not(:first-child)]:border-t py-3 pl-2 flex gap-2 hover:bg-slate-100 cursor-pointer"
             onclick={() => displayProduct(product)}
           >
             <div class="border-r-2 pr-2 text-nowrap flex items-center">

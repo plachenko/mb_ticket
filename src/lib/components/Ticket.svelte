@@ -9,33 +9,59 @@
   let ticketNumber = $state(null);
   let isTouching = $state(false);
 
+  let ticketTake = $state(false);
+  let ticketMove = $state(false);
+
   let touchStartPos = $state(null);
   let curTick = $state(0);
   let ydiff = $state(0);
 
+  let ticket = $state(null);
+
+  let touchPos = $state({ x: 0, y: 0 });
+
   onMount(() => {
-    document.addEventListener("touchstart", (e) => {
-      isTouching = true;
-      touchStartPos = e.touches[0].clientY;
-    });
+    document
+      .getElementById("touchContainer")
+      .addEventListener("touchstart", (e) => {
+        isTouching = true;
+        touchStartPos = e.touches[0].clientY;
+      });
 
-    document.addEventListener("touchmove", (e) => {
-      if (touchStartPos) {
-        ydiff = e.touches[0].clientY - touchStartPos;
+    setTimeout(() => {
+      ticket = document.getElementById("mbTicket");
+    }, 600);
 
-        if(ydiff > 0 && ydiff < 100) {
-          document.getElementById('slideTick').style.top = `${16 + ydiff}px`;
-        } else{
-            document.getElementById('slideTick').style.top = ydiff < 0 ? '16px' : '115px';
-        }
-
-        if(ydiff > 100){
-          takeTicket();
-        }
-        
-        // document.getElementById('mbTicket').style.transform = `scale(1, ${1+ydiff/400})`;
+    document
+      .getElementById("touchContainer")
+      .addEventListener("touchmove", (e) => {
+        touchPos.x = e.touches[0].pageX;
+        touchPos.y = e.touches[0].pageY;
 
         /*
+        if (ticketMove) {
+          ticket.style.left = "0px";
+          ticket.style.top = "0px";
+        }
+        */
+
+        if (touchStartPos) {
+          ydiff = e.touches[0].clientY - touchStartPos;
+
+          if (ydiff > 0 && ydiff < 100) {
+            document.getElementById("slideTick").style.top = `${16 + ydiff}px`;
+          } else {
+            document.getElementById("slideTick").style.top =
+              ydiff < 0 ? "16px" : "115px";
+          }
+
+          if (ydiff > 100) {
+            takeTicket();
+          }
+
+          // document.getElementById('mbTicket').style.transform = `scale(1, ${1+ydiff/400})`;
+
+          /*
         console.log(Math.round(ydiff % 40) == 0)
         if(Math.round(ydiff % 40) < 2) {
           curTick++;
@@ -47,20 +73,35 @@
         }
         */
 
-        /*
+          /*
         if (ydiff > 70) {
           takeTicket();
         }
           */
-      }
-    });
+        }
+      });
 
-    document.addEventListener("touchend", () => {
-      isTouching = false;
-      touchStartPos = null;
-      console.log(touchStartPos, ticketTaken)
-      console.log('resetting touch start')
-    });
+    document
+      .getElementById("touchContainer")
+      .addEventListener("touchend", () => {
+        isTouching = false;
+        touchStartPos = null;
+        if (!ticketTake) return;
+
+        // gsap.kill(ticketTween);
+
+        gsap.to(ticket, {
+          y: "+=90",
+          opacity: 0,
+          duration: 0.8,
+          oncomplete: () => {
+            setTimeout(() => {
+              ticketTaken = true;
+              setMenuType(null);
+            }, 400);
+          },
+        });
+      });
 
     gsap.to("#nextTicket", { opacity: 1, y: 0, duration: 0.6, delay: 0.7 });
 
@@ -72,8 +113,8 @@
         y: 0,
         duration: 0.6,
         onComplete: () => {
-          gsap.to("#timeContainer", { opacity: 1 });
           // gsap.fromTo("#tapEl", { y: 20 }, { opacity: 1, duration: 0.4, y: 0 });
+          gsap.to("#timeContainer", { opacity: 1 });
           ticketNumber =
             "A" + String(Math.floor(Math.random() * 100)).padStart(2, "0");
           setTicketNumber(ticketNumber);
@@ -82,18 +123,50 @@
     );
   });
 
+  let ticketTween = $state(null);
   function takeTicket() {
-    ticketTaken = true;
+    if (ticketTake) return;
+
+    ticketTake = true;
+
+    gsap.to("#logo", {
+      opacity: 0,
+    });
+
+    ticketTween = gsap.to("#mbTicket", {
+      left: parseInt(document.getElementById("testTick").style.left) - 16,
+      top: parseInt(document.getElementById("testTick").style.top) + 32,
+      onComplete: () => {
+        ticket.style.top = "54px";
+        ticket.style.left = "10px";
+
+        document.getElementById("testTick").appendChild(ticket);
+      },
+    });
+
     gsap.to("#nextTicket", {
       duration: 0.3,
       opacity: 0,
       delay: 0.2,
       onComplete: () => {
-        setMenuType(null);
+        // setMenuType(null);
       },
     });
   }
 </script>
+
+<div id="touchContainer" class="w-full h-full absolute left-0 top-0 z-[999]">
+  <div
+    ontouchmove={(e) => {
+      document.getElementById("testTick").style.left =
+        e.touches[0].clientX - 40 + "px";
+      document.getElementById("testTick").style.top =
+        e.touches[0].clientY - 180 + "px";
+    }}
+    class="w-full h-full absolute left-0 top-0 z-[998]"
+  ></div>
+  <div id="testTick" class="absolute h-[80px] w-[80px]"></div>
+</div>
 
 <div
   class="sm:pt-0 w-full cursor-pointer select-none flex items-end justify-center"
@@ -116,22 +189,24 @@
         />
 
         <div class="h-[30px] absolute bottom-[-52px] flex justify-center">
-          
           {#if touchStartPos}
-          <div in:fly={{y:20}} out:fly={{y:20}} class="border-4 rounded-lg w-[100px] h-[160px] bottom-[-285px] absolute flex justify-center flex-col items-center gap-7">
             <div
-              id="slideTick"
-              class={`absolute top-[16px] h-0 z-[101] w-0 border-x-[16px] border-x-transparent border-t-[22px] border-red-400 opacity-60`}
-            ></div>
-            {#each Array(3) as tick, idx}
-            <div
-              class={`h-0 z-[101] ${idx + 1  > curTick ? 'opacity-20' : 'opacity-100'} w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700`}
-            ></div>
-            {/each}
-
-          </div>
+              in:fly={{ y: 20 }}
+              out:fly={{ y: 20 }}
+              class="border-4 rounded-lg w-[100px] h-[160px] bottom-[-285px] absolute flex justify-center flex-col items-center gap-7"
+            >
+              <div
+                id="slideTick"
+                class={`absolute top-[16px] h-0 z-[101] w-0 border-x-[16px] border-x-transparent border-t-[22px] border-red-400 opacity-60`}
+              ></div>
+              {#each Array(3) as tick, idx}
+                <div
+                  class={`h-0 z-[101] ${idx + 1 > curTick ? "opacity-20" : "opacity-100"} w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700`}
+                ></div>
+              {/each}
+            </div>
           {/if}
-          
+
           <div
             id="nextTicket"
             class="opacity-0 flex justify-center drop-shadow-lg landscape:scale-[0.6] align-center w-[60px] h-[30px] top-[20px] landscape:top-[0px] absolute z-[180]"
@@ -216,8 +291,8 @@
     <div class="p-2 pb-4 flex-1 max-h-[350px] flex justify-center items-center">
       {#if !touchStartPos && !ticketTaken}
         <div
-          in:fly={{y: 20}}
-          out:fly={{ y: 20}}
+          in:fly={{ y: 20 }}
+          out:fly={{ y: 20 }}
           class="p-2 border-4 bg-white border-red-300 landscape:hidden shadow-md font-bold text-red-300 rounded-lg text-[1.5em] text-center capitalize"
         >
           Swipe down to start an order
