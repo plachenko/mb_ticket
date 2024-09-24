@@ -62,12 +62,14 @@
         if (touchStartPos) {
           ydiff = e.touches[0].clientY - touchStartPos;
 
+          /*
           if (ydiff > 0 && ydiff < 100) {
             document.getElementById("slideTick").style.top = `${16 + ydiff}px`;
           } else {
             document.getElementById("slideTick").style.top =
               ydiff < 0 ? "16px" : "115px";
           }
+              */
 
           if (ydiff > 100) {
             takeTicket();
@@ -201,11 +203,11 @@
 <div id="touchContainer" class="w-full h-full absolute left-0 top-0 z-[999]">
   <div
     id="touchBox"
-    class="absolute border-red-600/70 border-4 w-[100px] h-[200px] flex flex-col rounded-lg opacity-0"
+    class={`absolute ${!ticketTake ? 'border-4 border-red-600/70' : 'gap-2'} w-[100px] h-[200px] flex flex-col rounded-lg opacity-0`}
   >
     <div
       id="ticketHolder"
-      class="overflow-hidden w-full h-[130px] absolute left-0 top-0 bg-white z-[997] opacity-0"
+      class={`overflow-hidden w-full h-[133px] ${ticketTake ? 'border-4 rounded-xl  border-slate-500/30' : ''} absolute left-0 top-0 bg-white z-[997] opacity-0`}
     ></div>
     {#each Array(3) as section, idx}
       <div
@@ -258,6 +260,7 @@
         />
 
         <div class="h-[30px] absolute bottom-[-52px] flex justify-center">
+          <!--
           {#if touchStartPos}
             <div
               in:fly={{ y: 20 }}
@@ -275,7 +278,8 @@
               {/each}
             </div>
           {/if}
-
+-->
+          
           <div
             id="nextTicket"
             class="opacity-0 flex justify-center drop-shadow-lg landscape:scale-[0.6] align-center w-[60px] h-[30px] top-[20px] landscape:top-[0px] absolute z-[180]"
@@ -358,7 +362,7 @@
       </div>
     </div>
     <div class="p-2 pb-4 flex-1 max-h-[350px] flex justify-center items-center">
-      {#if !touchStartPos && !ticketTaken}
+      {#if !touchStartPos && !ticketTake}
         <div
           in:fly={{ y: 20 }}
           out:fly={{ y: 20 }}
