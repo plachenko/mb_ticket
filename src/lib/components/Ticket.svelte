@@ -17,6 +17,7 @@
   let touchStartPos = $state(null);
   let curTick = $state(0);
   let ydiff = $state(0);
+  let canTouch = $state(false);
 
   let ticket = $state(null);
 
@@ -26,6 +27,8 @@
     document
       .getElementById("touchContainer")
       .addEventListener("touchstart", (e) => {
+        if(!canTouch) return;
+
         isTouching = true;
         touchStartPos = e.touches[0].clientY;
 
@@ -44,6 +47,7 @@
 
     setTimeout(() => {
       ticket = document.getElementById("mbTicket");
+      canTouch = true;
     }, 600);
 
     document
@@ -51,6 +55,7 @@
       .addEventListener("touchmove", (e) => {
         touchPos.x = e.touches[0].pageX;
         touchPos.y = e.touches[0].pageY;
+
 
         /*
         if (ticketMove) {
@@ -62,13 +67,6 @@
         if (touchStartPos) {
           ydiff = e.touches[0].clientY - touchStartPos;
 
-          console.log(
-            document.elementFromPoint(
-              Math.round(touchStartPos.x) || 0,
-              Math.round(touchPos.y) || 0,
-            ),
-          );
-
           /*
           if (ydiff > 0 && ydiff < 100) {
             document.getElementById("slideTick").style.top = `${16 + ydiff}px`;
@@ -78,7 +76,7 @@
           }
           */
 
-          if (ydiff > 100) {
+          if (ydiff > 140) {
             takeTicket();
           }
 
@@ -101,6 +99,16 @@
           takeTicket();
         }
           */
+
+          if(ticketTake) return;
+          let sections = document.getElementsByClassName('touchSection');
+
+          for(let i =0; i<=sections.length; i++){
+            if(touchPos.y < sections[i]?.getClientRects()[0].top){
+              curTick = i;
+              return;
+            }
+          }
         }
       });
 
@@ -114,10 +122,9 @@
           opacity: 0,
           stagger: { duration: 0.3, reverse: true },
         });
+        
 
         if (!ticketTake) return;
-
-        // gsap.kill(ticketTween);
 
         gsap.to(ticket, {
           y: "+=90",
@@ -218,11 +225,11 @@
   >
     <div
       id="ticketHolder"
-      class={`overflow-hidden w-full h-[133px] ${ticketTake ? "border-4 rounded-xl  border-slate-500/30" : ""} absolute left-0 top-0 bg-white z-[997] opacity-0`}
+      class={`overflow-hidden w-full h-[133px] ${ticketTake ? "border-4 rounded-xl  border-slate-500/20" : ""} absolute left-0 top-0 bg-white/30 z-[997] opacity-0`}
     ></div>
     {#each Array(3) as section, idx}
       <div
-        class={`touchSection flex-1 ${!ticketTake ? "bg-red-400/50" : "[&:last-child]:bg-red-400 rounded-md"} flex items-center justify-center ${!ticketTake ? "border-b-2 border-dashed" : ""} border-slate-700/70 [&:last-child]:border-b-0`}
+        class={`touchSection flex-1 ${!ticketTake ? ((idx >= curTick) ? "bg-red-400/50" : "bg-green-400/50") : "[&:last-child]:bg-red-400 rounded-md"} flex items-center justify-center ${!ticketTake ? "border-b-2 border-dashed" : ""} border-slate-700/70 [&:last-child]:border-b-0`}
       >
         <div
           class={`h-0 z-[101] ${idx + 1 > curTick ? "opacity-20" : "opacity-100"} w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700`}
