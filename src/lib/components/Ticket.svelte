@@ -9,6 +9,8 @@
   let ticketNumber = $state(null);
   let isTouching = $state(false);
 
+  let timeHeld = $state(0);
+
   let ticketTake = $state(false);
   let ticketMove = $state(false);
 
@@ -26,6 +28,18 @@
       .addEventListener("touchstart", (e) => {
         isTouching = true;
         touchStartPos = e.touches[0].clientY;
+
+        gsap.to("#touchBox", { opacity: 1 });
+        gsap.to("#touchBox .touchSection", {
+          opacity: 0.5,
+          stagger: 0.1,
+          duration: 0.2,
+        });
+
+        document.getElementById("touchBox").style.top =
+          e.touches[0].clientY - 50 + "px";
+        document.getElementById("touchBox").style.left =
+          e.touches[0].clientX - 50 + "px";
       });
 
     setTimeout(() => {
@@ -86,6 +100,12 @@
       .addEventListener("touchend", () => {
         isTouching = false;
         touchStartPos = null;
+        gsap.to("#touchBox", { opacity: 0 });
+        gsap.to("#touchBox .touchSection", {
+          opacity: 0,
+          stagger: { duration: 0.3, reverse: true },
+        });
+
         if (!ticketTake) return;
 
         // gsap.kill(ticketTween);
@@ -132,7 +152,29 @@
     gsap.to("#logo", {
       opacity: 0,
     });
+    gsap.to("#touchBox .touchSection", {
+      opacity: 1,
+      stagger: 0.1,
+      duration: 0.2,
+    });
 
+    gsap.to("#mbTicket", {
+      y: "+=20",
+      opacity: 0,
+      duration: 0.2,
+      onComplete: () => {
+        document.getElementById("ticketHolder").appendChild(ticket);
+        const portrait = window.matchMedia("(orientation: portrait)").matches;
+        gsap.fromTo(
+          "#mbTicket",
+          { y: -200, x: 20 },
+          { opacity: 1, x: 20, y: portrait ? -140 : -115, duration: 0.7 },
+        );
+      },
+    });
+
+    gsap.to("#ticketHolder", { opacity: 1 });
+    /*
     ticketTween = gsap.to("#mbTicket", {
       left: parseInt(document.getElementById("testTick").style.left) - 16,
       top: parseInt(document.getElementById("testTick").style.top) + 32,
@@ -143,6 +185,7 @@
         document.getElementById("testTick").appendChild(ticket);
       },
     });
+    */
 
     gsap.to("#nextTicket", {
       duration: 0.3,
@@ -157,11 +200,37 @@
 
 <div id="touchContainer" class="w-full h-full absolute left-0 top-0 z-[999]">
   <div
+    id="touchBox"
+    class="absolute border-red-600/70 border-4 w-[100px] h-[200px] flex flex-col rounded-lg opacity-0"
+  >
+    <div
+      id="ticketHolder"
+      class="overflow-hidden w-full h-[130px] absolute left-0 top-0 bg-white z-[997] opacity-0"
+    ></div>
+    {#each Array(3) as section, idx}
+      <div
+        class="touchSection flex-1 opacity-1 bg-red-400/50 flex items-center justify-center border-b-2 border-dashed border-slate-700/70 [&:last-child]:border-b-0"
+      >
+        <div
+          class={`h-0 z-[101] ${idx + 1 > curTick ? "opacity-20" : "opacity-100"} w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700`}
+        ></div>
+      </div>
+    {/each}
+  </div>
+  <div
     ontouchmove={(e) => {
-      document.getElementById("testTick").style.left =
-        e.touches[0].clientX - 40 + "px";
-      document.getElementById("testTick").style.top =
-        e.touches[0].clientY - 180 + "px";
+      /*
+      console.log(timeHeld);
+      if (timeHeld < 500) {
+        return;
+      }
+      */
+      if (ticketTake) {
+        document.getElementById("touchBox").style.top =
+          e.touches[0].clientY - 170 + "px";
+        document.getElementById("touchBox").style.left =
+          e.touches[0].clientX - 60 + "px";
+      }
     }}
     class="w-full h-full absolute left-0 top-0 z-[998]"
   ></div>
@@ -232,7 +301,7 @@
             in:fly={{ y: -10 }}
             out:fly={{ y: 20, duration: 500 }}
             id="mbTicket"
-            class="flex landscape:scale-[0.6] flex-col h-[100px] bottom-[-137px] landscape:bottom-[-105px] absolute w-[50px]"
+            class={`flex ${ticketTake ? "portrait:scale-[0.6]" : ""} landscape:scale-[0.6] flex-col h-[100px] bottom-[-137px] landscape:bottom-[-105px] absolute w-[50px]`}
           >
             <div class="absolute top-[-17px] left-[5px] z-[80]">
               <div
