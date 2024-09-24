@@ -37,7 +37,7 @@
         });
 
         document.getElementById("touchBox").style.top =
-          e.touches[0].clientY - 50 + "px";
+          e.touches[0].clientY - 20 + "px";
         document.getElementById("touchBox").style.left =
           e.touches[0].clientX - 50 + "px";
       });
@@ -62,6 +62,13 @@
         if (touchStartPos) {
           ydiff = e.touches[0].clientY - touchStartPos;
 
+          console.log(
+            document.elementFromPoint(
+              Math.round(touchStartPos.x) || 0,
+              Math.round(touchPos.y) || 0,
+            ),
+          );
+
           /*
           if (ydiff > 0 && ydiff < 100) {
             document.getElementById("slideTick").style.top = `${16 + ydiff}px`;
@@ -69,7 +76,7 @@
             document.getElementById("slideTick").style.top =
               ydiff < 0 ? "16px" : "115px";
           }
-              */
+          */
 
           if (ydiff > 100) {
             takeTicket();
@@ -148,14 +155,13 @@
   let ticketTween = $state(null);
   function takeTicket() {
     if (ticketTake) return;
-
     ticketTake = true;
 
     gsap.to("#logo", {
       opacity: 0,
     });
     gsap.to("#touchBox .touchSection", {
-      opacity: 1,
+      opacity: 0.7,
       stagger: 0.1,
       duration: 0.2,
     });
@@ -170,12 +176,17 @@
         gsap.fromTo(
           "#mbTicket",
           { y: -200, x: 20 },
-          { opacity: 1, x: 20, y: portrait ? -140 : -115, duration: 0.7 },
+          { opacity: 1, x: 20, y: portrait ? -140 : -108, duration: 0.7 },
         );
       },
     });
 
-    gsap.to("#ticketHolder", { opacity: 1 });
+    gsap.to("#ticketHolder", {
+      opacity: 1,
+      onComplete: () => {
+        // ticketTake = true;
+      },
+    });
     /*
     ticketTween = gsap.to("#mbTicket", {
       left: parseInt(document.getElementById("testTick").style.left) - 16,
@@ -203,15 +214,15 @@
 <div id="touchContainer" class="w-full h-full absolute left-0 top-0 z-[999]">
   <div
     id="touchBox"
-    class={`absolute ${!ticketTake ? 'border-4 border-red-600/70' : 'gap-2'} w-[100px] h-[200px] flex flex-col rounded-lg opacity-0`}
+    class={`absolute ${!ticketTake ? "border-4 border-red-600/70" : "gap-2 "} w-[100px] h-[200px] flex flex-col rounded-lg opacity-0`}
   >
     <div
       id="ticketHolder"
-      class={`overflow-hidden w-full h-[133px] ${ticketTake ? 'border-4 rounded-xl  border-slate-500/30' : ''} absolute left-0 top-0 bg-white z-[997] opacity-0`}
+      class={`overflow-hidden w-full h-[133px] ${ticketTake ? "border-4 rounded-xl  border-slate-500/30" : ""} absolute left-0 top-0 bg-white z-[997] opacity-0`}
     ></div>
     {#each Array(3) as section, idx}
       <div
-        class="touchSection flex-1 opacity-1 bg-red-400/50 flex items-center justify-center border-b-2 border-dashed border-slate-700/70 [&:last-child]:border-b-0"
+        class={`touchSection flex-1 ${!ticketTake ? "bg-red-400/50" : "[&:last-child]:bg-red-400 rounded-md"} flex items-center justify-center ${!ticketTake ? "border-b-2 border-dashed" : ""} border-slate-700/70 [&:last-child]:border-b-0`}
       >
         <div
           class={`h-0 z-[101] ${idx + 1 > curTick ? "opacity-20" : "opacity-100"} w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700`}
@@ -279,7 +290,7 @@
             </div>
           {/if}
 -->
-          
+
           <div
             id="nextTicket"
             class="opacity-0 flex justify-center drop-shadow-lg landscape:scale-[0.6] align-center w-[60px] h-[30px] top-[20px] landscape:top-[0px] absolute z-[180]"
@@ -305,7 +316,7 @@
             in:fly={{ y: -10 }}
             out:fly={{ y: 20, duration: 500 }}
             id="mbTicket"
-            class={`flex ${ticketTake ? "portrait:scale-[0.6]" : ""} landscape:scale-[0.6] flex-col h-[100px] bottom-[-137px] landscape:bottom-[-105px] absolute w-[50px]`}
+            class={`flex ${ticketTake ? "scale-[0.8]" : "landscape:scale-[0.6]"}  flex-col h-[100px] bottom-[-137px] landscape:bottom-[-105px] absolute w-[50px]`}
           >
             <div class="absolute top-[-17px] left-[5px] z-[80]">
               <div
@@ -374,3 +385,13 @@
     </div>
   </div>
 </div>
+
+<style>
+  .overTick {
+    background-color: "#F0F" !important;
+    opacity: 1 !important;
+  }
+  .overTick div {
+    opacity: 1 !important;
+  }
+</style>
