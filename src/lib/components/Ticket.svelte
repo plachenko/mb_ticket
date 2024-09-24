@@ -27,7 +27,7 @@
     document
       .getElementById("touchContainer")
       .addEventListener("touchstart", (e) => {
-        if(!canTouch) return;
+        if (!canTouch) return;
 
         isTouching = true;
         touchStartPos = e.touches[0].clientY;
@@ -55,7 +55,6 @@
       .addEventListener("touchmove", (e) => {
         touchPos.x = e.touches[0].pageX;
         touchPos.y = e.touches[0].pageY;
-
 
         /*
         if (ticketMove) {
@@ -100,11 +99,11 @@
         }
           */
 
-          if(ticketTake) return;
-          let sections = document.getElementsByClassName('touchSection');
+          if (ticketTake) return;
+          let sections = document.getElementsByClassName("touchSection");
 
-          for(let i =0; i<=sections.length; i++){
-            if(touchPos.y < sections[i]?.getClientRects()[0].top){
+          for (let i = 0; i <= sections.length; i++) {
+            if (touchPos.y < sections[i]?.getClientRects()[0].top + 30) {
               curTick = i;
               return;
             }
@@ -117,12 +116,12 @@
       .addEventListener("touchend", () => {
         isTouching = false;
         touchStartPos = null;
+        curTick = 0;
         gsap.to("#touchBox", { opacity: 0 });
         gsap.to("#touchBox .touchSection", {
           opacity: 0,
           stagger: { duration: 0.3, reverse: true },
         });
-        
 
         if (!ticketTake) return;
 
@@ -229,7 +228,7 @@
     ></div>
     {#each Array(3) as section, idx}
       <div
-        class={`touchSection flex-1 ${!ticketTake ? ((idx >= curTick) ? "bg-red-400/50" : "bg-green-400/50") : "[&:last-child]:bg-red-400 rounded-md"} flex items-center justify-center ${!ticketTake ? "border-b-2 border-dashed" : ""} border-slate-700/70 [&:last-child]:border-b-0`}
+        class={`touchSection flex-1 ${!ticketTake ? (idx >= curTick ? "bg-red-400/50" : "bg-green-400/50") : "[&:last-child]:bg-red-400 rounded-md"} flex items-center justify-center ${!ticketTake ? "border-b-2 border-dashed" : ""} border-slate-700/70 [&:last-child]:border-b-0`}
       >
         <div
           class={`h-0 z-[101] ${idx + 1 > curTick ? "opacity-20" : "opacity-100"} w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700`}
@@ -272,6 +271,10 @@
       <div class="h-[150px] relative flex justify-center">
         <img
           id="logo"
+          oncontextmenu={(e) => {
+            e.preventDefault();
+            return false;
+          }}
           style="box-shadow: rgb(255, 0, 0) 0px 0px 0px 4px;"
           class="opacity-0 p-4 px-10 border-4 rounded-lg border-blue-500 bg-white h-[150px] z-[180]"
           src="mbstacked.png"
@@ -379,7 +382,9 @@
         {/if}
       </div>
     </div>
-    <div class="p-2 pb-4 flex-1 max-h-[350px] flex justify-center items-center">
+    <div
+      class="p-2 pb-4 relative flex-1 max-h-[350px] flex justify-center items-center"
+    >
       {#if !touchStartPos && !ticketTake}
         <div
           in:fly={{ y: 20 }}
@@ -389,6 +394,13 @@
           Swipe down to start an order
         </div>
       {/if}
+      <div
+        class="top-[50px] border-b-2 border-dashed landscape:scale-[.6] landscape:top-[41px] bg-slate-400/50 rounded-md absolute w-[80px] h-[45px] flex justify-center items-center"
+      >
+        <div
+          class="h-0 absolute top-[10px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
+        ></div>
+      </div>
     </div>
   </div>
 </div>
