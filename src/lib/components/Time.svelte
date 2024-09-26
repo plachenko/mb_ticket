@@ -51,7 +51,9 @@
     </div>
     <div class="flex flex-1 w-full">{new Date().toLocaleDateString()}</div>
   </div>
+  <!--
   <div class="flex-1 justify-center items-center flex">
     <span class="">Store #84 Salem, NH</span>
   </div>
+  -->
 </div>
