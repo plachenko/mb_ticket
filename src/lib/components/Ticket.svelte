@@ -191,7 +191,7 @@
         gsap.fromTo(
           "#mbTicket",
           { y: -260, x: 20 },
-          { opacity: 1, x: 20, y: portrait ? -140 : -108, duration: 0.7 },
+          { opacity: 1, x: 20, y: portrait ? -140 : -108, duration: 0.4, delay: .1 },
         );
       },
     });
@@ -232,11 +232,11 @@
     class={`overflow-hidden absolute ${!ticketTake ? "border-4 border-red-600/70" : "gap-2"} w-[100px] h-[200px] flex flex-col rounded-lg opacity-0 items-center`}
   >
     {#if !ticketTake}
-      <div class="absolute bg-slate-300 w-full h-full"></div>
+      <div class="absolute bg-white w-full h-full"></div>
       <div
         out:fly={{ y: 10 }}
         id="fingerBox"
-        class="z-[997] bg-red-400 w-[80%] h-10 top-[10px] rounded-md absolute"
+        class="z-[993] bg-red-400 w-[80%] h-10 top-[10px] rounded-md absolute"
       ></div>
     {/if}
     <div
@@ -245,7 +245,7 @@
     ></div>
     {#each Array(3) as section, idx}
       <div
-        class={`touchSection flex-1 ${!ticketTake ? (idx >= curTick ? "bg-red-400/50" : "bg-green-400/50") : "[&:last-child]:bg-red-400 rounded-md"} flex items-center justify-center w-full ${!ticketTake ? "border-b-2 border-dashed" : ""} border-slate-900 [&:last-child]:border-b-0`}
+        class={`touchSection flex-1 ${!ticketTake ? (idx >= curTick ? "bg-red-400/50" : "bg-green-400/50") : "[&:last-child]:bg-red-400 rounded-md"} z-[994] flex items-center justify-center w-full ${!ticketTake ? "border-b-2 border-dashed" : ""} border-slate-900 [&:last-child]:border-b-0`}
       >
         {#if idx + 1 <= curTick && !ticketTake}
           <div
@@ -254,7 +254,7 @@
           ></div>
         {/if}
         <div
-          class={`h-0 z-[101] ${ticketTake ? "opacity-0" : idx + 1 > curTick ? "opacity-20" : "opacity-100"}  w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700`}
+          class={`h-0 z-[101] ${ticketTake ? "opacity-0" : idx + 1 > curTick ? "opacity-20" : "opacity-100"}  w-0 border-x-[16px] border-x-transparent border-t-[22px] z-[995] border-slate-700`}
         ></div>
       </div>
     {/each}
