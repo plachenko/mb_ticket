@@ -4,13 +4,21 @@
   import gsap from "gsap";
   let { curOptions, showFooter, curTicketNum } = $props();
 
+  let tArea = $state(null);
+
   $effect(() => {
     if (showFooter && curTicketNum !== null) {
       gsap.from("#ticketButt", { y: -100 });
     }
   });
 
-  onMount(() => {});
+  onMount(() => {
+    tArea = document.getElementById("ticketArea");
+
+    tArea?.addEventListener("touchstart", () => {});
+    tArea?.addEventListener("touchmove", () => {});
+    tArea?.addEventListener("touchend", () => {});
+  });
 
   let options = [
     {
@@ -39,7 +47,10 @@
           ></div>
         </div>
 
-        <div class="h-[40px] w-full flex justify-center relative">
+        <div
+          id="ticketArea"
+          class="h-[40px] w-full flex justify-center relative"
+        >
           <div
             class="h-0 absolute top-[35px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
           ></div>

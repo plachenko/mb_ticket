@@ -23,11 +23,16 @@
 
   let touchPos = $state({ x: 0, y: 0 });
 
+  let swipeShow = $state(false);
+
   onMount(() => {
+    let fb = document.getElementById("fingerBox");
     document
       .getElementById("touchContainer")
       .addEventListener("touchstart", (e) => {
         if (!canTouch) return;
+
+        fb.style.top = `10px`;
 
         isTouching = true;
         touchStartPos = e.touches[0].clientY;
@@ -48,6 +53,7 @@
     setTimeout(() => {
       ticket = document.getElementById("mbTicket");
       canTouch = true;
+      swipeShow = true;
     }, 600);
 
     document
@@ -74,6 +80,7 @@
               ydiff < 0 ? "16px" : "115px";
           }
           */
+          fb.style.top = `${ydiff - 5}px`;
 
           if (ydiff > 140) {
             takeTicket();
@@ -120,13 +127,13 @@
         gsap.to("#touchBox", { opacity: 0 });
         gsap.to("#touchBox .touchSection", {
           opacity: 0,
-          stagger: { duration: 0.3, reverse: true },
+          stagger: { duration: 0.4, reverse: true },
         });
 
         if (!ticketTake) return;
 
         gsap.to(ticket, {
-          y: "+=90",
+          y: "+=130",
           opacity: 0,
           duration: 0.8,
           oncomplete: () => {
@@ -139,8 +146,8 @@
       });
 
     gsap.to("#nextTicket", { opacity: 1, y: 0, duration: 0.6, delay: 0.7 });
-    gsap.to("#swipeCopy", { opacity: 1, y: "+=20", delay: 0.8, loop: -1 });
-    gsap.to("#touchArea", { opacity: 1, y: "-=20", delay: 0.8, loop: -1 });
+    // gsap.to("#swipeCopy", { opacity: 1, y: "+=20", delay: 0.8, loop: -1 });
+    // gsap.to("#touchArea", { opacity: 1, y: "-=20", delay: 0.8, loop: -1 });
 
     gsap.fromTo(
       "#logo",
@@ -183,7 +190,7 @@
         const portrait = window.matchMedia("(orientation: portrait)").matches;
         gsap.fromTo(
           "#mbTicket",
-          { y: -200, x: 20 },
+          { y: -260, x: 20 },
           { opacity: 1, x: 20, y: portrait ? -140 : -108, duration: 0.7 },
         );
       },
@@ -222,18 +229,32 @@
 <div id="touchContainer" class="w-full h-full absolute left-0 top-0 z-[999]">
   <div
     id="touchBox"
-    class={`absolute ${!ticketTake ? "border-4 border-red-600/70" : "gap-2 "} w-[100px] h-[200px] flex flex-col rounded-lg opacity-0`}
+    class={`overflow-hidden absolute ${!ticketTake ? "border-4 border-red-600/70" : "gap-2"} w-[100px] h-[200px] flex flex-col rounded-lg opacity-0 items-center`}
   >
+    {#if !ticketTake}
+      <div class="absolute bg-slate-300 w-full h-full"></div>
+      <div
+        out:fly={{ y: 10 }}
+        id="fingerBox"
+        class="z-[997] bg-red-400 w-[80%] h-10 top-[10px] rounded-md absolute"
+      ></div>
+    {/if}
     <div
       id="ticketHolder"
-      class={`overflow-hidden w-full h-[133px] ${ticketTake ? "border-4 rounded-xl  border-slate-500/20" : ""} absolute left-0 top-0 bg-white/30 z-[997] opacity-0`}
+      class={`overflow-hidden w-full h-[133px] ${ticketTake ? "border-4 rounded-xl  border-dashed border-slate-500/20" : ""} absolute left-0 top-0 bg-white/30 z-[997] opacity-0`}
     ></div>
     {#each Array(3) as section, idx}
       <div
-        class={`touchSection flex-1 ${!ticketTake ? (idx >= curTick ? "bg-red-400/50" : "bg-green-400/50") : "[&:last-child]:bg-red-400 rounded-md"} flex items-center justify-center ${!ticketTake ? "border-b-2 border-dashed" : ""} border-slate-700/70 [&:last-child]:border-b-0`}
+        class={`touchSection flex-1 ${!ticketTake ? (idx >= curTick ? "bg-red-400/50" : "bg-green-400/50") : "[&:last-child]:bg-red-400 rounded-md"} flex items-center justify-center w-full ${!ticketTake ? "border-b-2 border-dashed" : ""} border-slate-900 [&:last-child]:border-b-0`}
       >
+        {#if idx + 1 <= curTick && !ticketTake}
+          <div
+            in:fade={{ y: -20 }}
+            class={`absolute h-0 z-[101] w-0 border-x-[16px] border-x-transparent border-t-[22px] border-blue-700 z-[999]`}
+          ></div>
+        {/if}
         <div
-          class={`h-0 z-[101] ${idx + 1 > curTick ? "opacity-20" : "opacity-100"} w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700`}
+          class={`h-0 z-[101] ${ticketTake ? "opacity-0" : idx + 1 > curTick ? "opacity-20" : "opacity-100"}  w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700`}
         ></div>
       </div>
     {/each}
@@ -387,24 +408,27 @@
     <div
       class="p-2 pb-4 relative flex-1 max-h-[350px] flex justify-center items-center"
     >
-      {#if !touchStartPos && !ticketTake}
+      {#if !touchStartPos && !ticketTake && swipeShow}
         <div
           id="swipeCopy"
           in:fly={{ y: 20 }}
           out:fly={{ y: 20 }}
-          class="p-2 opacity-0 border-4 bg-white border-red-300 landscape:hidden shadow-md font-bold text-red-300 rounded-lg text-[1.5em] text-center capitalize"
+          class="p-2 border-4 bg-white border-red-300 landscape:hidden shadow-md font-bold text-red-300 rounded-lg text-[1.5em] text-center capitalize"
         >
           Swipe down to start an order
         </div>
-      {/if}
-      <div
-        id="touchArea"
-        class="opacity-0 top-[50px] border-b-2 border-dashed landscape:scale-[.6] landscape:top-[41px] bg-slate-400/50 rounded-md absolute w-[80px] h-[45px] flex justify-center items-center"
-      >
         <div
-          class="h-0 absolute top-[10px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
-        ></div>
-      </div>
+          id="touchArea"
+          in:fly={{ y: -40, duration: 900 }}
+          out:fly={{ y: 20 }}
+          ontouchstart={(e) => {}}
+          class="landscape:hidden opacity-[.2] top-[50px] border-b-2 border-dashed landscape:scale-[.6] landscape:top-[41px] bg-slate-400/50 rounded-md absolute w-[80px] h-[45px] flex justify-center items-center"
+        >
+          <div
+            class="h-0 absolute top-[10px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
+          ></div>
+        </div>
+      {/if}
     </div>
   </div>
 </div>
