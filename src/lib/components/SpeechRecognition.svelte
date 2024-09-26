@@ -9,7 +9,9 @@
 
   function speechEnd(transcript) {
     // handleSpeech(transcript);
-    console.log(handleSpeech);
+    speechText = transcript;
+
+    console.log(speechText);
   }
 
   onMount(() => {

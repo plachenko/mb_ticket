@@ -24,6 +24,7 @@
   let touchPos = $state({ x: 0, y: 0 });
 
   let swipeShow = $state(false);
+  let touchStartArea = $state(false);
 
   onMount(() => {
     let fb = document.getElementById("fingerBox");
@@ -226,7 +227,34 @@
   }
 </script>
 
-<div id="touchContainer" class="w-full h-full absolute left-0 top-0 z-[999]">
+<div
+  id="touchArea"
+  in:fly={{ y: -40, duration: 900 }}
+  out:fly={{ y: 20 }}
+  ontouchstart={(e) => { touchStartArea = true;}}
+  ontouchend={(e) => { touchStartArea = false;}}
+  class={`landscape:hidden opacity-[.2] z-[999] top-[50px] border-b-2 border-dashed landscape:scale-[.6] landscape:top-[41px] bg-slate-400/50 rounded-md absolute w-[80px] ${touchStartArea ? 'h-[200px]' :'h-[45px]'} flex justify-center items-center`}
+>
+  
+{#if touchStartArea}
+{#each Array(3) as sect, idx}
+<div class="bg-red ">
+
+  <div
+  class="h-0 absolute top-[10px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
+></div>
+
+</div>
+{/each}
+{:else}
+<div
+    class="h-0 absolute top-[10px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
+  >
+</div>
+{/if}
+</div>
+
+<div id="touchContainer" class="w-full h-full absolute left-0 top-0 z-[993]">
   <div
     id="touchBox"
     class={`overflow-hidden absolute ${!ticketTake ? "border-4 border-red-600/70" : "gap-2"} w-[100px] h-[200px] flex flex-col rounded-lg opacity-0 items-center`}
@@ -417,18 +445,8 @@
         >
           Swipe down to start an order
         </div>
-        <div
-          id="touchArea"
-          in:fly={{ y: -40, duration: 900 }}
-          out:fly={{ y: 20 }}
-          ontouchstart={(e) => {}}
-          class="landscape:hidden opacity-[.2] top-[50px] border-b-2 border-dashed landscape:scale-[.6] landscape:top-[41px] bg-slate-400/50 rounded-md absolute w-[80px] h-[45px] flex justify-center items-center"
-        >
-          <div
-            class="h-0 absolute top-[10px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
-          ></div>
-        </div>
       {/if}
+      
     </div>
   </div>
 </div>

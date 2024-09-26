@@ -37,12 +37,6 @@
 
   onMount(() => {});
 
-  let speechText = $state("test");
-  function handleSpeech(transcript) {
-    handlingSpeech = true;
-    speechText = transcript;
-    console.log(transcript);
-  }
 
   $effect(() => {
     productSearchEvt(searchVal);
@@ -60,8 +54,20 @@
       setTimeout(() => {
         showSection = true;
       }, 750);
+
+      if(speechText){
+        console.log('speaking', speechText);
+      }
     }
   });
+
+  let speechText = $state("test");
+  function handleSpeech(transcript) {
+    handlingSpeech = true;
+    speechText = transcript;
+    console.log('handle the speech', transcript);
+  }
+
 </script>
 
 {#if showHeader}
@@ -220,7 +226,7 @@
       in:fly={{ y: -20 }}
       class="border-b h-10 w-full flex justify-center p-1"
     >
-      <SpeechRecognition />
+      <SpeechRecognition {speechText} />
     </div>
   {/if}
 {/if}
