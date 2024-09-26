@@ -231,15 +231,14 @@
   id="touchArea"
   in:fly={{ y: -40, duration: 900 }}
   out:fly={{ y: 20 }}
-  ontouchstart={(e) => { touchStartArea = true;}}
-  ontouchend={(e) => { touchStartArea = false;}}
-  class={`landscape:hidden opacity-[.2] z-[999] top-[50px] border-b-2 border-dashed landscape:scale-[.6] landscape:top-[41px] bg-slate-400/50 rounded-md absolute w-[80px] ${touchStartArea ? 'h-[200px]' :'h-[45px]'} flex justify-center items-center`}
+  class={`landscape:hidden opacity-[.2] z-[999] top-[50px] border-b-2 border-dashed landscape:scale-[.6] landscape:top-[41px] bg-slate-400/50 rounded-md absolute w-[80px] ${touchStartArea ? 'h-[200px]' :'h-[45px]'} flex flex-col justify-center items-center`}
 >
-  
+  <div class="h-full absolute top-[0px] w-full z-[999] flex flex-col justify-center"
+  ontouchstart={(e) => { touchStartArea = true;}}
+  ontouchend={(e) => { touchStartArea = false; console.log(touchStartArea)}}></div>
 {#if touchStartArea}
 {#each Array(3) as sect, idx}
-<div class="bg-red ">
-
+<div class="bg-red-300 h-[40px] w-full border-b-3">
   <div
   class="h-0 absolute top-[10px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
 ></div>
@@ -443,10 +442,23 @@
           out:fly={{ y: 20 }}
           class="p-2 border-4 bg-white border-red-300 landscape:hidden shadow-md font-bold text-red-300 rounded-lg text-[1.5em] text-center capitalize"
         >
-          Swipe down to start an order
+          Swipe down to take a ticket
         </div>
+      
       {/if}
       
+      {#if touchStartPos}
+      <div
+      id="swipeCopy"
+      in:fly={{ y: 20 }}
+      out:fly={{ y: 20 }}
+      class="p-2 border-4 bg-white absolute w-[80%] border-red-300 landscape:hidden shadow-md font-bold text-red-300 rounded-lg text-[1.5em] text-center capitalize"
+    >
+      Hold Ticket for options
+    </div>
+      {/if}
+
+
     </div>
   </div>
 </div>
