@@ -2,7 +2,7 @@
   import { fly } from "svelte/transition";
   import { onMount } from "svelte";
   import gsap from "gsap";
-  let { curOptions, showFooter, curTicketNum } = $props();
+  let { curOptions, showFooter, curTicketNum, ticketHold } = $props();
 
   let tArea = $state(null);
 
@@ -36,7 +36,20 @@
 
 <div class="overflow-hidden h-[70px] w-full relative">
   {#if showFooter}
-    <div id="ticketButt" class="w-full flex flex-col justify-center absolute">
+    <div
+      id="ticketButt"
+      ontouchstart={() => {
+        ticketHold(true);
+        // ticketHold = true;
+        // console.log("starting", ticketHold);
+      }}
+      ontouchend={() => {
+        ticketHold(false);
+        // ticketHold = false;
+        // console.log("ending", ticketHold);
+      }}
+      class="w-full flex flex-col justify-center absolute"
+    >
       <div class="bg-red-400 w-full h-[30px] rounded-b-md flex justify-center">
         <div class="absolute w-20">
           <div

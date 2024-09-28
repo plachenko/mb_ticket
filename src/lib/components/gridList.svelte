@@ -36,6 +36,7 @@
   });
 
   export function createGrid(list) {
+    if (!list) list = listItems;
     itemArr = [];
     innerList = list;
 
@@ -69,7 +70,6 @@
           y: 0,
           opacity: 1,
           stagger: 0.1,
-          delay: 0.8,
           duration: 0.4,
           oncomplete: (e) => {
             if (list.category) {
@@ -85,18 +85,20 @@
     }, 1500);
   }
 
-  function destroyGrid(idx) {
-    gsap.to(
-      document.getElementById("gridContainer").children[idx].children[0],
-      {
-        y: -40,
-        opacity: 0,
-        duration: 0.25,
-        onComplete: () => {
-          setCursection(itemArr[idx].color);
+  export function destroyGrid(idx) {
+    if (idx) {
+      gsap.to(
+        document.getElementById("gridContainer").children[idx].children[0],
+        {
+          y: -40,
+          opacity: 0,
+          duration: 0.25,
+          onComplete: () => {
+            setCursection(itemArr[idx].color);
+          },
         },
-      },
-    );
+      );
+    }
 
     gsap.to(".gridItem", {
       y: -40,
@@ -105,6 +107,7 @@
       delay: 0.1,
       duration: 0.2,
       onComplete: () => {
+        if (!idx) return;
         if (category) {
           itemArr[idx].category = category;
         }

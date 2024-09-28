@@ -182,7 +182,7 @@
       "#touchBox .touchSection",
       { opacity: 0 },
       {
-        opacity: 0.7,
+        opacity: 1,
         stagger: 0.1,
         duration: 0.2,
       },
@@ -231,7 +231,7 @@
     gsap.to("#nextTicket", {
       duration: 0.3,
       opacity: 0,
-      delay: 0.2,
+      delay: 0.3,
       onComplete: () => {
         // setMenuType(null);
       },
@@ -243,7 +243,7 @@
   id="touchArea"
   in:fly={{ y: -40, duration: 900 }}
   out:fly={{ y: 20 }}
-  class={`landscape:hidden opacity-[.2] z-[999] top-[50px] border-b-2 border-dashed landscape:scale-[.6] landscape:top-[41px] bg-slate-400/50 rounded-md absolute w-[80px] ${touchStartArea ? "h-[200px]" : "h-[45px]"} flex flex-col justify-center items-center`}
+  class={`opacity-[.2] z-[999] top-[50px] border-b-2 border-dashed landscape:scale-[.6] landscape:top-[41px] bg-slate-400/50 rounded-md absolute w-[80px] flex flex-col min-h-[50px] justify-center items-center`}
 >
   <div
     class="h-full absolute top-[0px] w-full z-[999] flex flex-col justify-center"
@@ -276,7 +276,7 @@
     class={`overflow-hidden absolute ${!ticketTake ? "border-4 border-red-600/70" : "gap-2"} w-[100px] h-[200px] flex flex-col rounded-lg opacity-0 items-center`}
   >
     {#if !ticketTake}
-      <div class="absolute bg-white w-full h-full"></div>
+      <div class="absolute w-full h-full"></div>
       <div
         out:fly={{ y: 10 }}
         id="fingerBox"
@@ -289,7 +289,7 @@
     ></div>
     {#each Array(3) as section, idx}
       <div
-        class={`touchSection flex-1 ${!ticketTake ? (idx >= curTick ? "bg-red-400/50" : "bg-green-400/50") : "[&:last-child]:bg-red-400 rounded-md"} z-[994] flex items-center justify-center w-full ${!ticketTake ? "border-b-2 border-dashed" : ""} border-slate-900 [&:last-child]:border-b-0`}
+        class={`touchSection flex-1 ${!ticketTake ? (idx >= curTick ? "bg-red-300" : "bg-green-300") : "[&:last-child]:bg-red-400 rounded-md"} z-[994] flex items-center justify-center w-full ${!ticketTake ? "border-b-2 border-dashed" : ""} border-slate-900 [&:last-child]:border-b-0`}
       >
         {#if idx + 1 <= curTick && !ticketTake}
           <div

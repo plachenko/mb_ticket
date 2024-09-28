@@ -24,6 +24,9 @@
   let showHeader = $state(false);
   let showFooter = $state(false);
 
+  // let ticketHold = $state(false);
+  let holdingTicket = $state(false);
+
   let listItemsChange = $state(false);
 
   let listItems = CategoryList;
@@ -53,6 +56,16 @@
 
   let flyerItems = weeklyFlyer[0].field_flyer_item;
   let saleProducts = $state([]);
+
+  function ticketHold(holding) {
+    console.log("holding ticket.");
+    if (holding) {
+      gridEl.destroyGrid(null);
+    } else {
+      gridEl.createGrid();
+    }
+    // holdingTicket = holding;
+  }
 
   function gridItemSelected(item) {
     if (!item?.items) {
@@ -384,7 +397,7 @@
           {shownProducts}
         />
       </div>
-    {:else if showCategories}
+    {:else if showCategories && !holdingTicket}
       <GridList
         bind:this={gridEl}
         {setCursection}
@@ -398,7 +411,7 @@
   <!-- Content -->
 
   <!-- Button options -->
-  <Footer {showFooter} {curOptions} {curTicketNum} />
+  <Footer {ticketHold} {showFooter} {curOptions} {curTicketNum} />
 
   <!--
   <div class="flex flex-1 landscape:flex-row portrait:flex-col">
