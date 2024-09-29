@@ -118,7 +118,7 @@
   }
 </script>
 
-<div class="p-2 flex h-full m-auto gap-2 w-full overflow-hidden relative">
+<div class="mt-2 flex h-full m-auto gap-2 w-full overflow-hidden relative">
   <div
     id="gridContainer"
     class={`gridItems flex-1 gap-1 w-full grid ${itemArr?.length >= 1 ? "grid-cols-3" : "grid-cols-2"}  opacity-0`}

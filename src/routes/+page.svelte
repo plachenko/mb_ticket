@@ -97,6 +97,8 @@
   }
 
   onMount(() => {
+
+    document.addEventListener('contextmenu', (e) => e.preventDefault())
     let deliItems = flyerItems.filter((e) => {
       if (e.node.field_department[0].url == "/deli") {
         return e;
@@ -386,6 +388,7 @@
 -->
         </div>
       {/if}
+
       <div class="relative w-full overflow-y-auto">
         <List
           {ignoreScroll}
@@ -398,6 +401,13 @@
         />
       </div>
     {:else if showCategories && !holdingTicket}
+    <div class="flex flex-1 flex-col p-2">
+    <div class="flex-1 gap-2 justify-center flex">
+    <span class="bg-slate-300 p-3 rounded-md w-full text-center" onclick={() => gridEl?.destroyGrid()}>
+      Order a platter
+    
+    </span>
+      </div>
       <GridList
         bind:this={gridEl}
         {setCursection}
@@ -405,6 +415,7 @@
         {listItems}
         {listItemsChange}
       />
+    </div>
       <!-- <Categories {setCurrentType} {destroyCategories} {setCategory} /> -->
     {/if}
   </div>
