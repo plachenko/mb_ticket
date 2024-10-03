@@ -17,6 +17,7 @@
     productSearchEvt,
     searchVal,
     curSection,
+    holdingTicket,
   } = $props();
   function checkKey(e) {
     e.preventDefault();
@@ -37,37 +38,47 @@
 
   onMount(() => {});
 
-
   $effect(() => {
     productSearchEvt(searchVal);
-    if (curSection !== null && curCategory) {
-      gsap.to("#curSectionContainer", { y: +50, duration: 0.5, delay: 0.5 });
-      gsap.from("#catImg", { x: +10, opacity: 0, duration: 0.4, delay: 0.7 });
-      gsap.from("#catTxt", { opacity: 0, x: -10, duration: 0.4, delay: 0.7 });
-      /*
+
+    if (holdingTicket) {
+      gsap.to("#curSectionContainer", { y: -40, opacity: 0, duration: 0.4 });
+      // gsap.from("#catImg", { x: 10, opacity: 0, duration: 0.4, delay: 0.7 });
+      // gsap.from("#catTxt", { opacity: 0, x: 10, duration: 0.4, delay: 0.7 });
+    } else {
+      gsap.to("#curSectionContainer", { y: 0, opacity: 1, duration: 0.4 });
+      if (curSection !== null && curCategory) {
+        gsap.fromTo(
+          "#curSectionContainer",
+          { y: -40, opacity: 0 },
+          { y: +50, opacity: 1, duration: 0.5, delay: 0.2 },
+        );
+        gsap.from("#catImg", { x: +10, opacity: 0, duration: 0.4, delay: 0.7 });
+        gsap.from("#catTxt", { opacity: 0, x: -10, duration: 0.4, delay: 0.7 });
+        /*
       gsap.to(document.getElementById("curSectionContainer"), {
         y: +30,
         duration: 0.3,
       });
       */
 
-      setTimeout(() => {
-        showSection = true;
-      }, 750);
+        setTimeout(() => {
+          showSection = true;
+        }, 750);
 
-      if(speechText){
-        console.log('speaking', speechText);
+        if (speechText) {
+          console.log("speaking", speechText);
+        }
       }
     }
   });
 
   let speechText = $state("test");
+  handlingSpeech = true;
   function handleSpeech(transcript) {
-    handlingSpeech = true;
     speechText = transcript;
-    console.log('handle the speech', transcript);
+    console.log("handle the speech", transcript);
   }
-
 </script>
 
 {#if showHeader}

@@ -6,9 +6,24 @@
 
   let tArea = $state(null);
 
+  let hideFooter = $state(false);
+
   $effect(() => {
     if (showFooter && curTicketNum !== null) {
-      gsap.from("#ticketButt", { y: -100 });
+      hideFooter = false;
+      gsap.fromTo("#ticketButt", { opacity: 0, y: -80 }, { y: 0, opacity: 1 });
+    }
+
+    if (!showFooter) {
+      gsap.to("#ticketButt", {
+        y: 80,
+        opacity: 0,
+        onComplete: () => {
+          setTimeout(() => {
+            hideFooter = true;
+          }, 300);
+        },
+      });
     }
   });
 
@@ -35,46 +50,42 @@
 </script>
 
 <div class="overflow-hidden h-[70px] w-full relative">
-  {#if showFooter}
-    <div
-      id="ticketButt"
-      ontouchstart={() => {
-        ticketHold(true);
-        // ticketHold = true;
-        // console.log("starting", ticketHold);
-      }}
-      ontouchend={() => {
-        ticketHold(false);
-        // ticketHold = false;
-        // console.log("ending", ticketHold);
-      }}
-      class="w-full flex flex-col justify-center absolute"
-    >
-      <div class="bg-red-400 w-full h-[30px] rounded-b-md flex justify-center">
-        <div class="absolute w-20">
-          <div
-            class="bg-red-400 w-[33px] top-[30px] absolute h-[25px] left-[3px] z-40 skew-x-[48deg]"
-          ></div>
-          <div
-            class="bg-red-400 w-[33px] top-[30px] absolute h-[25px] right-[3px] z-40 skew-x-[-48deg]"
-          ></div>
-        </div>
-
+  <div
+    class="z-[998] absolute w-full h-full top-0 left-0"
+    ontouchstart={() => {
+      ticketHold(true);
+      // ticketHold = true;
+      console.log("starting", ticketHold);
+    }}
+    ontouchend={() => {
+      ticketHold(false);
+      // ticketHold = false;
+      console.log("ending", ticketHold);
+    }}
+  ></div>
+  <div id="ticketButt" class="w-full flex flex-col justify-center absolute">
+    <div class="bg-red-400 w-full h-[30px] rounded-b-md flex justify-center">
+      <div class="absolute w-20">
         <div
-          id="ticketArea"
-          class="h-[40px] w-full flex justify-center relative"
-        >
-          <div
-            class="h-0 absolute top-[35px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
-          ></div>
-          <div class="bg-red-400 size-[45px] absolute rounded-full"></div>
-        </div>
-        <span class="text-white z-40 absolute font-bold top-[8px]"
-          >{curTicketNum}</span
-        >
+          class="bg-red-400 w-[33px] top-[30px] absolute h-[25px] left-[3px] z-40 skew-x-[48deg]"
+        ></div>
+        <div
+          class="bg-red-400 w-[33px] top-[30px] absolute h-[25px] right-[3px] z-40 skew-x-[-48deg]"
+        ></div>
       </div>
 
-      <!--
+      <div id="ticketArea" class="h-[40px] w-full flex justify-center relative">
+        <div
+          class="h-0 absolute top-[35px] z-40 w-0 border-x-[16px] border-x-transparent border-t-[22px] border-slate-700"
+        ></div>
+        <div class="bg-red-400 size-[45px] absolute rounded-full"></div>
+      </div>
+      <span class="text-white z-40 absolute font-bold top-[8px]"
+        >{curTicketNum}</span
+      >
+    </div>
+
+    <!--
       <div
         class="rounded-md absolute top-[4px] text-slate-100 font-bold text-sm h-10 left-[20px]"
       >
@@ -97,13 +108,10 @@
       </div>
 -->
 
-      <div class="w-full h-[30px] flex justify-center">
-        <div
-          class="bg-red-400 size-[60px] rounded-full absolute top-[5px]"
-        ></div>
-      </div>
+    <div class="w-full h-[30px] flex justify-center">
+      <div class="bg-red-400 size-[60px] rounded-full absolute top-[5px]"></div>
     </div>
-  {/if}
+  </div>
 </div>
 <!--
   <div in:fly={{ y: 100, duration: 800 }} class="p-2 flex gap-2 border-t">

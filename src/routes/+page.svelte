@@ -2,11 +2,15 @@
   import { fly, fade } from "svelte/transition";
   import Header from "$lib/components/Header.svelte";
   import Ticket from "$lib/components/Ticket.svelte";
+
+  import gsap from "gsap";
   import Categories from "$lib/components/Categories.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import MainMenu from "$lib/components/MainMenu.svelte";
   import OrderList from "$lib/components/OrderList.svelte";
   import GridList from "$lib/components/gridList.svelte";
+  import PlatterOrderForm from "$lib/components/PlatterOrderForm.svelte";
+
   import { hexToRgba } from "$lib/ColorUtils";
   import weeklyFlyer from "$lib/weekly-flyer-rest.json";
 
@@ -23,11 +27,16 @@
 
   let showHeader = $state(false);
   let showFooter = $state(false);
+  let footerShow = $state(false);
 
   // let ticketHold = $state(false);
   let holdingTicket = $state(false);
 
   let listItemsChange = $state(false);
+  let platterForm = $state(false);
+
+  let r = $state(0);
+  let t = $state(0);
 
   let listItems = CategoryList;
   let gridEl = $state(null);
@@ -57,6 +66,15 @@
   let flyerItems = weeklyFlyer[0].field_flyer_item;
   let saleProducts = $state([]);
 
+  function formHandle(type) {
+    if (type == "cancel") {
+      platterForm = false;
+      showCategories = true;
+      footerShow = true;
+      showHeader = true;
+    }
+  }
+
   function ticketHold(holding) {
     console.log("holding ticket.");
     if (holding) {
@@ -64,7 +82,8 @@
     } else {
       gridEl.createGrid();
     }
-    // holdingTicket = holding;
+    holdingTicket = holding;
+    showFooter = !holding;
   }
 
   function gridItemSelected(item) {
@@ -97,8 +116,7 @@
   }
 
   onMount(() => {
-
-    document.addEventListener('contextmenu', (e) => e.preventDefault())
+    document.addEventListener("contextmenu", (e) => e.preventDefault());
     let deliItems = flyerItems.filter((e) => {
       if (e.node.field_department[0].url == "/deli") {
         return e;
@@ -182,8 +200,8 @@
     // curSection = color;
 
     curCategory = category;
-
     // gridEl.createGrid({
+
     //   sections: [category],
     //   items: [{ name: "test" }, { name: "uh" }],
     // });
@@ -215,6 +233,7 @@
       showCategories = true;
       showHeader = true;
       if (curTicketNum) {
+        footerShow = true;
         showFooter = true;
       }
     }
@@ -292,10 +311,43 @@
     </div>
   {/if}
 
+  <div
+    id="touchContainer"
+    ontouchmove={(e) => {
+      e.preventDefault();
+      return;
+
+      let th = document.getElementById("ticketHolder");
+      // th.style.left = ;
+      // th.style.top = (~~e.touches[0].clientY - 30) + "px";
+    }}
+    class={`absolute w-full h-full left-0 top-0 z-[999] ${!holdingTicket ? "pointer-events-none touch-events-none" : ""}`}
+  >
+    <div
+      ontouchmove={(e) => {
+        r = ~~e.touches[0].clientX - 10;
+        t = ~~e.touches[0].clientY - 30;
+
+        document.getElementById("ticketHolder").style.left = r + "px";
+        document.getElementById("ticketHolder").style.top = t + "px";
+
+        console.log("moving...", ~~e.touches[0].clientX);
+      }}
+      class={`w-full h-full absolute left-0 top-0 z-[998] ${!holdingTicket ? "pointer-events-none touch-events-none" : ""}`}
+    ></div>
+    <!--
+    <div id="ticketHolder" class={`bg-red-300 w-[20px] h-[40px] absolute`}>
+      {holdingTicket}
+      {r}
+    </div>
+-->
+  </div>
+
   <!-- Header -->
   <Header
     {curCategory}
     {curType}
+    {holdingTicket}
     {curSection}
     {showHeader}
     {curProdType}
@@ -400,29 +452,56 @@
           {shownProducts}
         />
       </div>
-    {:else if showCategories && !holdingTicket}
-    <div class="flex flex-1 flex-col p-2">
-    <div class="flex-1 gap-2 justify-center flex">
-    <span class="bg-slate-300 p-3 rounded-md w-full text-center" onclick={() => gridEl?.destroyGrid()}>
-      Order a platter
-    
-    </span>
+    {:else if showCategories}
+      <div class="flex flex-1 flex-col p-2">
+        {#if !curCategory}
+          <div
+            out:fade={{
+              duration: 80,
+            }}
+            id="platterBtn"
+            class="flex-1 gap-2 justify-center flex"
+          >
+            <span
+              class="text-sm text-slate-400 bg-slate-300 p-2 rounded-md w-full text-center"
+              onclick={() => {
+                gridEl?.destroyGrid();
+                showHeader = false;
+                footerShow = false;
+                gsap.to("#platterBtn", { opacity: 0, y: "-=20", delay: 0.3 });
+                setTimeout(() => {
+                  platterForm = true;
+                  showCategories = false;
+                }, 800);
+              }}
+            >
+              Order a platter
+            </span>
+          </div>
+        {/if}
+        <GridList
+          bind:this={gridEl}
+          {setCursection}
+          {gridItemSelected}
+          {listItems}
+          {listItemsChange}
+        />
       </div>
-      <GridList
-        bind:this={gridEl}
-        {setCursection}
-        {gridItemSelected}
-        {listItems}
-        {listItemsChange}
-      />
-    </div>
       <!-- <Categories {setCurrentType} {destroyCategories} {setCategory} /> -->
+    {:else if platterForm}
+      <div class="h-full w-full relative overflow-y-auto">
+        <div class="w-full absolute top-0 gap-2 flex flex-col">
+          <PlatterOrderForm {formHandle} />
+        </div>
+      </div>
     {/if}
   </div>
   <!-- Content -->
 
   <!-- Button options -->
-  <Footer {ticketHold} {showFooter} {curOptions} {curTicketNum} />
+  {#if footerShow}
+    <Footer {ticketHold} {showFooter} {curOptions} {curTicketNum} />
+  {/if}
 
   <!--
   <div class="flex flex-1 landscape:flex-row portrait:flex-col">

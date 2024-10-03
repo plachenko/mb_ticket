@@ -175,6 +175,8 @@
     if (ticketTake) return;
     ticketTake = true;
 
+    // window.navigator && window.navigator.vibrate(300);
+
     gsap.to("#logo", {
       opacity: 0,
     });
@@ -270,13 +272,16 @@
   {/if}
 </div>
 
-<div id="touchContainer" class="w-full h-full absolute left-0 top-0 z-[993]">
+<div
+  id="touchContainer"
+  class="gap-2 w-full h-full absolute left-0 top-0 z-[993]"
+>
   <div
     id="touchBox"
     class={`overflow-hidden absolute ${!ticketTake ? "border-4 border-red-600/70" : "gap-2"} w-[100px] h-[200px] flex flex-col rounded-lg opacity-0 items-center`}
   >
     {#if !ticketTake}
-      <div class="absolute w-full h-full"></div>
+      <!-- <div class="absolute w-full h-full"></div> -->
       <div
         out:fly={{ y: 10 }}
         id="fingerBox"
@@ -287,21 +292,26 @@
       id="ticketHolder"
       class={`overflow-hidden w-full h-[133px] ${ticketTake ? "border-4 rounded-xl  border-dashed border-slate-500/20" : ""} absolute left-0 top-0 bg-white/30 z-[997] opacity-0`}
     ></div>
-    {#each Array(3) as section, idx}
-      <div
-        class={`touchSection flex-1 ${!ticketTake ? (idx >= curTick ? "bg-red-300" : "bg-green-300") : "[&:last-child]:bg-red-400 rounded-md"} z-[994] flex items-center justify-center w-full ${!ticketTake ? "border-b-2 border-dashed" : ""} border-slate-900 [&:last-child]:border-b-0`}
-      >
-        {#if idx + 1 <= curTick && !ticketTake}
-          <div
-            in:fade={{ y: -20 }}
-            class={`absolute h-0 z-[101] w-0 border-x-[16px] border-x-transparent border-t-[22px] border-blue-700 z-[999]`}
-          ></div>
-        {/if}
+    <div
+      class={`flex flex-col flex-1 h-full w-full ${ticketTake ? "mt-[20px]" : ""}`}
+    >
+      <div class="bg-white w-full h-full absolute top-0 left-0"></div>
+      {#each Array(3) as section, idx}
         <div
-          class={`h-0 z-[101] ${ticketTake ? "opacity-0" : idx + 1 > curTick ? "opacity-20" : "opacity-100"}  w-0 border-x-[16px] border-x-transparent border-t-[22px] z-[995] border-slate-700`}
-        ></div>
-      </div>
-    {/each}
+          class={`touchSection flex-1 ${!ticketTake ? (idx >= curTick ? "bg-red-300" : "bg-green-300") : "[&:last-child]:bg-red-400 rounded-md"} z-[994] flex items-center justify-center w-full ${!ticketTake ? "border-b-2 border-dashed" : ""} border-slate-900 [&:last-child]:border-b-0`}
+        >
+          {#if idx + 1 <= curTick && !ticketTake}
+            <div
+              in:fade={{ y: -20 }}
+              class={`absolute h-0 z-[101] w-0 border-x-[16px] border-x-transparent border-t-[22px] border-blue-700 z-[999]`}
+            ></div>
+          {/if}
+          <div
+            class={`h-0 z-[101] ${ticketTake ? "opacity-0" : idx + 1 > curTick ? "opacity-20" : "opacity-100"}  w-0 border-x-[16px] border-x-transparent border-t-[22px] z-[995] border-slate-700`}
+          ></div>
+        </div>
+      {/each}
+    </div>
   </div>
   <div
     ontouchmove={(e) => {
