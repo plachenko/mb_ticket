@@ -1,14 +1,18 @@
 <script>
   import platters from "$lib/platters.json";
+  
+  const colors = ["#FF5733", "#33FF57", "#3357FF", "#F1C40F", "#8E44AD", "#E74C3C"];
+
 </script>
 
 <div class="p-2 flex gap-2 flex-col">
-  {#each platters as platterSection}
-    <div class="border-b text-lg font-bold">
+  {#each platters as platterSection,idx}
+    <div class={`text-color-['${colors[idx]}'] border-b text-lg font-bold`}>
       {platterSection.title}
     </div>
     {#each platterSection.items as item}
-      <div class="bg-slate-300 p-2 rounded-lg border-2 border-slate-400">
+      <div style={`border: 2px ${colors[idx]} solid;`} class="p-2 rounded-lg relative">
+        <div style={`background-color: ${colors[idx]};`} class="opacity-[.2] w-full h-full absolute top-0 left-0"></div>
         <div class="font-bold border-b-2 border-slate-100 mb-2 pb-1">
           {item.name}
         </div>
