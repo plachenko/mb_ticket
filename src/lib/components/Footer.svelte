@@ -55,12 +55,12 @@
     ontouchstart={() => {
       ticketHold(true);
       // ticketHold = true;
-      console.log("starting", ticketHold);
+      // console.log("starting", ticketHold);
     }}
     ontouchend={() => {
       ticketHold(false);
       // ticketHold = false;
-      console.log("ending", ticketHold);
+      // console.log("ending", ticketHold);
     }}
   ></div>
   <div id="ticketButt" class="w-full flex flex-col justify-center absolute">

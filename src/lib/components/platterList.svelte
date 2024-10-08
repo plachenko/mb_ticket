@@ -1,18 +1,88 @@
 <script>
   import platters from "$lib/platters.json";
-  
-  const colors = ["#FF5733", "#33FF57", "#3357FF", "#F1C40F", "#8E44AD", "#E74C3C"];
+  import { fly } from "svelte/transition";
+  import { onMount } from "svelte";
+  import gsap from "gsap";
 
+  let showList = $state(null);
+  let platterIdx = $state(null);
+
+  onMount(() => {
+    gsap.from(".platter-item", { opacity: 0, y: -10, stagger: 0.1 });
+  });
+
+  $effect(() => {
+    if (!showList) {
+      gsap.to("#backBtn", { x: 50, opacity: 0, borderSize: 3 });
+    }
+  });
+
+  const colors = [
+    "#FF5733",
+    "#33FF57",
+    "#3357FF",
+    "#F1C40F",
+    "#8E44AD",
+    "#E74C3C",
+  ];
 </script>
 
-<div class="p-2 flex gap-2 flex-col">
-  {#each platters as platterSection,idx}
+<div class="flex w-full flex-col h-full">
+  <div class="items-center flex gap-2 p-2 w-full border-b-2">
+    <span
+      onclick={() => {
+        showList = false;
+        platterIdx = null;
+      }}
+      class="bg-slate-300 shrink p-2 rounded-md"
+    >
+      Platters
+    </span>
+    {#if platters[platterIdx]}
+      <span in:fly={{ x: 10 }} class="bg-slate-300 shrink p-2 rounded-md"
+        >{platters[platterIdx].title}</span
+      >
+    {/if}
+  </div>
+  <div class="h-full w-full z-[999]">
+    <div class="flex w-full">
+      <div class="p-2 flex gap-2 flex-col h-full w-full">
+        {#if !showList}
+          <div
+            out:fly={{ x: -100 }}
+            in:fly={{ x: -100 }}
+            class={`grid grid-cols-3 gap-1 w-full h-[90%] p-2 absolute left-0`}
+          >
+            {#each platters as platterSection, idx}
+              <div
+                onclick={() => {
+                  showList = platterSection.items;
+                  platterIdx = idx;
+                }}
+                class="platter-item flex flex-1 justify-center relative items-center p-2 text-center"
+              >
+                <span>
+                  {platterSection.title}
+                </span>
+                <div
+                  style={`background-color: ${colors[idx]};`}
+                  class="opacity-[.4] rounded-md w-full h-full absolute top-0 left-0"
+                ></div>
+              </div>
+
+              <!--
     <div class={`text-color-['${colors[idx]}'] border-b text-lg font-bold`}>
       {platterSection.title}
     </div>
     {#each platterSection.items as item}
-      <div style={`border: 2px ${colors[idx]} solid;`} class="p-2 rounded-lg relative">
-        <div style={`background-color: ${colors[idx]};`} class="opacity-[.2] w-full h-full absolute top-0 left-0"></div>
+      <div
+        style={`border: 2px ${colors[idx]} solid;`}
+        class="p-2 rounded-lg relative"
+      >
+        <div
+          style={`background-color: ${colors[idx]};`}
+          class="opacity-[.2] w-full h-full absolute top-0 left-0"
+        ></div>
         <div class="font-bold border-b-2 border-slate-100 mb-2 pb-1">
           {item.name}
         </div>
@@ -23,5 +93,99 @@
         {/if}
       </div>
     {/each}
-  {/each}
+      -->
+            {/each}
+          </div>
+        {/if}
+
+        <div class="flex gap-2 flex-col pb-2">
+          {#if showList}
+            <!--
+            <div
+              id="backBtn"
+              onclick={() => {
+                showList = false;
+              }}
+            >
+              back
+            </div>
+-->
+            <div
+              class="flex gap-2 flex-col"
+              in:fly={{ x: 100 }}
+              out:fly={{ x: 100 }}
+            >
+              {#each showList as item}
+                <div
+                  style={`border: 2px ${colors[platterIdx]} solid;`}
+                  class="p-2 rounded-lg relative"
+                >
+                  <div
+                    style={`background-color: ${colors[platterIdx]};`}
+                    class="z-[99] opacity-[.2] w-full h-full absolute top-0 left-0"
+                  ></div>
+                  <div class="font-bold border-b-2 border-slate-100 mb-2 pb-1">
+                    {item.name}
+                  </div>
+                  <div class="text-sm">{item.description}</div>
+                  {#if item.serves}
+                    <div class="text-sm border-t-2 mt-2 pt-1">
+                      <!--
+              Serves: {item.serves
+                .split(" ")
+                .map((e) => {
+                })
+return parseInt(e) == "number" ? `<strong>${e}</strong>` : e;
+                .join(",", " ")} people
+              -->
+                      <!-- Serves: {item.serves.split(",")} people -->
+
+                      <!--
+                <select
+                  disabled={!item.serves.split(",").length}
+                  class="z-[990] relative w-full p-2 rounded-md"
+                >
+                  {#each item.serves.split(",") as serveNum}
+                    <option>
+                      Serves {serveNum} people &mdash; $10.00
+                    </option>
+                  {/each}
+                </select>
+                -->
+                      <span>Serves </span>
+                      <div class="flex gap-2">
+                        {#each item.serves.split(",") as serveNum, idx}
+                          <div
+                            class={`flex justify-center border-2 bg-slate-300 p-2 rounded-md relative flex-1`}
+                          >
+                            <span>
+                              {serveNum} people
+                            </span>
+                          </div>
+                        {/each}
+                        <div
+                          class="border-2 rounded-md w-[100px] flex justify-center items-center"
+                        >
+                          $10.00
+                        </div>
+                      </div>
+                    </div>
+                  {/if}
+                  {#if item.notes}
+                    <div class="text-sm border-t-2 mt-2 pt-1">
+                      Note: <ul class="pl-3">
+                        {#each item.notes as note}<li class="list-disc pb-2">
+                            {note}
+                          </li>{/each}
+                      </ul>
+                    </div>
+                  {/if}
+                </div>
+              {/each}
+            </div>
+          {/if}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

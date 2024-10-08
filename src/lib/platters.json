@@ -4,23 +4,28 @@
     "items": [
       {
         "name": "Antipasto",
-        "description": "A trio of Italian Salamis, imported pitted kalamata olives, jubilee olives, Market Basket Parmesan Cheese and Prosciutto Panino. Serves 25 people."
+        "description": "A trio of Italian Salamis, imported pitted kalamata olives, jubilee olives, Market Basket Parmesan Cheese and Prosciutto Panino.",
+        "serves": "25"
       },
       {
         "name": "Olive and Pickle Tray",
-        "description": "Made with Market Basket sweet gherkin pickles, mild peppadew red peppers, pitted calabrian olives, Market Basket bread and butter pickles and imported pitted kalamata olives. This platter serves 20 and is the perfect complement to any party or function."
+        "description": "Made with Market Basket sweet gherkin pickles, mild peppadew red peppers, pitted calabrian olives, Market Basket bread and butter pickles and imported pitted kalamata olives. The perfect complement to any party or function.",
+        "serves": "20"
       },
       {
         "name": "Californian",
-        "description": "Prepared with vineyard fresh red and green seedless grapes, strawberries, and blackberries paired with Pepper Jack, Market Basket Cheddar and Creamy Havarti Cheese. This tray will serve 15 people."
+        "description": "Prepared with vineyard fresh red and green seedless grapes, strawberries, and blackberries paired with Pepper Jack, Market Basket Cheddar and Creamy Havarti Cheese.",
+        "serves": "15"
       },
       {
         "name": "Charcuterie Board",
-        "description": "This culinary treat is made with 16 month aged Prosciutto, Genoa Salami, Sopressata, Parmesan Cheese, bruschetti bread, spring mix, bread and butter pickles and gourmet whole seed mustard."
+        "description": "This culinary treat is made with 16 month aged Prosciutto, Genoa Salami, Sopressata, Parmesan Cheese, bruschetti bread, spring mix, bread and butter pickles and gourmet whole seed mustard.",
+        "serves": "25"
       },
       {
         "name": "Snacker's Delight",
-        "description": "Made with Slicing Pepperoni, Genoa Salami, Market Basket Cheddar, Market Basket Orange American, Pepper Jack, and Muenster Cheese, garnished with jubilee olives. Customize this platter by choosing 4 of your favorite cheeses. The Snackers Delight can serve either 15 or 30 people."
+        "description": "Made with Slicing Pepperoni, Genoa Salami, Market Basket Cheddar, Market Basket Orange American, Pepper Jack, and Muenster Cheese, garnished with jubilee olives. Customize this platter by choosing 4 of your favorite cheeses.",
+        "serves": "15, 30"
       }
     ]
   },
@@ -29,15 +34,26 @@
     "items": [
       {
         "name": "Fresh Lobster Tray",
-        "description": "Fresh North Atlantic lobster tails accompanied by our own tangy cocktail sauce. Garnished with fresh kale and lemons. Serves 16-20 people. This platter requires two day advance notice and is subject to market price."
+        "description": "Fresh North Atlantic lobster tails accompanied by our own tangy cocktail sauce. Garnished with fresh kale and lemons.",
+        "serves": "16 to 20",
+        "notes": [
+          "This platter requires two day advance notice and is subject to market price."
+        ]
       },
       {
         "name": "Shrimp Platter",
-        "description": "Our crisp white colossal shrimp and tangy cocktail sauce. Garnished with fresh cut lemons and kale. Serves 7-9, 14-16, or 28-30 people. Wild Gulf shrimp also available at market price."
+        "description": "Our crisp white colossal shrimp and tangy cocktail sauce. Garnished with fresh cut lemons and kale.",
+        "serves": "7-9, 14-16, 28-30",
+        "notes": ["Wild Gulf shrimp also available at market price."]
       },
       {
         "name": "Shrimp & Lobster",
-        "description": "Ocean fresh North Atlantic lobster tails, crisp white colossal shrimp and tangy cocktail sauce, garnished with fresh cut lemons and kale. Serves 8-10 or 16-20 people. This platter requires two day advance notice and is subject to market price. *Wild Gulf shrimp also available at market price."
+        "description": "Ocean fresh North Atlantic lobster tails, crisp white colossal shrimp and tangy cocktail sauce, garnished with fresh cut lemons and kale.",
+        "serves": "8-10, 16-20",
+        "notes": [
+          "This platter requires two day advance notice and is subject to market price",
+          "Wild Gulf shrimp also available at market price."
+        ]
       }
     ]
   },
@@ -46,23 +62,28 @@
     "items": [
       {
         "name": "2 Foot Giant Party Sub",
-        "description": "Choose from Italian cold cut, Market Basket Roast Beef, Jennie-O Turkey, or Carando Spiral Ham. Condiment options: mayonnaise, mustard, dill pickles, red onion, shredded lettuce, banana peppers, hot pepper relish, and sliced tomatoes. This giant sub serves 10-12 people."
+        "description": "Choose from Italian cold cut, Market Basket Roast Beef, Jennie-O Turkey, or Carando Spiral Ham. Condiment options: mayonnaise, mustard, dill pickles, red onion, shredded lettuce, banana peppers, hot pepper relish, and sliced tomatoes.",
+        "serves": "10-12"
       },
       {
         "name": "Hearty Sandwich Tray",
-        "description": "Fresh baked french rolls are stuffed with your choice of Jennie-O Turkey Breast, Carando Spiral Ham, Market Basket Roast Beef, or Italian Meats. Finished off with garden fresh sliced tomatoes, shredded lettuce, and your choice of deli cheeses. Serves 16 or 20 people."
+        "description": "Fresh baked french rolls are stuffed with your choice of Jennie-O Turkey Breast, Carando Spiral Ham, Market Basket Roast Beef, or Italian Meats. Finished off with garden fresh sliced tomatoes, shredded lettuce, and your choice of deli cheeses.",
+        "serves": "16, 20"
       },
       {
         "name": "Stuffed Italian Rolls",
-        "description": "Mix and match sliced Jennie-O Turkey Breast, Market Basket Boiled Ham, Market Basket Roast Beef, and your choice of cheese. Serves 16 or 24 people."
+        "description": "Mix and match sliced Jennie-O Turkey Breast, Market Basket Boiled Ham, Market Basket Roast Beef, and your choice of cheese.",
+        "serves": "16, 24"
       },
       {
         "name": "It's a Wrap",
-        "description": "Made with your choice of Jennie-O Turkey Breast, Carando Spiral Ham, Market Basket Roast Beef, or Italian meats. Each white or wheat wrap is stuffed with garden fresh romaine lettuce, sliced tomatoes, and your choice of deli cheese. Mix and match any way you like! Chicken caesar wraps are also available. Serves 14 or 20 people."
+        "description": "Made with your choice of Jennie-O Turkey Breast, Carando Spiral Ham, Market Basket Roast Beef, or Italian meats. Each white or wheat wrap is stuffed with garden fresh romaine lettuce, sliced tomatoes, and your choice of deli cheese. Mix and match any way you like! Chicken caesar wraps are also available.",
+        "serves": "14, 20"
       },
       {
         "name": "Assorted Salad Rolls",
-        "description": "Fresh baked Italian rolls stuffed with your favorite salads. Chicken, Egg, Seafood, Ham, Tuna, Buffalo Chicken, and Cranberry Chicken in any combination you like. Lobster salad is also available at market price. Serves 16 or 24 people."
+        "description": "Fresh baked Italian rolls stuffed with your favorite salads. Chicken, Egg, Seafood, Ham, Tuna, Buffalo Chicken, and Cranberry Chicken in any combination you like. Lobster salad is also available at market price.",
+        "serves": "16, 24"
       }
     ]
   },
@@ -71,19 +92,23 @@
     "items": [
       {
         "name": "Italian Platter",
-        "description": "Delicious Genoa Salami, Imported Ham, Sweet Capicola, Mortadella, and Provolone Cheese. Topped off with roasted red peppers and pepperoncinis. Serves 15 or 25 people."
+        "description": "Delicious Genoa Salami, Imported Ham, Sweet Capicola, Mortadella, and Provolone Cheese. Topped off with roasted red peppers and pepperoncinis.",
+        "serves": "15, 25"
       },
       {
         "name": "Aristocrat Platter",
-        "description": "Jennie-O Turkey Breast, Imported Ham, Market Basket Roast Beef, and your choice of cheese. Garnished with sweet mix pickles, kale, and grape tomatoes. Serves 15 or 25 people."
+        "description": "Jennie-O Turkey Breast, Imported Ham, Market Basket Roast Beef, and your choice of cheese. Garnished with sweet mix pickles, kale, and grape tomatoes.",
+        "serves": "15, 25"
       },
       {
         "name": "Thin and Trim Lifestyle",
-        "description": "Oven Roasted Turkey Breast, Honey Roasted Turkey Breast, Virginia Baked Ham, Roast Beef, and your choice of cheese. Garnished with sweet mix pickles, kale, and grape tomatoes. Serves 15 or 25 people."
+        "description": "Oven Roasted Turkey Breast, Honey Roasted Turkey Breast, Virginia Baked Ham, Roast Beef, and your choice of cheese. Garnished with sweet mix pickles, kale, and grape tomatoes.",
+        "serves": "15, 25"
       },
       {
         "name": "Finishing Touch Tray",
-        "description": "Fresh sliced tomatoes, red onion slices, shredded lettuce, and dill pickle chips. The perfect complement to any platter or cookout. Serves 20 people."
+        "description": "Fresh sliced tomatoes, red onion slices, shredded lettuce, and dill pickle chips. The perfect complement to any platter or cookout.",
+        "serves": "20"
       }
     ]
   },
@@ -92,11 +117,13 @@
     "items": [
       {
         "name": "Garden Fresh Salads",
-        "description": "Garden fresh salads, a healthy way to start any meal. Choose from 7 varieties. Serves 10-12 people."
+        "description": "Garden fresh salads, a healthy way to start any meal. Choose from 7 varieties.",
+        "serves": "10-12"
       },
       {
         "name": "Salad Bowls",
-        "description": "Choose from 15 varieties of our fresh made salads. Our salads are the perfect complement for any occasion. Serves 25 people."
+        "description": "Choose from 15 varieties of our fresh made salads. Our salads are the perfect complement for any occasion.",
+        "serves": "25"
       }
     ]
   }

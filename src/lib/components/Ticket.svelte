@@ -8,6 +8,7 @@
   let ticketTaken = $state(false);
   let ticketNumber = $state(null);
   let isTouching = $state(false);
+  let ticketHolding = $state(false);
 
   let timeHeld = $state(0);
 
@@ -197,6 +198,7 @@
       onComplete: () => {
         document.getElementById("ticketHolder").appendChild(ticket);
         const portrait = window.matchMedia("(orientation: portrait)").matches;
+        ticketHolding = true;
         gsap.fromTo(
           "#mbTicket",
           { y: -260, x: 20 },
@@ -206,6 +208,7 @@
             y: portrait ? -140 : -108,
             duration: 0.4,
             delay: 0.1,
+            scale: 0.8,
           },
         );
       },
@@ -231,9 +234,8 @@
     */
 
     gsap.to("#nextTicket", {
-      duration: 0.3,
+      duration: 0.4,
       opacity: 0,
-      delay: 0.3,
       onComplete: () => {
         // setMenuType(null);
       },
@@ -403,7 +405,7 @@
             in:fly={{ y: -10 }}
             out:fly={{ y: 20, duration: 500 }}
             id="mbTicket"
-            class={`flex ${ticketTake ? "scale-[0.8]" : "landscape:scale-[0.6]"}  flex-col h-[100px] bottom-[-137px] landscape:bottom-[-105px] absolute w-[50px]`}
+            class={`flex ${ticketHolding ? "landscape:scale-[0.8] portrait:scale-[0.6]" : "landscape:scale-[0.6]"}  flex-col h-[100px] bottom-[-137px] landscape:bottom-[-105px] absolute w-[50px]`}
           >
             <div class="absolute top-[-17px] left-[5px] z-[80]">
               <div

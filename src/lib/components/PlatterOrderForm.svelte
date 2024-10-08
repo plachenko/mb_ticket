@@ -2,7 +2,6 @@
   import orderForm from "$lib/platterOrder.json";
   import { onMount } from "svelte";
   import gsap from "gsap";
-  import PlatterList from "./platterList.svelte";
 
   let { formHandle } = $props();
 
@@ -28,9 +27,11 @@
   {#if showList}
     <PlatterList />
   {/if}
+
   <div class="bg-slate-400 sticky top-0 text-center text-xl p-2">
     Order a Platter
   </div>
+
   <form>
     {#each orderForm as formItem, idx}
       <div class="w-full flex border-b-2 border-slate-100">
@@ -82,7 +83,7 @@
     {/each}
   </form>
 
-  <div class="bg-red-300 w-full sticky bottom-0 p-2">
+  <div class="bg-red-300 z-[997] w-full sticky bottom-0 p-2">
     <div class="w-full flex gap-2" onclick={() => {}}>
       <div
         onclick={() => {
