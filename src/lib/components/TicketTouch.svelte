@@ -98,7 +98,6 @@
     class="absolute bottom-0 w-full h-[80px] p-2 bg-red-400/30 left-0 z-[100]"
   ></div>
   <div bind:this={touchInner} class="relative w-full h-full">
-    <div class="bg-red-800 w-full h-[20px] absolute left-0"></div>
     <div
       bind:this={touchBlock}
       class="absolute top-0 left-0 flex justify-center items-center bg-slate-500/40 w-full h-[60px] rounded-md"

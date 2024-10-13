@@ -14,11 +14,37 @@
   let showGrid = $state(false);
 
   let menuShown = $state(false);
+  let orderShown = $state(false);
 
   let productShown = $state(false);
 
   let curColor = $state(null);
   let curCategory = $state(null);
+
+  let curOrder = $state([]);
+
+  function showOrder() {
+    if (orderShown) {
+      gsap.to(".orderItem", {
+        x: 100,
+        opacity: 0,
+        stagger: 0.08,
+      });
+      setTimeout(() => {
+        orderShown = false;
+      }, 400);
+    } else {
+      orderShown = true;
+      setTimeout(() => {
+        gsap.fromTo(
+          ".orderItem",
+          { x: "+=30%", opacity: 0 },
+          { x: 0, opacity: 1, stagger: 0.08 },
+        );
+      }, 100);
+    }
+    menuShown = false;
+  }
 
   function ticketSlideEvt(sliderObj) {
     yAmt = sliderObj.yAmt;
@@ -32,7 +58,7 @@
 
       gsap.fromTo("#topGrid", { y: -70 }, { y: 0, delay: 0.1, duration: 0.5 });
       setTimeout(() => {
-        gsap.fromTo(".listItems", { y: 70 }, { y: 0, stagger: 0.05 });
+        gsap.fromTo(".listItems", { y: "+=100%" }, { y: 0, stagger: 0.05 });
       }, 420);
     }
   }
@@ -59,6 +85,12 @@
   }
 
   onMount(() => {
+    for (let i = 0; i < 20; i++) {
+      curOrder.push({ name: "test item", price: 6.99 });
+    }
+
+    console.log(curOrder);
+
     setTimeout(() => {
       sliderShown = true;
     }, 400);
@@ -74,6 +106,7 @@
 
   function cancelOrder() {
     menuShown = false;
+    orderShown = false;
     setTimeout(() => {
       sliderShown = true;
     }, 1000);
@@ -127,14 +160,56 @@
       <div
         onclick={() => {
           menuShown = !menuShown;
+          orderShown = false;
         }}
-        class={`${!menuShown ? "" : "border-2 border-red-400/50"} w-[70px] h-full bg-slate-400 border-slate-400 rounded-md drop-shadow`}
+        class={`btn ${!menuShown ? "" : "border-2 border-red-400"} w-[70px] h-full  rounded-md drop-shadow bg-slate-400`}
       ></div>
       <div class="bg-blue-300 flex-1"></div>
       <div class="shrink flex justify-end">
         <div
-          class="w-[40px] float-right h-full bg-slate-400 border-slate-400 rounded-md drop-shadow"
+          onclick={() => {
+            showOrder();
+          }}
+          class={` ${orderShown ? "border-2 border-red-400" : ""} btn w-[40px] float-right h-full bg-slate-400 rounded-md drop-shadow`}
         ></div>
+      </div>
+    </div>
+  {/if}
+
+  {#if orderShown}
+    <div
+      in:fly={{ x: 100 }}
+      out:fly={{ x: 100 }}
+      class="z-[15] w-full h-full pt-[50px] absolute overflow-hidden"
+    >
+      <div class="absolute overflow-y-auto bg-white p-2 w-full">
+        {#each curOrder as orderItem, idx}
+          <div
+            class="orderItem opacity-0 bg-slate-300 last:border-none w-full border-dashed border-b-2 border-slate-400"
+          >
+            <div class="flex items-center gap-2">
+              <div
+                onclick={() => {
+                  /*
+                  console.log(document.getElementsByClassName(".orderItem"));
+                  gsap.to(document.getElementsByClassName(".orderItem")[idx], {
+                    x: 100,
+                    opacity: 0,
+                  });
+                */
+                  // curOrder.splice(idx, 0);
+                }}
+                class="btn bg-red-300 px-4 py-2"
+              >
+                X
+              </div>
+              <div class="p-3 flex w-full">
+                <span class="flex-1">{orderItem.name}</span>
+                <span>{orderItem.price}</span>
+              </div>
+            </div>
+          </div>
+        {/each}
       </div>
     </div>
   {/if}
@@ -228,7 +303,7 @@
                 <div>
                   <img
                     src={`icons/${curCategory ? CategoryList[curCategory].name : item.name}.svg`}
-                    class="opacity-30 landscape:size-7 border-slate-700 portrait:size-20 border-r-2 mr-1 pr-1"
+                    class="opacity-30 landscape:size-7 border-slate-300 portrait:size-20 border-r-2 mr-1 pr-1"
                   />
                 </div>
                 <div in:fly={{ x: -20 }}>
@@ -255,11 +330,15 @@
                 }}
                 class="p-2 listItems curList rounded-md items-center justify-center flex w-full h-full absolute top-0 left-0"
               >
-                <div class="w-full h-[10px] flex items-center">
-                  <div class="w-[20%]">
+                <div
+                  class="w-full landscape:h-[10px] portrait:h-full flex items-center portrait:flex-col"
+                >
+                  <div
+                    class="landscape:w-[20%] portrait:h-full border-slate-300 landscape:border-r-2 portrait:flex items-center portrait:border-b-2"
+                  >
                     <img
                       src={`icons/${curCategory ? CategoryList[curCategory].name : item.name}.svg`}
-                      class="opacity-30 landscape:size-7 border-slate-700 portrait:size-20 border-r-2 mr-1 pr-1"
+                      class="opacity-30 landscape:size-7 portrait:size-20 landscape:mr-1 landscape:pr-1"
                     />
                   </div>
                   <div class="flex-1 pl-2">
